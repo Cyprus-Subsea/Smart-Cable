@@ -1,0 +1,524 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD20\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">17.04.2020</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2:41:19</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc" class="file"><acronym title="D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc">D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">56</td></tr>
+</table>
+</td>
+</table><a name="IDFQJO1HNJVJZPG1CCGJOFVLEUHB1024REXE1EK5NCPSFSPSZSPVCP"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDX2UYCM0S1JXGKUMDWPLIGETV2JUNYJC1F55YJZGKATCEYSZZZPFP">Clearance Constraint (Gap=0.152mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQL05BFRP3AZ4JK4AKIOUA0IFFHAV2ATBF5GWOOLQNPAFF4SRRPE">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDUZMSWUJ2JHW5GODVOO44ATDLDHKOZ0USPUYIULSYAEQXXCRM5RP">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUT11GASAHYPBDSMXGZ14BNVX3LWHWTQLPJLDR2C5Q3UKOKNM4USD">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2XW2PQVBOK53NBHOYJIIU0GTWKQ3GQYGTEF5AOG0ZQS5Q3J03SPK">Width Constraint (Min=0.152mm) (Max=2.54mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4HLPIZC1QX3PL5B0N5FBZIZODKDG0T4FR21XOJGW5VWCUXBYAVI">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQV4NGG4PNIREC0SZRG3UBCUPCFQQ1OFFBTPLAONPVKKS0U0WZLU">Hole Size Constraint (Min=0.3mm) (Max=6.35mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUF0SURPNMOCAFAFAQPJT0OZ0KPO35L4KESKNOUIQSK2AVLGO0TP">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDN5XQTTKMFRB4HF3HIEJU3PHDZMAOXZTJKPJUB1FWHHLREMSEWEPF">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDP0QVJRXONVSKEAZXHP10LR51IN1MFJQXUG2UY3KZQ5ENDLP4YJJD">Minimum Solder Mask Sliver (Gap=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWB4FN2KEKOCXG15BBHYNLJLVEHBINAMKEZQ0JCNFM01UNVUS10BL">Minimum Solder Mask Sliver (Gap=0.1mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDIY2KKMJL5AZZGOJT022BFYG4HBZR2XEW2LQKW1NRYVMKBY250MUI">Minimum Solder Mask Sliver (Gap=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID3WORTN4TLZVSO0QIT5BTCS2DYNXWHRJI5PCMHHMWWDXTSANRTYKK">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4WN2ULEAKD14MYPFERFOPQIJ0JQTZ1QU0CUEVPC231U1E3JWF25E">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDA5MTZ305ROXGLRCXIDZY0J120MBDZYDK04Z1THIOT515ZZ0VWTK">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">56</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID5L4RIWIVMH4VKI14M3OWRBYJAGGR3RWANNAJWHB35IN4EVCREWGB">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCNC35SWNCKYMD2LAVQVBK1TXZKSRFT4UT4LTNQNUROX4VY4HXEUL">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDDLXKTBFNLZFNMT1G2U0CKHYNVJFMLNRFF4NWD5G5SSNS1PIQOVJK">Matched Lengths(Tolerance=0.152mm) (InDifferentialPairClass('DIFF100'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBVKHBUOK4RFMCIZEGKIZ3PDLUME4CH0H3FEADQM1GQLAAUHUQ35K">Room RS485_M_V1 (Bounding Region = (102.867mm, 67.061mm, 117.117mm, 87.281mm) (InComponentClass('RS485_M_V1'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID32P1MFZXYWWK150MZ4P3RHWMOD1OOURMO00ZOHQ05FNSDILXZCO">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">56</td>
+</tr>
+</table><br><a name="IDA5MTZ305ROXGLRCXIDZY0J120MBDZYDK04Z1THIOT515ZZ0VWTK"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=3137.722mil|Location2.Y=3148.972mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=3137.722mil|Location2.Y=3148.972mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-1(8.657mm,11.825mm) on Top Layer And Track (7.545mm,11.28mm)(7.545mm,16.18mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4420.202mil|Location2.X=4431.452mil|Location1.Y=3107.21mil|Location2.Y=3118.46mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4420.202mil|Location2.X=4431.452mil|Location1.Y=3107.21mil|Location2.Y=3118.46mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-1(8.657mm,11.825mm) on Top Layer And Track (7.895mm,11.15mm)(9.42mm,11.15mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=3187.722mil|Location2.Y=3198.972mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=3187.722mil|Location2.Y=3198.972mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-2(8.657mm,13.095mm) on Top Layer And Track (7.545mm,11.28mm)(7.545mm,16.18mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=3237.722mil|Location2.Y=3248.972mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=3237.722mil|Location2.Y=3248.972mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-3(8.657mm,14.365mm) on Top Layer And Track (7.545mm,11.28mm)(7.545mm,16.18mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=3287.722mil|Location2.Y=3298.972mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=3287.722mil|Location2.Y=3298.972mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-4(8.657mm,15.635mm) on Top Layer And Track (7.545mm,11.28mm)(7.545mm,16.18mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.348mil|Location2.X=4154.598mil|Location1.Y=3258.987mil|Location2.Y=3271.247mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.348mil|Location2.X=4154.598mil|Location1.Y=3258.987mil|Location2.Y=3271.247mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.198mm &lt; 0.254mm) Between Pad IC1-5(3.233mm,15.635mm) on Top Layer And Track (2.24mm,12.76mm)(2.24mm,15.16mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.198mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=3262.131mil|Location2.Y=3273.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=3262.131mil|Location2.Y=3273.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-5(3.233mm,15.635mm) on Top Layer And Track (4.345mm,11.28mm)(4.345mm,16.18mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.592mil|Location2.X=4154.842mil|Location1.Y=3237.722mil|Location2.Y=3248.972mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.592mil|Location2.X=4154.842mil|Location1.Y=3237.722mil|Location2.Y=3248.972mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.154mm &lt; 0.254mm) Between Pad IC1-6(3.233mm,14.365mm) on Top Layer And Track (2.24mm,12.76mm)(2.24mm,15.16mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.154mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=3212.131mil|Location2.Y=3223.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=3212.131mil|Location2.Y=3223.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-6(3.233mm,14.365mm) on Top Layer And Track (4.345mm,11.28mm)(4.345mm,16.18mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.592mil|Location2.X=4154.842mil|Location1.Y=3187.722mil|Location2.Y=3198.972mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.592mil|Location2.X=4154.842mil|Location1.Y=3187.722mil|Location2.Y=3198.972mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.154mm &lt; 0.254mm) Between Pad IC1-7(3.233mm,13.095mm) on Top Layer And Track (2.24mm,12.76mm)(2.24mm,15.16mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.154mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=3162.131mil|Location2.Y=3173.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=3162.131mil|Location2.Y=3173.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-7(3.233mm,13.095mm) on Top Layer And Track (4.345mm,11.28mm)(4.345mm,16.18mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=3112.131mil|Location2.Y=3123.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=3112.131mil|Location2.Y=3123.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC1-8(3.233mm,11.825mm) on Top Layer And Track (4.345mm,11.28mm)(4.345mm,16.18mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=2819.611mil|Location2.Y=2830.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=2819.611mil|Location2.Y=2830.861mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-1(8.657mm,3.745mm) on Top Layer And Track (7.545mm,3.2mm)(7.545mm,8.1mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4420.202mil|Location2.X=4431.452mil|Location1.Y=2789.099mil|Location2.Y=2800.349mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4420.202mil|Location2.X=4431.452mil|Location1.Y=2789.099mil|Location2.Y=2800.349mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-1(8.657mm,3.745mm) on Top Layer And Track (7.895mm,3.07mm)(9.42mm,3.07mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=2869.611mil|Location2.Y=2880.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=2869.611mil|Location2.Y=2880.861mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-2(8.657mm,5.015mm) on Top Layer And Track (7.545mm,3.2mm)(7.545mm,8.1mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=2919.611mil|Location2.Y=2930.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=2919.611mil|Location2.Y=2930.861mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-3(8.657mm,6.285mm) on Top Layer And Track (7.545mm,3.2mm)(7.545mm,8.1mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=2969.611mil|Location2.Y=2980.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4355.251mil|Location2.X=4366.501mil|Location1.Y=2969.611mil|Location2.Y=2980.861mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-4(8.657mm,7.555mm) on Top Layer And Track (7.545mm,3.2mm)(7.545mm,8.1mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=2944.021mil|Location2.Y=2955.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=2944.021mil|Location2.Y=2955.271mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-5(3.233mm,7.555mm) on Top Layer And Track (4.345mm,3.2mm)(4.345mm,8.1mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.592mil|Location2.X=4154.842mil|Location1.Y=2919.611mil|Location2.Y=2930.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.592mil|Location2.X=4154.842mil|Location1.Y=2919.611mil|Location2.Y=2930.861mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.154mm &lt; 0.254mm) Between Pad IC2-6(3.233mm,6.285mm) on Top Layer And Track (2.24mm,4.24mm)(2.24mm,6.64mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.154mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=2894.021mil|Location2.Y=2905.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=2894.021mil|Location2.Y=2905.271mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-6(3.233mm,6.285mm) on Top Layer And Track (4.345mm,3.2mm)(4.345mm,8.1mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.592mil|Location2.X=4154.842mil|Location1.Y=2869.611mil|Location2.Y=2880.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.592mil|Location2.X=4154.842mil|Location1.Y=2869.611mil|Location2.Y=2880.861mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.154mm &lt; 0.254mm) Between Pad IC2-7(3.233mm,5.015mm) on Top Layer And Track (2.24mm,4.24mm)(2.24mm,6.64mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.154mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=2844.021mil|Location2.Y=2855.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=2844.021mil|Location2.Y=2855.271mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-7(3.233mm,5.015mm) on Top Layer And Track (4.345mm,3.2mm)(4.345mm,8.1mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.298mil|Location2.X=4154.548mil|Location1.Y=2822.066mil|Location2.Y=2833.987mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4143.298mil|Location2.X=4154.548mil|Location1.Y=2822.066mil|Location2.Y=2833.987mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.21mm &lt; 0.254mm) Between Pad IC2-8(3.233mm,3.745mm) on Top Layer And Track (2.24mm,4.24mm)(2.24mm,6.64mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.21mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=2794.021mil|Location2.Y=2805.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4211.57mil|Location2.X=4222.82mil|Location1.Y=2794.021mil|Location2.Y=2805.271mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-8(3.233mm,3.745mm) on Top Layer And Track (4.345mm,3.2mm)(4.345mm,8.1mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.139mil|Location2.X=4500.389mil|Location1.Y=2722.981mil|Location2.Y=2734.231mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.139mil|Location2.X=4500.389mil|Location1.Y=2722.981mil|Location2.Y=2734.231mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R1-1(10.745mm,2.14mm) on Top Layer And Track (10.32mm,1.44mm)(12.72mm,1.44mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4455.674mil|Location2.X=4466.924mil|Location1.Y=2764.273mil|Location2.Y=2775.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4455.674mil|Location2.X=4466.924mil|Location1.Y=2764.273mil|Location2.Y=2775.523mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R1-1(10.745mm,2.14mm) on Top Layer And Track (10.32mm,2.84mm)(12.72mm,2.84mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4550.162mil|Location2.X=4561.412mil|Location1.Y=2722.981mil|Location2.Y=2734.231mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4550.162mil|Location2.X=4561.412mil|Location1.Y=2722.981mil|Location2.Y=2734.231mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R1-2(12.295mm,2.14mm) on Top Layer And Track (10.32mm,1.44mm)(12.72mm,1.44mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4516.698mil|Location2.X=4527.948mil|Location1.Y=2764.273mil|Location2.Y=2775.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4516.698mil|Location2.X=4527.948mil|Location1.Y=2764.273mil|Location2.Y=2775.523mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R1-2(12.295mm,2.14mm) on Top Layer And Track (10.32mm,2.84mm)(12.72mm,2.84mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4551.737mil|Location2.X=4562.987mil|Location1.Y=2790.304mil|Location2.Y=2801.554mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4551.737mil|Location2.X=4562.987mil|Location1.Y=2790.304mil|Location2.Y=2801.554mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R2-1(12.335mm,3.85mm) on Top Layer And Track (10.36mm,3.15mm)(12.76mm,3.15mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4518.273mil|Location2.X=4529.523mil|Location1.Y=2831.595mil|Location2.Y=2842.845mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4518.273mil|Location2.X=4529.523mil|Location1.Y=2831.595mil|Location2.Y=2842.845mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R2-1(12.335mm,3.85mm) on Top Layer And Track (10.36mm,4.55mm)(12.76mm,4.55mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4490.714mil|Location2.X=4501.964mil|Location1.Y=2790.304mil|Location2.Y=2801.554mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4490.714mil|Location2.X=4501.964mil|Location1.Y=2790.304mil|Location2.Y=2801.554mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R2-2(10.785mm,3.85mm) on Top Layer And Track (10.36mm,3.15mm)(12.76mm,3.15mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4457.249mil|Location2.X=4468.499mil|Location1.Y=2831.595mil|Location2.Y=2842.845mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4457.249mil|Location2.X=4468.499mil|Location1.Y=2831.595mil|Location2.Y=2842.845mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R2-2(10.785mm,3.85mm) on Top Layer And Track (10.36mm,4.55mm)(12.76mm,4.55mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4089.359mil|Location2.X=4100.609mil|Location1.Y=3256.225mil|Location2.Y=3267.475mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4089.359mil|Location2.X=4100.609mil|Location1.Y=3256.225mil|Location2.Y=3267.475mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R3-1(1.54mm,14.735mm) on Top Layer And Track (0.84mm,12.76mm)(0.84mm,15.16mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4130.651mil|Location2.X=4141.901mil|Location1.Y=3222.761mil|Location2.Y=3234.011mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4130.651mil|Location2.X=4141.901mil|Location1.Y=3222.761mil|Location2.Y=3234.011mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R3-1(1.54mm,14.735mm) on Top Layer And Track (2.24mm,12.76mm)(2.24mm,15.16mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4089.359mil|Location2.X=4100.609mil|Location1.Y=3195.202mil|Location2.Y=3206.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4089.359mil|Location2.X=4100.609mil|Location1.Y=3195.202mil|Location2.Y=3206.452mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R3-2(1.54mm,13.185mm) on Top Layer And Track (0.84mm,12.76mm)(0.84mm,15.16mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4130.651mil|Location2.X=4141.901mil|Location1.Y=3161.737mil|Location2.Y=3172.987mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4130.651mil|Location2.X=4141.901mil|Location1.Y=3161.737mil|Location2.Y=3172.987mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R3-2(1.54mm,13.185mm) on Top Layer And Track (2.24mm,12.76mm)(2.24mm,15.16mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4089.359mil|Location2.X=4100.609mil|Location1.Y=2920.792mil|Location2.Y=2932.042mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4089.359mil|Location2.X=4100.609mil|Location1.Y=2920.792mil|Location2.Y=2932.042mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R4-1(1.54mm,6.215mm) on Top Layer And Track (0.84mm,4.24mm)(0.84mm,6.64mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4130.651mil|Location2.X=4141.901mil|Location1.Y=2887.328mil|Location2.Y=2898.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4130.651mil|Location2.X=4141.901mil|Location1.Y=2887.328mil|Location2.Y=2898.578mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R4-1(1.54mm,6.215mm) on Top Layer And Track (2.24mm,4.24mm)(2.24mm,6.64mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4089.359mil|Location2.X=4100.609mil|Location1.Y=2859.769mil|Location2.Y=2871.019mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4089.359mil|Location2.X=4100.609mil|Location1.Y=2859.769mil|Location2.Y=2871.019mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R4-2(1.54mm,4.665mm) on Top Layer And Track (0.84mm,4.24mm)(0.84mm,6.64mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4130.651mil|Location2.X=4141.901mil|Location1.Y=2826.304mil|Location2.Y=2837.554mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4130.651mil|Location2.X=4141.901mil|Location1.Y=2826.304mil|Location2.Y=2837.554mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R4-2(1.54mm,4.665mm) on Top Layer And Track (2.24mm,4.24mm)(2.24mm,6.64mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4531.879mil|Location2.X=4543.129mil|Location1.Y=3296.304mil|Location2.Y=3307.554mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4531.879mil|Location2.X=4543.129mil|Location1.Y=3296.304mil|Location2.Y=3307.554mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R5-1(12.78mm,15.753mm) on Top Layer And Track (12.08mm,13.778mm)(12.08mm,16.178mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.17mil|Location2.X=4584.42mil|Location1.Y=3262.84mil|Location2.Y=3274.09mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.17mil|Location2.X=4584.42mil|Location1.Y=3262.84mil|Location2.Y=3274.09mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R5-1(12.78mm,15.753mm) on Top Layer And Track (13.48mm,13.778mm)(13.48mm,16.178mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4531.879mil|Location2.X=4543.129mil|Location1.Y=3235.281mil|Location2.Y=3246.531mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4531.879mil|Location2.X=4543.129mil|Location1.Y=3235.281mil|Location2.Y=3246.531mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R5-2(12.78mm,14.203mm) on Top Layer And Track (12.08mm,13.778mm)(12.08mm,16.178mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.17mil|Location2.X=4584.42mil|Location1.Y=3201.816mil|Location2.Y=3213.066mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.17mil|Location2.X=4584.42mil|Location1.Y=3201.816mil|Location2.Y=3213.066mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R5-2(12.78mm,14.203mm) on Top Layer And Track (13.48mm,13.778mm)(13.48mm,16.178mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.926mil|Location2.X=4465.176mil|Location1.Y=2978.194mil|Location2.Y=2989.444mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.926mil|Location2.X=4465.176mil|Location1.Y=2978.194mil|Location2.Y=2989.444mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R6-1(10.8mm,7.673mm) on Top Layer And Track (10.1mm,5.698mm)(10.1mm,8.098mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4495.218mil|Location2.X=4506.468mil|Location1.Y=2944.729mil|Location2.Y=2955.979mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4495.218mil|Location2.X=4506.468mil|Location1.Y=2944.729mil|Location2.Y=2955.979mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R6-1(10.8mm,7.673mm) on Top Layer And Track (11.5mm,5.698mm)(11.5mm,8.098mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.926mil|Location2.X=4465.176mil|Location1.Y=2917.17mil|Location2.Y=2928.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.926mil|Location2.X=4465.176mil|Location1.Y=2917.17mil|Location2.Y=2928.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R6-2(10.8mm,6.123mm) on Top Layer And Track (10.1mm,5.698mm)(10.1mm,8.098mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4495.218mil|Location2.X=4506.468mil|Location1.Y=2883.706mil|Location2.Y=2894.956mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4495.218mil|Location2.X=4506.468mil|Location1.Y=2883.706mil|Location2.Y=2894.956mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R6-2(10.8mm,6.123mm) on Top Layer And Track (11.5mm,5.698mm)(11.5mm,8.098mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.926mil|Location2.X=4465.176mil|Location1.Y=3296.304mil|Location2.Y=3307.554mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.926mil|Location2.X=4465.176mil|Location1.Y=3296.304mil|Location2.Y=3307.554mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R7-1(10.8mm,15.753mm) on Top Layer And Track (10.1mm,13.778mm)(10.1mm,16.178mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4495.218mil|Location2.X=4506.468mil|Location1.Y=3262.84mil|Location2.Y=3274.09mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4495.218mil|Location2.X=4506.468mil|Location1.Y=3262.84mil|Location2.Y=3274.09mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R7-1(10.8mm,15.753mm) on Top Layer And Track (11.5mm,13.778mm)(11.5mm,16.178mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.926mil|Location2.X=4465.176mil|Location1.Y=3235.281mil|Location2.Y=3246.531mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4453.926mil|Location2.X=4465.176mil|Location1.Y=3235.281mil|Location2.Y=3246.531mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R7-2(10.8mm,14.203mm) on Top Layer And Track (10.1mm,13.778mm)(10.1mm,16.178mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4495.218mil|Location2.X=4506.468mil|Location1.Y=3201.816mil|Location2.Y=3213.066mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4495.218mil|Location2.X=4506.468mil|Location1.Y=3201.816mil|Location2.Y=3213.066mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R7-2(10.8mm,14.203mm) on Top Layer And Track (11.5mm,13.778mm)(11.5mm,16.178mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4531.879mil|Location2.X=4543.129mil|Location1.Y=2978.194mil|Location2.Y=2989.444mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4531.879mil|Location2.X=4543.129mil|Location1.Y=2978.194mil|Location2.Y=2989.444mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R8-1(12.78mm,7.673mm) on Top Layer And Track (12.08mm,5.698mm)(12.08mm,8.098mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.17mil|Location2.X=4584.42mil|Location1.Y=2944.729mil|Location2.Y=2955.979mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.17mil|Location2.X=4584.42mil|Location1.Y=2944.729mil|Location2.Y=2955.979mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R8-1(12.78mm,7.673mm) on Top Layer And Track (13.48mm,5.698mm)(13.48mm,8.098mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4531.879mil|Location2.X=4543.129mil|Location1.Y=2917.17mil|Location2.Y=2928.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4531.879mil|Location2.X=4543.129mil|Location1.Y=2917.17mil|Location2.Y=2928.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R8-2(12.78mm,6.123mm) on Top Layer And Track (12.08mm,5.698mm)(12.08mm,8.098mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.17mil|Location2.X=4584.42mil|Location1.Y=2883.706mil|Location2.Y=2894.956mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\System\External storage\YandexDisk\upwork\projects\Ehsan Abdi\prj USIB\PCB\modules\RS485\V1\RS485_M_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4573.17mil|Location2.X=4584.42mil|Location1.Y=2883.706mil|Location2.Y=2894.956mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.199mm &lt; 0.254mm) Between Pad R8-2(12.78mm,6.123mm) on Top Layer And Track (13.48mm,5.698mm)(13.48mm,8.098mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.199mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

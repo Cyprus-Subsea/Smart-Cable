@@ -1,0 +1,25 @@
+Change Component Designator: OldDesignator=C? NewDesignator=C20
+Change Component Designator: OldDesignator=C? NewDesignator=C21
+Added Component: Designator=IC2(LMR36015FSCQRNXTQ1)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.ti.com/lit/gpn/LMR36006"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.9mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Texas Instruments"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "LMR36006BRNXT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = "595-LMR36006BRNXT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = "https://www.mouser.com/Search/Refine.aspx?Keyword=595-LMR36006BRNXT"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "595-LMR36006BRNXT"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=IC2-1
+Added Pin To Net: NetName=VCC_IN Pin=IC2-2
+Added Pin To Net: NetName=NetC28_1 Pin=IC2-4
+Added Pin To Net: NetName=NetC24_1 Pin=IC2-5
+Added Pin To Net: NetName=GND Pin=IC2-6
+Added Pin To Net: NetName=NetC25_2 Pin=IC2-7
+Added Pin To Net: NetName=GND Pin=IC2-8
+Added Pin To Net: NetName=VCC_IN Pin=IC2-9
+Added Pin To Net: NetName=VCC_IN Pin=IC2-10
+Added Pin To Net: NetName=GND Pin=IC2-11
+Added Pin To Net: NetName=NetC28_2 Pin=IC2-12
+Added Member To Class: ClassName=PWR_M_V1 Member=Component C20 C0805C475K3RACAUTO
+Added Member To Class: ClassName=PWR_M_V1 Member=Component IC2 LMR36006BRNXT

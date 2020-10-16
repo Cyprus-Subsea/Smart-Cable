@@ -1,0 +1,22 @@
+Added Component: Designator=R00(RESC2012X60N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://componentsearchengine.com/Datasheets/1/CRCW08050000Z0EAC.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Vishay"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "CRCW08050000Z0EAC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = "71-CRCW08050000Z0EAC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = "https://www.mouser.com/Search/Refine.aspx?Keyword=71-CRCW08050000Z0EAC"; VariantName = "[No Variations]"
+Added Component: Designator=R01(RESC2012X60N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://componentsearchengine.com/Datasheets/1/CRCW08050000Z0EAC.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.6mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Vishay"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "CRCW08050000Z0EAC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = "71-CRCW08050000Z0EAC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = "https://www.mouser.com/Search/Refine.aspx?Keyword=71-CRCW08050000Z0EAC"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=VCC1 Pin=R00-1
+Added Pin To Net: NetName=VCC_IN Pin=R00-2
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=R01-1
+Added Pin To Net: NetName=VCC_IN Pin=R01-2
+Added Member To Class: ClassName=PWR_M_V1 Member=Component R00 CRCW08050000Z0EAC
+Added Member To Class: ClassName=PWR_M_V1 Member=Component R01 CRCW08050000Z0EAC

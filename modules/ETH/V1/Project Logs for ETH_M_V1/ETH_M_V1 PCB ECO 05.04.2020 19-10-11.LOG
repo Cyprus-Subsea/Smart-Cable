@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=ADC1 Pin=H2-14
+Removed Pin From Net: NetName=ADC1 Pin=H2-15
+Removed Pin From Net: NetName=ADC1 Pin=H2-16
+Removed Pin From Net: NetName=ADC1 Pin=H2-17
+Removed Pin From Net: NetName=ADC1 Pin=H2-18
+Removed Pin From Net: NetName=VCC2 Pin=H2-19
+Removed Pin From Net: NetName=ADC1 Pin=H2-21
+Removed Pin From Net: NetName=ADC1 Pin=H2-22
+Change Net Name : Old Net Name=ADC1 New Net Name=GND

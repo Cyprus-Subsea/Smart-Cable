@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=GLIDER_P4 Pin=U1-13
+Removed Pin From Net: NetName=GLIDER_P3 Pin=U1-14
+Added Pin To Net: NetName=GLIDER_P3 Pin=U1-13
+Added Pin To Net: NetName=GLIDER_P4 Pin=U1-14

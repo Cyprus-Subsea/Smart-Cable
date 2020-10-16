@@ -1,0 +1,51 @@
+Change Component Designator: OldDesignator=IC1 NewDesignator=IC2
+Added Pin To Net: NetName=GND Pin=H1-9
+Added Pin To Net: NetName=ETH_REFCLO Pin=H1-10
+Added Pin To Net: NetName=ETH_CLKLN Pin=H1-11
+Added Pin To Net: NetName=GND Pin=H1-15
+Added Pin To Net: NetName=ETH_NRST Pin=H1-16
+Added Pin To Net: NetName=ETH_PHYAD0 Pin=H1-17
+Added Pin To Net: NetName=ETH_CRS Pin=H1-18
+Added Pin To Net: NetName=ETH_MDIO Pin=H1-19
+Added Pin To Net: NetName=ETH_MDC Pin=H1-20
+Added Pin To Net: NetName=GND Pin=H1-21
+Added Pin To Net: NetName=GND Pin=H2-6
+Added Pin To Net: NetName=ETH_TXEN Pin=H2-7
+Added Pin To Net: NetName=ETH_TXD1 Pin=H2-8
+Added Pin To Net: NetName=ETH_TXD0 Pin=H2-9
+Added Pin To Net: NetName=ETH_RXD1 Pin=H2-10
+Added Pin To Net: NetName=ETH_RXD0 Pin=H2-11
+Added Pin To Net: NetName=GND Pin=H2-12
+Added Pin To Net: NetName=GND Pin=H2-16
+Added Pin To Net: NetName=+3.3 Pin=H2-19
+Added Pin To Net: NetName=ETHP_TX- Pin=T1-9
+Added Pin To Net: NetName=ETHP_TX+ Pin=T1-10
+Added Pin To Net: NetName=ETHP_RX- Pin=T1-15
+Added Pin To Net: NetName=ETHP_RX+ Pin=T1-16
+Added Net: Name=NetC14_1
+Added Pin To Net: NetName=NetC21_1 Pin=IC2-6
+Added Net: Name=NetC21_1
+Added Pin To Net: NetName=NetIC2_2 Pin=IC2-2
+Added Net: Name=NetIC2_2
+Added Pin To Net: NetName=NetIC2_3 Pin=IC2-3
+Added Net: Name=NetIC2_3
+Added Pin To Net: NetName=NetIC2_7 Pin=IC2-7
+Added Net: Name=NetIC2_7
+Added Pin To Net: NetName=NetIC2_8 Pin=IC2-8
+Added Net: Name=NetIC2_8
+Added Pin To Net: NetName=NetIC2_11 Pin=IC2-11
+Added Net: Name=NetIC2_11
+Added Pin To Net: NetName=NetIC2_16 Pin=IC2-16
+Added Net: Name=NetIC2_16
+Added Pin To Net: NetName=NetIC2_17 Pin=IC2-17
+Added Net: Name=NetIC2_17
+Added Pin To Net: NetName=NetIC2_18 Pin=IC2-18
+Added Net: Name=NetIC2_18
+Added Pin To Net: NetName=NetIC2_24 Pin=IC2-24
+Added Net: Name=NetIC2_24
+Added Pin To Net: NetName=NetR15_2 Pin=T1-14
+Added Net: Name=NetR15_2
+Added Pin To Net: NetName=NetR16_2 Pin=T1-11
+Added Net: Name=NetR16_2
+Added Net: Name=NetR28_1
+Added Net: Name=NetR29_1
