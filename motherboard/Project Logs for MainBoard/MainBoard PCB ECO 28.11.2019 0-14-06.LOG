@@ -1,9 +1,0 @@
-Added Pin To Net: NetName=PWR1 Pin=H1-8
-Added Pin To Net: NetName=PWR1 Pin=H1-38
-Added Net: Name=PWR1
-Added Pin To Net: NetName=PWR2 Pin=H1-9
-Added Pin To Net: NetName=PWR2 Pin=H1-39
-Added Net: Name=PWR2
-Added Pin To Net: NetName=PWR3 Pin=H1-10
-Added Pin To Net: NetName=PWR3 Pin=H1-40
-Added Net: Name=PWR3
