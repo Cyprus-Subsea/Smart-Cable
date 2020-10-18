@@ -1,4 +1,0 @@
-Removed Pin From Net: NetName=ETHP_RX+ Pin=H1-1
-Removed Pin From Net: NetName=ETHP_RX- Pin=H1-2
-Added Pin To Net: NetName=ETHP_RX- Pin=H1-1
-Added Pin To Net: NetName=ETHP_RX+ Pin=H1-2

@@ -1,9 +1,0 @@
-Added Component: Designator=T?(SOIC127P953X224-16N)
-Add component. Clean all parameters for all variants
-Add component (AddParameter): Name = "Datasheet Link"; Value = "https://www.mouser.co.uk/datasheet/2/706/discrete-lowprofile-100baset-520298.pdf"; VariantName = "[No Variations]"
-Add component (AddParameter): Name = "Height"; Value = "2.24mm"; VariantName = "[No Variations]"
-Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Halo Electronics"; VariantName = "[No Variations]"
-Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "TG110-S050P2RLTR"; VariantName = "[No Variations]"
-Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
-Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
-Added Member To Class: ClassName=ETH_M_V1 Member=Component T? TG110-S050P2RLTR

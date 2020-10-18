@@ -1,3 +1,0 @@
-Removed Pin From Net: NetName=DCDC_VCC_IN Pin=C213-1
-Removed Pin From Net: NetName=GND Pin=C213-2
-Removed Member From Class: ClassName=PWR_M_V1 Member=C213
