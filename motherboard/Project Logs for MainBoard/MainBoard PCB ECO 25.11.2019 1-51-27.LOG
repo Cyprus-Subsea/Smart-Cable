@@ -1,0 +1,21 @@
+Removed Pin From Net: NetName=SPI1_SS1 Pin=H2-3
+Removed Pin From Net: NetName=UART1_1 Pin=H2-85
+Removed Pin From Net: NetName=UART1_2 Pin=H2-86
+Added Pin To Net: NetName=GND Pin=H2-20
+Added Pin To Net: NetName=ETH1_1 Pin=H2-21
+Added Pin To Net: NetName=ETH1_2 Pin=H2-22
+Added Pin To Net: NetName=ETH1_3 Pin=H2-23
+Added Pin To Net: NetName=ETH1_4 Pin=H2-24
+Added Pin To Net: NetName=ETH1_5 Pin=H2-25
+Added Pin To Net: NetName=GND Pin=H2-26
+Added Pin To Net: NetName=ETH1_6 Pin=H2-27
+Added Pin To Net: NetName=ETH1_7 Pin=H2-28
+Added Pin To Net: NetName=ETH1_8 Pin=H2-29
+Added Pin To Net: NetName=ETH1_9 Pin=H2-30
+Added Pin To Net: NetName=ETH1_10 Pin=H2-31
+Added Pin To Net: NetName=GND Pin=H2-32
+Added Pin To Net: NetName=GND Pin=H2-62
+Added Pin To Net: NetName=UART2_1 Pin=H2-85
+Added Pin To Net: NetName=UART2_2 Pin=H2-86
+Added Pin To Net: NetName=SPI1_SS2 Pin=H2-3
+Added Net: Name=SPI1_SS2

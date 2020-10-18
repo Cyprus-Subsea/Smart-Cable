@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=ADC1 Pin=H2-81
+Removed Pin From Net: NetName=ADC2 Pin=H2-82
+Added Pin To Net: NetName=SPI1_MI Pin=H1-32
+Added Pin To Net: NetName=SPI1_MO Pin=H1-33
+Added Pin To Net: NetName=SPI1_CL Pin=H1-34
+Added Pin To Net: NetName=SPI1_SS1 Pin=H1-35
+Added Pin To Net: NetName=SPI1_SS2 Pin=H1-36
+Added Pin To Net: NetName=SPI1_SS3 Pin=H1-37
+Added Pin To Net: NetName=ADC3 Pin=H2-81
+Added Pin To Net: NetName=ADC4 Pin=H2-82
