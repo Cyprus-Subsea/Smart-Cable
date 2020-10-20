@@ -1,0 +1,4 @@
+Change Net Name : Old Net Name=DCDC_VCC_IN New Net Name=VCC0_STB
+Change Net Name : Old Net Name=PWR1 New Net Name=P0_D1
+Change Net Name : Old Net Name=PWR2 New Net Name=P0_D2
+Change Net Name : Old Net Name=VCC_IN New Net Name=VCC0

@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=GND Pin=H2-62
+Added Pin To Net: NetName=SPI1_CL Pin=H2-13
+Added Pin To Net: NetName=SPI1_MO Pin=H2-14
+Added Pin To Net: NetName=SPI1_MI Pin=H2-15
+Added Pin To Net: NetName=I2C1_CLK Pin=H2-16
+Added Pin To Net: NetName=I2C1_SDA Pin=H2-17
+Added Pin To Net: NetName=GND Pin=H2-18
+Added Pin To Net: NetName=VCC2 Pin=H2-74
+Added Pin To Net: NetName=VCC3 Pin=H2-75
+Added Pin To Net: NetName=SPI1_SS3 Pin=H2-12
+Added Net: Name=SPI1_SS3

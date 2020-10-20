@@ -1,0 +1,15 @@
+Added Component: Designator=IC2(SOT95P280X145-6N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://componentsearchengine.com//USBLC6-2SC6.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.45mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "STMicroelectronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "USBLC6-2SC6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = "511-USBLC6-2SC6"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = "https://www.mouser.com/Search/Refine.aspx?Keyword=511-USBLC6-2SC6"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=CAN_L1 Pin=IC2-1
+Added Pin To Net: NetName=GND Pin=IC2-2
+Added Pin To Net: NetName=CAN_H1 Pin=IC2-3
+Added Pin To Net: NetName=CAN_H2 Pin=IC2-4
+Added Pin To Net: NetName=VCC3 Pin=IC2-5
+Added Pin To Net: NetName=CAN_L2 Pin=IC2-6
+Added Member To Class: ClassName=CAN_USB_M_V1 Member=Component IC2 USBLC6-2SC6

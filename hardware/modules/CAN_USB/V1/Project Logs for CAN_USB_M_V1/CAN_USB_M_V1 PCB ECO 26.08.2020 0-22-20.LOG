@@ -1,0 +1,4 @@
+Added Pin To Net: NetName=USB_DP1 Pin=R22-1
+Added Pin To Net: NetName=VCC2 Pin=R22-2
+Added Member To Class: ClassName=CAN_USB_M_V1 Member=Component R11 RK73Z1ETTP
+Added Member To Class: ClassName=CAN_USB_M_V1 Member=Component R22 ERJ-PB3B1501V

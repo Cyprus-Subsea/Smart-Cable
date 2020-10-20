@@ -1,0 +1,12 @@
+Added Component: Designator=D3(SOT65P210X110-3N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://componentsearchengine.com//ESDCAN05-2BWY.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.1mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "STMicroelectronics"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "ESDCAN05-2BWY"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = "511-ESDCAN05-2BWY"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = "https://www.mouser.com/Search/Refine.aspx?Keyword=511-ESDCAN05-2BWY"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=CAN_TX Pin=D3-1
+Added Pin To Net: NetName=CAN_RX Pin=D3-2
+Added Pin To Net: NetName=GND Pin=D3-3
+Added Member To Class: ClassName=CAN_USB_M_V1 Member=Component D3 ESDCAN05-2BWY

@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=PWR1 Pin=IC1-26
+Removed Pin From Net: NetName=PWR2 Pin=IC1-27
+Removed Pin From Net: NetName=PWR3 Pin=IC1-29
+Added Pin To Net: NetName=PWR3 Pin=IC1-11
+Added Pin To Net: NetName=PWR2 Pin=IC1-61
+Added Pin To Net: NetName=PWR1 Pin=IC1-62

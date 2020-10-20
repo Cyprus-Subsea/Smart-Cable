@@ -1,0 +1,13 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [RS232_M_V1.PrjPcb]
+   Generated File[RS232_M_V1.GTP]
+   Generated File[RS232_M_V1.RUL]
+   Generated File[RS232_M_V1.EXTREP]
+   Generated File[RS232_M_V1.REP]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 11:48:12 On 22.07.2020

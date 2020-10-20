@@ -1,0 +1,23 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [CAN_USB_M_V1.PrjPcb]
+   Generated File[CAN_USB_M_V1.GTO]
+   Generated File[CAN_USB_M_V1.GTS]
+   Generated File[CAN_USB_M_V1.GTL]
+   Generated File[CAN_USB_M_V1.GBL]
+   Generated File[CAN_USB_M_V1.GBS]
+   Generated File[CAN_USB_M_V1.GBO]
+   Generated File[CAN_USB_M_V1.GM1]
+   Generated File[CAN_USB_M_V1.GM4]
+   Generated File[CAN_USB_M_V1.GM13]
+   Generated File[CAN_USB_M_V1.GM15]
+   Generated File[CAN_USB_M_V1.GKO]
+   Generated File[CAN_USB_M_V1.RUL]
+   Generated File[CAN_USB_M_V1.EXTREP]
+   Generated File[CAN_USB_M_V1.REP]
+
+
+Files Generated   : 14
+Documents Printed : 0
+
+Finished Output Generation At 12:34:57 On 26.08.2020

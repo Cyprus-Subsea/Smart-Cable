@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=VCC_IN Pin=C11-1
+Removed Pin From Net: NetName=VCC_IN Pin=C31-1
+Removed Pin From Net: NetName=VCC_IN Pin=C111-1
+Removed Pin From Net: NetName=VCC_IN Pin=C3111-1
+Removed Pin From Net: NetName=VCC_IN Pin=U1-2
+Removed Pin From Net: NetName=VCC_IN Pin=U1-3
+Removed Pin From Net: NetName=VCC_IN Pin=U3-2
+Removed Pin From Net: NetName=VCC_IN Pin=U3-3
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=C11-1
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=C31-1
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=C111-1
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=C3111-1
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=U1-2
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=U1-3
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=U3-2
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=U3-3
+Added Member To Class: ClassName=PWR_M_V1 Member=Component F1 1812L110_33MR

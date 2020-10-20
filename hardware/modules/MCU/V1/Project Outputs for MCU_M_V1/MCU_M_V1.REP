@@ -1,0 +1,26 @@
+*************************************************************
+FileName = MCU_M_V1.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Paste
+      File : MCU_M_V1.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+*************************************************************
+

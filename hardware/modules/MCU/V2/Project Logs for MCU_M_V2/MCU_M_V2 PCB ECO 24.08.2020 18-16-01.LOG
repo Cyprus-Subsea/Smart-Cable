@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=CAN_TX_USB_DP Pin=R31-2
+Removed Pin From Net: NetName=CAN_RX_USB_DM Pin=R311-2
+Removed Member From Class: ClassName=MCU_M_V2 Member=R31
+Removed Member From Class: ClassName=MCU_M_V2 Member=R311
+Added Pin To Net: NetName=CAN_RX_USB_DM Pin=H1-11
+Added Pin To Net: NetName=CAN_TX_USB_DP Pin=H1-12
+Added Pin To Net: NetName=CAN_TX_USB_DP Pin=R32-1
+Added Pin To Net: NetName=CAN_RX_USB_DM Pin=R321-1

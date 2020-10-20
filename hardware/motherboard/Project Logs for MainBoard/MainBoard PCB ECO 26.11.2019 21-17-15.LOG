@@ -1,0 +1,6 @@
+Change Component DesignItemId : Designator=H1 Old DesignItemId=USIB 1U New DesignItemId=MB 88 pin
+Change Component DesignItemId : Designator=H2 Old DesignItemId=USIB 1U New DesignItemId=MB 88 pin
+Change Component Footprint: Designator=H1 Old Footprint=88 pins New Footprint=MB 88 pins
+Change Component Footprint: Designator=H2 Old Footprint=88 pins New Footprint=MB 88 pins
+Change Component Comment : Designator=H1 Old Comment=USIB 1U New Comment=MB 88 pin
+Change Component Comment : Designator=H2 Old Comment=USIB 1U New Comment=MB 88 pin

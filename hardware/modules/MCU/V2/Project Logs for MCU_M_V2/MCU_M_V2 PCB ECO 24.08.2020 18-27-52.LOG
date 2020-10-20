@@ -1,0 +1,14 @@
+Removed Pin From Net: NetName=CAN_RX_USB_DM Pin=H1-11
+Removed Pin From Net: NetName=CAN_TX_USB_DP Pin=H1-12
+Removed Pin From Net: NetName=USART1_TX Pin=IC1-42
+Removed Pin From Net: NetName=USART1_RX Pin=IC1-43
+Added Pin To Net: NetName=CAN_TX_USB_DP Pin=H2-1
+Added Pin To Net: NetName=CAN_RX_USB_DM Pin=H2-2
+Added Pin To Net: NetName=CAN_RX_USB_DM Pin=IC1-53
+Added Pin To Net: NetName=CAN_TX_USB_DP Pin=IC1-54
+Added Pin To Net: NetName=M4_D1 Pin=H1-11
+Added Pin To Net: NetName=M4_D1 Pin=IC1-42
+Added Net: Name=M4_D1
+Added Pin To Net: NetName=M4_D2 Pin=H1-12
+Added Pin To Net: NetName=M4_D2 Pin=IC1-43
+Added Net: Name=M4_D2

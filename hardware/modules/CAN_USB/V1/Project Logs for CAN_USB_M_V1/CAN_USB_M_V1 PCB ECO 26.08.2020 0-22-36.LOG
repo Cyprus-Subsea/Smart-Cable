@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=USB_DP1 Pin=R22-1
+Removed Pin From Net: NetName=VCC2 Pin=R22-2
+Added Component: Designator=R22(RESC1608X55N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://industrial.panasonic.com/cdbs/www-data/pdf/RDM0000/AOA0000C328.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Panasonic"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "ERJ-PB3B1501V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=D1 Pin=R22-1
+Added Pin To Net: NetName=USB_DP1 Pin=R22-1
+Added Pin To Net: NetName=USB_DM1 Pin=R22-2
+Added Pin To Net: NetName=VCC2 Pin=R22-2
+Added Member To Class: ClassName=CAN_USB_M_V1 Member=Component R22 ERJ-PB3B1501V

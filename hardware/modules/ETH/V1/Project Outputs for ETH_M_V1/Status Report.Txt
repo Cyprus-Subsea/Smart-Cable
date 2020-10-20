@@ -1,0 +1,13 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [ETH_M_V1.PrjPcb]
+   Generated File[ETH_M_V1.GTP]
+   Generated File[ETH_M_V1.RUL]
+   Generated File[ETH_M_V1.EXTREP]
+   Generated File[ETH_M_V1.REP]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 18:23:05 On 21.07.2020

@@ -1,0 +1,13 @@
+Added Component: Designator=R11(RESC1005X40N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "KOA Speer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK73Z1ETTP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "660-RK73Z1ETTP"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=D2 Pin=R11-1
+Added Pin To Net: NetName=CAN_TX Pin=R11-2
+Added Member To Class: ClassName=CAN_USB_M_V1 Member=Component R11 RK73Z1ETTP

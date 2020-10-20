@@ -1,0 +1,27 @@
+*************************************************************
+FileName = ETH_M_V1.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Paste
+      File : ETH_M_V1.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+    D19
+*************************************************************
+

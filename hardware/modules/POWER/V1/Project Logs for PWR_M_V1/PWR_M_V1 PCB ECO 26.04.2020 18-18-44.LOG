@@ -1,0 +1,8 @@
+Added Component: Designator=Z2(DIOM7959X262N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "576-1.5SMC30A"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=Z2-1
+Added Pin To Net: NetName=GND Pin=Z2-2
+Added Member To Class: ClassName=PWR_M_V1 Member=Component Z1 BZX384-C18,115
+Added Member To Class: ClassName=PWR_M_V1 Member=Component Z2 1.5SMC30A

@@ -1,0 +1,8 @@
+Added Pin To Net: NetName=M4_IO4 Pin=J1-3
+Added Pin To Net: NetName=M4_IO3 Pin=J1-4
+Added Pin To Net: NetName=M4_IO2 Pin=J1-5
+Added Pin To Net: NetName=M4_IO1 Pin=J1-6
+Added Pin To Net: NetName=M1_IO1 Pin=J2-3
+Added Pin To Net: NetName=M1_IO2 Pin=J2-4
+Added Pin To Net: NetName=M1_IO3 Pin=J2-5
+Added Pin To Net: NetName=M1_IO4 Pin=J2-6

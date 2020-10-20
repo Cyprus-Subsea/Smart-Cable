@@ -1,0 +1,4 @@
+Change Net Name : Old Net Name=CAN_RX_USB_DM New Net Name=M1_D1
+Change Net Name : Old Net Name=CAN_TX_USB_DP New Net Name=M1_D2
+Change Net Name : Old Net Name=UART5_RX New Net Name=PD2
+Change Net Name : Old Net Name=UART5_TX New Net Name=PC12

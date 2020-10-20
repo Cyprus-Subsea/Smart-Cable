@@ -1,0 +1,7 @@
+Change Net Name : Old Net Name=ADC4 New Net Name=D2
+Change Net Name : Old Net Name=D1 New Net Name=D5
+Change Net Name : Old Net Name=I2C1_CLK New Net Name=B1
+Change Net Name : Old Net Name=I2C1_SDA New Net Name=B2
+Change Net Name : Old Net Name=RS232_RX New Net Name=IO2
+Change Net Name : Old Net Name=RS232_TX New Net Name=IO1
+Change Net Name : Old Net Name=UART2_1 New Net Name=D1

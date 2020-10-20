@@ -1,0 +1,8 @@
+Added Pin To Net: NetName=CAN_H1 Pin=IC1-7
+Added Net: Name=CAN_H1
+Added Pin To Net: NetName=CAN_H2 Pin=H1-11
+Added Net: Name=CAN_H2
+Added Pin To Net: NetName=CAN_L1 Pin=IC1-6
+Added Net: Name=CAN_L1
+Added Pin To Net: NetName=CAN_L2 Pin=H1-10
+Added Net: Name=CAN_L2

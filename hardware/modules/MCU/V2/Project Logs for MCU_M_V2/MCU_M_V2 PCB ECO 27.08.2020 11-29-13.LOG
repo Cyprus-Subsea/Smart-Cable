@@ -1,0 +1,37 @@
+Change Component Library : Designator=C51 Old Library=* New Library=SamacSys.SchLib
+Change Component Library : Designator=C52 Old Library=* New Library=SamacSys.SchLib
+Change Component Library : Designator=C53 Old Library=* New Library=SamacSys.SchLib
+Change Component Library : Designator=R32 Old Library=* New Library=SamacSys.SchLib
+Change Component Library : Designator=R42 Old Library=* New Library=SamacSys.SchLib
+Change Component Library : Designator=R43 Old Library=* New Library=SamacSys.SchLib
+Change Component Library : Designator=R321 Old Library=* New Library=SamacSys.SchLib
+Change component parameters: Designator = "C51"; Footprint = "CAPC1608X90N"; UniqueID = "\MXOMZJWF"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://search.kemet.com/component-edge/download/specsheet/C0603C104K8RACTU.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.9mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Kemet"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "C0603C104K8RACTU"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "80-C0603C104K8R"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C52"; Footprint = "CAPC1608X90N"; UniqueID = "\OCWAIQQN"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://search.kemet.com/component-edge/download/specsheet/C0603C104K8RACTU.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.9mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Kemet"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "C0603C104K8RACTU"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "80-C0603C104K8R"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C53"; Footprint = "CAPC1608X90N"; UniqueID = "\TZWRBGSR"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://search.kemet.com/component-edge/download/specsheet/C0603C104K8RACTU.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.9mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Kemet"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "C0603C104K8RACTU"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "80-C0603C104K8R"; VariantName = "[No Variations]"

@@ -1,0 +1,11 @@
+Change Component Comment : Designator=C41 Old Comment=LMK105BJ225KV-F New Comment=GRM188R71A225KE15D
+Change component parameters: Designator = "C41"; Footprint = "CAPC1608X90N"; UniqueID = "\DXEALMKJ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://psearch.en.murata.com/capacitor/product/GRM188R71A225KE15%23.html"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.9mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Murata Electronics"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "GRM188R71A225KE15D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "81-GRM188R71A225KE15"; VariantName = "[No Variations]"

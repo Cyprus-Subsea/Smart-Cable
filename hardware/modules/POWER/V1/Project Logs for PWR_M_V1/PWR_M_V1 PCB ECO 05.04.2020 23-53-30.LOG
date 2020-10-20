@@ -1,0 +1,45 @@
+Change Component Footprint: Designator=C26 Old Footprint=SMD-1206C New Footprint=CAPC2012X135N
+Change Component Footprint: Designator=C27 Old Footprint=SMD-1206C New Footprint=CAPC2012X135N
+Change Component Designator: OldDesignator=C210 NewDesignator=C211
+Added Component: Designator=C28(CAPC2012X135N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "TAIYO YUDEN"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "EMK212BB7106KG-T"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "963-EMK212BB7106KG-T"; VariantName = "[No Variations]"
+Added Component: Designator=C29(CAPC2012X135N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "TAIYO YUDEN"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "EMK212BB7106KG-T"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "963-EMK212BB7106KG-T"; VariantName = "[No Variations]"
+Added Component: Designator=C210(CAPC2012X135N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.35mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "TAIYO YUDEN"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "EMK212BB7106KG-T"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "963-EMK212BB7106KG-T"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C28-1
+Added Pin To Net: NetName=VCC1 Pin=C28-2
+Added Pin To Net: NetName=GND Pin=C29-1
+Added Pin To Net: NetName=VCC1 Pin=C29-2
+Added Pin To Net: NetName=GND Pin=C210-1
+Added Pin To Net: NetName=VCC1 Pin=C210-2
+Change Net Name : Old Net Name=NetC210_1 New Net Name=NetC211_1
+Change Net Name : Old Net Name=NetC210_2 New Net Name=NetC211_2
+Added Member To Class: ClassName=PWR_M_V1 Member=Component C21 C0805C475K3RACAUTO
+Added Member To Class: ClassName=PWR_M_V1 Member=Component C28 EMK212BB7106KG-T
+Added Member To Class: ClassName=PWR_M_V1 Member=Component C29 EMK212BB7106KG-T
+Added Member To Class: ClassName=PWR_M_V1 Member=Component C211 0.10µF

@@ -1,0 +1,70 @@
+Removed Pin From Net: NetName=GLIDER_P1 Pin=J1-3
+Removed Pin From Net: NetName=GLIDER_P2 Pin=J1-4
+Removed Pin From Net: NetName=GLIDER_P3 Pin=J1-5
+Removed Pin From Net: NetName=GLIDER_P4 Pin=J1-6
+Removed Pin From Net: NetName=SENSOR_P1 Pin=J2-3
+Removed Pin From Net: NetName=SENSOR_P2 Pin=J2-4
+Removed Pin From Net: NetName=SENSOR_P3 Pin=J2-5
+Removed Pin From Net: NetName=SENSOR_P4 Pin=J2-6
+Change Net Name : Old Net Name=ADC1 New Net Name=M1_D3
+Change Net Name : Old Net Name=ADC2 New Net Name=M1_D4
+Change Net Name : Old Net Name=ADC3 New Net Name=M4_D3
+Change Net Name : Old Net Name=ADC4 New Net Name=M4_D4
+Change Net Name : Old Net Name=D1-1 New Net Name=M4_D5
+Change Net Name : Old Net Name=D1-2 New Net Name=M4_D6
+Change Net Name : Old Net Name=D2-1 New Net Name=M1_D5
+Change Net Name : Old Net Name=D2-2 New Net Name=M1_D6
+Change Net Name : Old Net Name=ETH1_1 New Net Name=M2_D1
+Change Net Name : Old Net Name=ETH1_2 New Net Name=M2_D2
+Change Net Name : Old Net Name=ETH1_3 New Net Name=M2_D3
+Change Net Name : Old Net Name=ETH1_4 New Net Name=M2_D4
+Change Net Name : Old Net Name=ETH1_5 New Net Name=M2_D5
+Change Net Name : Old Net Name=ETH1_6 New Net Name=M2_D6
+Change Net Name : Old Net Name=ETH1_7 New Net Name=M2_D7
+Change Net Name : Old Net Name=ETH1_8 New Net Name=M2_D8
+Change Net Name : Old Net Name=ETH1_9 New Net Name=M2_D9
+Change Net Name : Old Net Name=ETH1_10 New Net Name=M2_D10
+Change Net Name : Old Net Name=GLIDER_P1 New Net Name=M4_IO4
+Change Net Name : Old Net Name=GLIDER_P2 New Net Name=M4_IO3
+Change Net Name : Old Net Name=GLIDER_P3 New Net Name=M4_IO2
+Change Net Name : Old Net Name=GLIDER_P4 New Net Name=M4_IO1
+Change Net Name : Old Net Name=I2C1_CLK New Net Name=B1
+Change Net Name : Old Net Name=I2C1_SDA New Net Name=B2
+Change Net Name : Old Net Name=IN_VCC New Net Name=VCC0
+Change Net Name : Old Net Name=PTP1 New Net Name=M1M4_P1
+Change Net Name : Old Net Name=PTP2 New Net Name=M1M4_P2
+Change Net Name : Old Net Name=PWR1 New Net Name=P0_D1
+Change Net Name : Old Net Name=PWR2 New Net Name=P0_D2
+Change Net Name : Old Net Name=PWR3 New Net Name=P0_D3
+Change Net Name : Old Net Name=SENSOR_P1 New Net Name=M1_IO1
+Change Net Name : Old Net Name=SENSOR_P2 New Net Name=M1_IO2
+Change Net Name : Old Net Name=SENSOR_P3 New Net Name=M1_IO3
+Change Net Name : Old Net Name=SENSOR_P4 New Net Name=M1_IO4
+Change Net Name : Old Net Name=SPI1_CL New Net Name=B3
+Change Net Name : Old Net Name=SPI1_MI New Net Name=B4
+Change Net Name : Old Net Name=SPI1_MO New Net Name=B5
+Change Net Name : Old Net Name=SPI1_SS1 New Net Name=M1_D7
+Change Net Name : Old Net Name=SPI1_SS2 New Net Name=M4_D7
+Change Net Name : Old Net Name=SPI1_SS3 New Net Name=M3_D7
+Change Net Name : Old Net Name=UART1_1 New Net Name=M1_D1
+Change Net Name : Old Net Name=UART1_2 New Net Name=M1_D2
+Change Net Name : Old Net Name=UART2_1 New Net Name=M4_D1
+Change Net Name : Old Net Name=UART2_2 New Net Name=M4_D2
+Change Net Name : Old Net Name=UART3_1 New Net Name=M3_D1
+Change Net Name : Old Net Name=UART3_2 New Net Name=M3_D2
+Added Pin To Net: NetName=M1S1 Pin=J2-3
+Added Net: Name=M1S1
+Added Pin To Net: NetName=M1S2 Pin=J2-4
+Added Net: Name=M1S2
+Added Pin To Net: NetName=M1S3 Pin=J2-5
+Added Net: Name=M1S3
+Added Pin To Net: NetName=M1S4 Pin=J2-6
+Added Net: Name=M1S4
+Added Pin To Net: NetName=M4G1 Pin=J1-3
+Added Net: Name=M4G1
+Added Pin To Net: NetName=M4G2 Pin=J1-4
+Added Net: Name=M4G2
+Added Pin To Net: NetName=M4G3 Pin=J1-5
+Added Net: Name=M4G3
+Added Pin To Net: NetName=M4G4 Pin=J1-6
+Added Net: Name=M4G4

@@ -1,0 +1,25 @@
+Output: Gerber Files
+Type  : Gerber
+From  : Variant [[No Variations]] of Project [MCU_M_V2.PrjPcb]
+   Generated File[MCU_M_V2.GTO]
+   Generated File[MCU_M_V2.GTP]
+   Generated File[MCU_M_V2.GTS]
+   Generated File[MCU_M_V2.GTL]
+   Generated File[MCU_M_V2.GBL]
+   Generated File[MCU_M_V2.GBS]
+   Generated File[MCU_M_V2.GBP]
+   Generated File[MCU_M_V2.GBO]
+   Generated File[MCU_M_V2.GM1]
+   Generated File[MCU_M_V2.GM4]
+   Generated File[MCU_M_V2.GM13]
+   Generated File[MCU_M_V2.GM15]
+   Generated File[MCU_M_V2.GKO]
+   Generated File[MCU_M_V2.RUL]
+   Generated File[MCU_M_V2.EXTREP]
+   Generated File[MCU_M_V2.REP]
+
+
+Files Generated   : 16
+Documents Printed : 0
+
+Finished Output Generation At 18:48:54 On 24.09.2020

@@ -1,0 +1,52 @@
+Removed Pin From Net: NetName=NetC12_2 Pin=IC1-3
+Removed Pin From Net: NetName=NetC11_2 Pin=IC1-4
+Removed Pin From Net: NetName=NetC12_2 Pin=Y2-1
+Removed Pin From Net: NetName=NetC11_2 Pin=Y2-2
+Change Component Comment : Designator=C13 Old Comment=5.6pF New Comment=GCQ1555C1H8R0BB01D
+Change Component Comment : Designator=C14 Old Comment=5.6pF New Comment=GCQ1555C1H8R0BB01D
+Change Component Comment : Designator=C11 Old Comment=5.6pF New Comment=GCQ1555C1H180FB01D
+Change Component Comment : Designator=C12 Old Comment=5.6pF New Comment=GCQ1555C1H180FB01D
+Change component parameters: Designator = "C11"; Footprint = "CAPC1005X55N"; UniqueID = "\ZTCJWNFG"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GCQ1555C1H180FB01-01.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Murata Electronics"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "GCQ1555C1H180FB01D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "81-GCQ1555C1H180FB1D"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C12"; Footprint = "CAPC1005X55N"; UniqueID = "\KTEICXUY"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://search.murata.co.jp/Ceramy/image/img/A01X/G101/ENG/GCQ1555C1H180FB01-01.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Murata Electronics"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "GCQ1555C1H180FB01D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "81-GCQ1555C1H180FB1D"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C13"; Footprint = "CAPC1005X55N"; UniqueID = "\IXOYCRGT"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://psearch.en.murata.com/capacitor/product/GCQ1555C1H8R0BB01%23.html"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Murata Electronics"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "GCQ1555C1H8R0BB01D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "81-GCQ1555C1H8R0BB1D"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C14"; Footprint = "CAPC1005X55N"; UniqueID = "\OKUHCMUP"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://psearch.en.murata.com/capacitor/product/GCQ1555C1H8R0BB01%23.html"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Murata Electronics"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "GCQ1555C1H8R0BB01D"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "81-GCQ1555C1H8R0BB1D"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetC11_2 Pin=IC1-3
+Added Pin To Net: NetName=NetC12_2 Pin=IC1-4
+Added Pin To Net: NetName=NetC11_2 Pin=Y2-1
+Added Pin To Net: NetName=NetC12_2 Pin=Y2-2

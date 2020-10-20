@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=DCDC_VCC_IN Pin=Q4-2
+Removed Pin From Net: NetName=DCDC_VCC_IN Pin=Z1-1
+Added Pin To Net: NetName=DCDC_VCC_IN Pin=F1-1
+Added Pin To Net: NetName=NetF1_2 Pin=F1-2
+Added Pin To Net: NetName=NetF1_2 Pin=Q4-2
+Added Pin To Net: NetName=NetF1_2 Pin=Z1-1
+Added Net: Name=NetF1_2
+Added Member To Class: ClassName=PWR_M_V1 Member=Component F1 1812L110_33MR

@@ -1,0 +1,18 @@
+Removed Pin From Net: NetName=SPI1_SS1 Pin=H1-51
+Removed Pin From Net: NetName=SPI1_CL Pin=H1-52
+Removed Pin From Net: NetName=SPI1_MO Pin=H1-53
+Added Pin To Net: NetName=GND Pin=H1-53
+Added Pin To Net: NetName=GND Pin=H1-59
+Added Pin To Net: NetName=SPI1_SS1 Pin=H2-47
+Added Pin To Net: NetName=SPI1_CL Pin=H2-48
+Added Pin To Net: NetName=SPI1_MO Pin=H2-49
+Added Pin To Net: NetName=I2C1_CLK Pin=H2-51
+Added Pin To Net: NetName=I2C1_SDA Pin=H2-52
+Added Pin To Net: NetName=GND Pin=H2-53
+Change Net Name : Old Net Name=ETH1_7 New Net Name=ETH1_6
+Change Net Name : Old Net Name=ETH1_8 New Net Name=ETH1_7
+Change Net Name : Old Net Name=ETH1_9 New Net Name=ETH1_8
+Change Net Name : Old Net Name=ETH1_10 New Net Name=ETH1_9
+Change Net Name : Old Net Name=SPI1_MI New Net Name=ETH1_10
+Added Pin To Net: NetName=SPI1_MI Pin=H2-50
+Added Net: Name=SPI1_MI

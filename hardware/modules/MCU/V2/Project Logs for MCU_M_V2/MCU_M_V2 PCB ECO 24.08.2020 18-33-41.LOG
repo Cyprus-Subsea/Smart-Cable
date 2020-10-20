@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=CAN_RX_USB_DM Pin=IC1-53
+Removed Pin From Net: NetName=CAN_TX_USB_DP Pin=IC1-54
+Added Pin To Net: NetName=UART5_RX Pin=IC1-54
+Added Pin To Net: NetName=UART5_RX Pin=R32-2
+Added Net: Name=UART5_RX
+Added Pin To Net: NetName=UART5_TX Pin=IC1-53
+Added Pin To Net: NetName=UART5_TX Pin=R321-2
+Added Net: Name=UART5_TX

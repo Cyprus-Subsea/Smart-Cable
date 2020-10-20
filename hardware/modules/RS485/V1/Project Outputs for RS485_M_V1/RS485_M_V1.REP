@@ -1,0 +1,147 @@
+*************************************************************
+FileName = RS485_M_V1.GBR
+AutoAperture = True
+*************************************************************
+Generating : Mechanical 13
+      File : RS485_M_V1.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D25
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : RS485_M_V1.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : RS485_M_V1.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : RS485_M_V1.GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D12
+    D24
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : RS485_M_V1.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D17
+    D18
+    D19
+    D20
+    D21
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 4
+      File : RS485_M_V1.GM4
+
+    Adding Layer      : Mechanical 4
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : RS485_M_V1.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D23
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : RS485_M_V1.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D13
+    D14
+    D15
+    D16
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 15
+      File : RS485_M_V1.GM15
+
+    Adding Layer      : Mechanical 15
+
+
+Used DCodes :
+    D26
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : RS485_M_V1.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D11
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : RS485_M_V1.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D21
+    D22
+*************************************************************
+

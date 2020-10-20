@@ -1,0 +1,13 @@
+Added Component: Designator=Z1(SOD2512X110N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://componentsearchengine.com/Datasheets/1/BZX384-C18,115.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "1.1mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Nexperia"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "BZX384-C18,115"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = "771-BZX384-C18115"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = "https://www.mouser.com/Search/Refine.aspx?Keyword=771-BZX384-C18115"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "771-BZX384-C18115"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetF1_2 Pin=Z1-1
+Added Pin To Net: NetName=NetQ4_1 Pin=Z1-2
+Added Member To Class: ClassName=PWR_M_V1 Member=Component Z1 BZX384-C18,115

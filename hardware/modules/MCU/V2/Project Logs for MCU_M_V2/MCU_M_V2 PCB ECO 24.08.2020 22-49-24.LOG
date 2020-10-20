@@ -1,0 +1,43 @@
+Removed Pin From Net: NetName=GND Pin=IC1-31
+Removed Pin From Net: NetName=GND Pin=IC1-47
+Added Component: Designator=C41(CAPC1005X55N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://datasheet.lcsc.com/szlcsc/Taiyo-Yuden-LMK105BJ225KV-F_C319191.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "TAIYO YUDEN"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "LMK105BJ225KV-F"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R42(RESC1005X40N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "KOA Speer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK73Z1ETTP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "660-RK73Z1ETTP"; VariantName = "[No Variations]"
+Added Component: Designator=R43(RESC1005X40N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "KOA Speer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK73Z1ETTP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "660-RK73Z1ETTP"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=R42-2
+Added Pin To Net: NetName=GND Pin=R43-2
+Added Pin To Net: NetName=VCAP_1 Pin=C41-1
+Added Pin To Net: NetName=VCAP_1 Pin=IC1-31
+Added Pin To Net: NetName=VCAP_1 Pin=R43-1
+Added Net: Name=VCAP_1
+Added Pin To Net: NetName=VCAP_2 Pin=C41-2
+Added Pin To Net: NetName=VCAP_2 Pin=IC1-47
+Added Pin To Net: NetName=VCAP_2 Pin=R42-1
+Added Net: Name=VCAP_2
+Added Member To Class: ClassName=MCU_M_V2 Member=Component C41 LMK105BJ225KV-F
+Added Member To Class: ClassName=MCU_M_V2 Member=Component R42 RK73Z1ETTP
+Added Member To Class: ClassName=MCU_M_V2 Member=Component R43 RK73Z1ETTP

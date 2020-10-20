@@ -1,0 +1,62 @@
+Removed Pin From Net: NetName=M4_D1 Pin=IC1-42
+Removed Pin From Net: NetName=M4_D2 Pin=IC1-43
+Added Component: Designator=R31(RESC1005X40N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "KOA Speer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK73Z1ETTP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "660-RK73Z1ETTP"; VariantName = "[No Variations]"
+Added Component: Designator=R32(RESC1005X40N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "KOA Speer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK73Z1ETTP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "660-RK73Z1ETTP"; VariantName = "[No Variations]"
+Added Component: Designator=R311(RESC1005X40N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "KOA Speer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK73Z1ETTP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "660-RK73Z1ETTP"; VariantName = "[No Variations]"
+Added Component: Designator=R321(RESC1005X40N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.4mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "KOA Speer"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "RK73Z1ETTP"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "660-RK73Z1ETTP"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=M4_D2 Pin=R31-1
+Added Pin To Net: NetName=M4_D2 Pin=R32-1
+Added Pin To Net: NetName=M4_D1 Pin=R311-1
+Added Pin To Net: NetName=M4_D1 Pin=R321-1
+Added Pin To Net: NetName=CAN_RX_USB_DM Pin=IC1-44
+Added Pin To Net: NetName=CAN_RX_USB_DM Pin=R311-2
+Added Net: Name=CAN_RX_USB_DM
+Added Pin To Net: NetName=CAN_TX_USB_DP Pin=IC1-45
+Added Pin To Net: NetName=CAN_TX_USB_DP Pin=R31-2
+Added Net: Name=CAN_TX_USB_DP
+Added Pin To Net: NetName=USART1_RX Pin=IC1-43
+Added Pin To Net: NetName=USART1_RX Pin=R32-2
+Added Net: Name=USART1_RX
+Added Pin To Net: NetName=USART1_TX Pin=IC1-42
+Added Pin To Net: NetName=USART1_TX Pin=R321-2
+Added Net: Name=USART1_TX
+Added Member To Class: ClassName=MCU_M_V2 Member=Component R31 RK73Z1ETTP
+Added Member To Class: ClassName=MCU_M_V2 Member=Component R32 RK73Z1ETTP
+Added Member To Class: ClassName=MCU_M_V2 Member=Component R311 RK73Z1ETTP
+Added Member To Class: ClassName=MCU_M_V2 Member=Component R321 RK73Z1ETTP

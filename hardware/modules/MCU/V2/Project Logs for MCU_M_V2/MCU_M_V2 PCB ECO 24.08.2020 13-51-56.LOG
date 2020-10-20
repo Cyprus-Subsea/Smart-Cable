@@ -1,0 +1,40 @@
+Removed Pin From Net: NetName=P0_D1 Pin=H2-19
+Removed Pin From Net: NetName=P0_D2 Pin=H2-20
+Removed Pin From Net: NetName=P0_D3 Pin=H2-21
+Removed Pin From Net: NetName=B1 Pin=R11-1
+Removed Pin From Net: NetName=B2 Pin=R12-1
+Removed Pin From Net: NetName=B1 Pin=R111-1
+Removed Pin From Net: NetName=B2 Pin=R121-1
+Change Net Name : Old Net Name=ADC1 New Net Name=M1_D3
+Change Net Name : Old Net Name=ADC2 New Net Name=M1_D4
+Change Net Name : Old Net Name=ADC3 New Net Name=M4_D3
+Change Net Name : Old Net Name=ADC4 New Net Name=M4_D4
+Change Net Name : Old Net Name=D1-1 New Net Name=M4_D5
+Change Net Name : Old Net Name=D1-2 New Net Name=M4_D6
+Change Net Name : Old Net Name=ETH_CLKLN New Net Name=M2_D5
+Change Net Name : Old Net Name=ETH_CRS New Net Name=M2_D4
+Change Net Name : Old Net Name=ETH_MDC New Net Name=M2_D3
+Change Net Name : Old Net Name=ETH_MDIO New Net Name=M2_D2
+Change Net Name : Old Net Name=ETH_NRST New Net Name=M1_D6
+Change Net Name : Old Net Name=ETH_PHYAD0 New Net Name=M1_D5
+Change Net Name : Old Net Name=ETH_REFCLO New Net Name=M2_D1
+Change Net Name : Old Net Name=ETH_RXD0 New Net Name=M2_D6
+Change Net Name : Old Net Name=ETH_RXD1 New Net Name=M2_D7
+Change Net Name : Old Net Name=ETH_TXD0 New Net Name=M2_D9
+Change Net Name : Old Net Name=ETH_TXD1 New Net Name=M2_D10
+Change Net Name : Old Net Name=ETH_TXEN New Net Name=M2_D8
+Added Pin To Net: NetName=I2C1_CLK Pin=R11-1
+Added Pin To Net: NetName=I2C1_CLK Pin=R111-1
+Added Net: Name=I2C1_CLK
+Added Pin To Net: NetName=I2C1_SDA Pin=R12-1
+Added Pin To Net: NetName=I2C1_SDA Pin=R121-1
+Added Net: Name=I2C1_SDA
+Added Pin To Net: NetName=PWR1 Pin=H2-19
+Added Net: Name=PWR1
+Added Pin To Net: NetName=PWR2 Pin=H2-20
+Added Net: Name=PWR2
+Added Pin To Net: NetName=PWR3 Pin=H2-21
+Added Net: Name=PWR3
+Change Class Name : Old Net Name=MCU_M_V1 New Net Name=MCU_M_V2
+Change Room Name: Old Name=MCU_M_V1 New Name=MCU_M_V2
+Change Room Scope: Old Scope=InComponentClass('MCU_M_V1') New Scope=InComponentClass('MCU_M_V2')

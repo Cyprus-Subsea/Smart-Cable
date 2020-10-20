@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=GND Pin=H2-20
+Added Pin To Net: NetName=UART3_1 Pin=H1-41
+Added Pin To Net: NetName=UART3_1 Pin=H2-76
+Added Net: Name=UART3_1
+Added Pin To Net: NetName=UART3_2 Pin=H1-42
+Added Pin To Net: NetName=UART3_2 Pin=H2-77
+Added Net: Name=UART3_2

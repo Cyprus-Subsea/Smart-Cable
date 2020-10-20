@@ -1,0 +1,32 @@
+Added Pin To Net: NetName=I2C1_CLK Pin=H1-31
+Added Net: Name=I2C1_CLK
+Added Pin To Net: NetName=I2C1_SDA Pin=H1-30
+Added Net: Name=I2C1_SDA
+Added Pin To Net: NetName=SPI1_CL Pin=H1-52
+Added Net: Name=SPI1_CL
+Added Pin To Net: NetName=SPI1_MI Pin=H1-54
+Added Net: Name=SPI1_MI
+Added Pin To Net: NetName=SPI1_MO Pin=H1-53
+Added Net: Name=SPI1_MO
+Added Pin To Net: NetName=SPI1_SS1 Pin=H1-51
+Added Net: Name=SPI1_SS1
+Added Pin To Net: NetName=SPI1_SS2 Pin=H1-50
+Added Net: Name=SPI1_SS2
+Added Pin To Net: NetName=SPI1_SS3 Pin=H1-49
+Added Net: Name=SPI1_SS3
+Added Pin To Net: NetName=SPI1_SS4 Pin=H1-48
+Added Net: Name=SPI1_SS4
+Added Pin To Net: NetName=SPI1_SS5 Pin=H1-47
+Added Net: Name=SPI1_SS5
+Added Pin To Net: NetName=SPI1_SS6 Pin=H1-46
+Added Net: Name=SPI1_SS6
+Added Pin To Net: NetName=SPI1_SS7 Pin=H1-45
+Added Net: Name=SPI1_SS7
+Added Pin To Net: NetName=UART1_1 Pin=H1-26
+Added Net: Name=UART1_1
+Added Pin To Net: NetName=UART1_2 Pin=H1-27
+Added Net: Name=UART1_2
+Added Pin To Net: NetName=UART2_1 Pin=H1-28
+Added Net: Name=UART2_1
+Added Pin To Net: NetName=UART2_2 Pin=H1-29
+Added Net: Name=UART2_2

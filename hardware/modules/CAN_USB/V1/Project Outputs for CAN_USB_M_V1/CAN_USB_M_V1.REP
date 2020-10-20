@@ -1,0 +1,152 @@
+*************************************************************
+FileName = CAN_USB_M_V1.GBR
+AutoAperture = True
+*************************************************************
+Generating : Mechanical 4
+      File : CAN_USB_M_V1.GM4
+
+    Adding Layer      : Mechanical 4
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : CAN_USB_M_V1.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D10
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : CAN_USB_M_V1.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D13
+    D14
+    D15
+    D16
+    D17
+    D18
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 13
+      File : CAN_USB_M_V1.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D30
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : CAN_USB_M_V1.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D11
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D26
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : CAN_USB_M_V1.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 15
+      File : CAN_USB_M_V1.GM15
+
+    Adding Layer      : Mechanical 15
+
+
+Used DCodes :
+    D31
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : CAN_USB_M_V1.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D11
+    D26
+    D27
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : CAN_USB_M_V1.GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D11
+    D29
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : CAN_USB_M_V1.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D28
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : CAN_USB_M_V1.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+*************************************************************
+

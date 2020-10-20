@@ -1,0 +1,14 @@
+Removed Pin From Net: NetName=CAN_H1 Pin=IC2-1
+Removed Pin From Net: NetName=CAN_L1 Pin=IC2-3
+Removed Pin From Net: NetName=CAN_L2 Pin=IC2-4
+Removed Pin From Net: NetName=CAN_H2 Pin=IC2-6
+Removed Pin From Net: NetName=IO4 Pin=R21-2
+Removed Pin From Net: NetName=IO3 Pin=R22-2
+Added Pin To Net: NetName=IO4 Pin=IC2-4
+Added Pin To Net: NetName=IO3 Pin=IC2-6
+Added Pin To Net: NetName=USB_DM1 Pin=IC2-1
+Added Pin To Net: NetName=USB_DM1 Pin=R22-2
+Added Net: Name=USB_DM1
+Added Pin To Net: NetName=USB_DP1 Pin=IC2-3
+Added Pin To Net: NetName=USB_DP1 Pin=R21-2
+Added Net: Name=USB_DP1

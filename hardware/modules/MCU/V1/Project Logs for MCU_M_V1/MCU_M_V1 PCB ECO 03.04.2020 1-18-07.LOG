@@ -1,0 +1,202 @@
+Removed Pin From Net: NetName=NetC12_1 Pin=Y1-1
+Removed Pin From Net: NetName=NetC11_1 Pin=Y1-3
+Added Component: Designator=C13(SMD-0402C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "@ qty"; Value = "0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Applications"; Value = "General Purpose"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheets"; Value = "http://www.murata.com/~/media/webrenewal/support/library/catalog/products/capacitor/mlcc/c02e.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Digi-Key Part Number"; Value = "490-6250-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Factory Stock"; Value = "0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Features"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height - Seated (Max)"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Image"; Value = "//media.digikey.com/Renders/Murata%20Renders/ZRB-SERIES-0402.jpg"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Spacing"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Style"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Murata Electronics North America"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Minimum Quantity"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Type"; Value = "Surface Mount, MLCC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Temperature"; Value = "-55°C ~ 125°C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package / Case"; Value = "0402 (1005 Metric)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Cut Tape (CT)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "GRM1555C1H5R6CA01D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Quantity Available"; Value = "159268"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ratings"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Series"; Value = "GRM"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Size / Dimension"; Value = "0.039" L x 0.020" W (1.00mm x 0.50mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "81-GRM1555C1H5R6CA1D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "C0G, NP0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Thickness (Max)"; Value = "0.022" (0.55mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "±0.25pF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Unit Price (USD)"; Value = "0.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "5.6pF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = "50V"; VariantName = "[No Variations]"
+Added Component: Designator=C14(SMD-0402C)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "@ qty"; Value = "0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Applications"; Value = "General Purpose"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheets"; Value = "http://www.murata.com/~/media/webrenewal/support/library/catalog/products/capacitor/mlcc/c02e.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Digi-Key Part Number"; Value = "490-6250-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Factory Stock"; Value = "0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Features"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height - Seated (Max)"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Image"; Value = "//media.digikey.com/Renders/Murata%20Renders/ZRB-SERIES-0402.jpg"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Spacing"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lead Style"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Murata Electronics North America"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Minimum Quantity"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Type"; Value = "Surface Mount, MLCC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Temperature"; Value = "-55°C ~ 125°C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package / Case"; Value = "0402 (1005 Metric)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Cut Tape (CT)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "GRM1555C1H5R6CA01D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Quantity Available"; Value = "159268"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ratings"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Series"; Value = "GRM"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Size / Dimension"; Value = "0.039" L x 0.020" W (1.00mm x 0.50mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "81-GRM1555C1H5R6CA1D"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "C0G, NP0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Thickness (Max)"; Value = "0.022" (0.55mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "±0.25pF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Unit Price (USD)"; Value = "0.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "5.6pF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage"; Value = "50V"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=C13-2
+Added Pin To Net: NetName=GND Pin=C14-2
+Added Pin To Net: NetName=GND Pin=H1-8
+Added Pin To Net: NetName=GND Pin=H1-14
+Added Pin To Net: NetName=GND Pin=H2-12
+Added Pin To Net: NetName=GND Pin=H2-18
+Added Pin To Net: NetName=GND Pin=IC1-12
+Added Pin To Net: NetName=GND Pin=IC1-18
+Added Pin To Net: NetName=GND Pin=IC1-31
+Added Pin To Net: NetName=GND Pin=IC1-47
+Added Pin To Net: NetName=GND Pin=IC1-63
+Added Pin To Net: NetName=NetC11_1 Pin=Y1-1
+Added Pin To Net: NetName=NetC12_1 Pin=Y1-3
+Added Pin To Net: NetName=ADC1 Pin=H2-4
+Added Pin To Net: NetName=ADC1 Pin=IC1-14
+Added Net: Name=ADC1
+Added Pin To Net: NetName=ADC2 Pin=H2-3
+Added Pin To Net: NetName=ADC2 Pin=IC1-17
+Added Net: Name=ADC2
+Added Pin To Net: NetName=ADC3 Pin=H1-9
+Added Pin To Net: NetName=ADC3 Pin=IC1-20
+Added Net: Name=ADC3
+Added Pin To Net: NetName=ADC4 Pin=H1-10
+Added Pin To Net: NetName=ADC4 Pin=IC1-21
+Added Net: Name=ADC4
+Added Pin To Net: NetName=D1-1 Pin=H1-18
+Added Pin To Net: NetName=D1-1 Pin=IC1-38
+Added Net: Name=D1-1
+Added Pin To Net: NetName=D1-2 Pin=H1-19
+Added Pin To Net: NetName=D1-2 Pin=IC1-39
+Added Net: Name=D1-2
+Added Pin To Net: NetName=D2-1 Pin=H1-20
+Added Pin To Net: NetName=D2-1 Pin=IC1-15
+Added Net: Name=D2-1
+Added Pin To Net: NetName=D2-2 Pin=H1-21
+Added Pin To Net: NetName=D2-2 Pin=IC1-41
+Added Net: Name=D2-2
+Added Pin To Net: NetName=ETH1_1 Pin=H2-17
+Added Pin To Net: NetName=ETH1_1 Pin=IC1-30
+Added Net: Name=ETH1_1
+Added Pin To Net: NetName=ETH1_2 Pin=H2-16
+Added Pin To Net: NetName=ETH1_2 Pin=IC1-34
+Added Net: Name=ETH1_2
+Added Pin To Net: NetName=ETH1_3 Pin=H2-15
+Added Pin To Net: NetName=ETH1_3 Pin=IC1-33
+Added Net: Name=ETH1_3
+Added Pin To Net: NetName=ETH1_4 Pin=H2-14
+Added Pin To Net: NetName=ETH1_4 Pin=IC1-25
+Added Net: Name=ETH1_4
+Added Pin To Net: NetName=ETH1_5 Pin=H2-13
+Added Pin To Net: NetName=ETH1_5 Pin=IC1-24
+Added Net: Name=ETH1_5
+Added Pin To Net: NetName=ETH1_6 Pin=H1-3
+Added Pin To Net: NetName=ETH1_6 Pin=IC1-9
+Added Net: Name=ETH1_6
+Added Pin To Net: NetName=ETH1_7 Pin=H1-4
+Added Pin To Net: NetName=ETH1_7 Pin=IC1-16
+Added Net: Name=ETH1_7
+Added Pin To Net: NetName=ETH1_8 Pin=H1-5
+Added Pin To Net: NetName=ETH1_8 Pin=IC1-23
+Added Net: Name=ETH1_8
+Added Pin To Net: NetName=ETH1_9 Pin=H1-6
+Added Pin To Net: NetName=ETH1_9 Pin=IC1-10
+Added Net: Name=ETH1_9
+Added Pin To Net: NetName=ETH1_10 Pin=H1-7
+Added Pin To Net: NetName=ETH1_10 Pin=IC1-8
+Added Net: Name=ETH1_10
+Added Pin To Net: NetName=I2C1_CLK Pin=H2-7
+Added Pin To Net: NetName=I2C1_CLK Pin=IC1-58
+Added Net: Name=I2C1_CLK
+Added Pin To Net: NetName=I2C1_SDA Pin=H2-8
+Added Pin To Net: NetName=I2C1_SDA Pin=IC1-59
+Added Net: Name=I2C1_SDA
+Added Pin To Net: NetName=NetC13_1 Pin=C13-1
+Added Pin To Net: NetName=NetC13_1 Pin=IC1-3
+Added Net: Name=NetC13_1
+Added Pin To Net: NetName=NetC14_1 Pin=C14-1
+Added Pin To Net: NetName=NetC14_1 Pin=IC1-4
+Added Net: Name=NetC14_1
+Added Pin To Net: NetName=PWR1 Pin=H2-19
+Added Pin To Net: NetName=PWR1 Pin=IC1-27
+Added Net: Name=PWR1
+Added Pin To Net: NetName=PWR2 Pin=H2-20
+Added Pin To Net: NetName=PWR2 Pin=IC1-28
+Added Net: Name=PWR2
+Added Pin To Net: NetName=PWR3 Pin=H2-21
+Added Pin To Net: NetName=PWR3 Pin=IC1-29
+Added Net: Name=PWR3
+Added Pin To Net: NetName=SPI1_CL Pin=H2-9
+Added Pin To Net: NetName=SPI1_CL Pin=IC1-55
+Added Net: Name=SPI1_CL
+Added Pin To Net: NetName=SPI1_MI Pin=H2-11
+Added Pin To Net: NetName=SPI1_MI Pin=IC1-56
+Added Net: Name=SPI1_MI
+Added Pin To Net: NetName=SPI1_MO Pin=H2-10
+Added Pin To Net: NetName=SPI1_MO Pin=IC1-57
+Added Net: Name=SPI1_MO
+Added Pin To Net: NetName=SPI1_SS1 Pin=H1-13
+Added Pin To Net: NetName=SPI1_SS1 Pin=IC1-37
+Added Net: Name=SPI1_SS1
+Added Pin To Net: NetName=SPI1_SS2 Pin=H2-5
+Added Pin To Net: NetName=SPI1_SS2 Pin=IC1-36
+Added Net: Name=SPI1_SS2
+Added Pin To Net: NetName=SPI1_SS3 Pin=H2-6
+Added Pin To Net: NetName=SPI1_SS3 Pin=IC1-35
+Added Net: Name=SPI1_SS3
+Added Pin To Net: NetName=UART1_1 Pin=H2-2
+Added Pin To Net: NetName=UART1_1 Pin=IC1-53
+Added Net: Name=UART1_1
+Added Pin To Net: NetName=UART1_2 Pin=H2-1
+Added Pin To Net: NetName=UART1_2 Pin=IC1-54
+Added Net: Name=UART1_2
+Added Pin To Net: NetName=UART1_MCU_RX Pin=H1-12
+Added Pin To Net: NetName=UART1_MCU_RX Pin=IC1-43
+Added Net: Name=UART1_MCU_RX
+Added Pin To Net: NetName=UART1_MCU_TX Pin=H1-11
+Added Pin To Net: NetName=UART1_MCU_TX Pin=IC1-42
+Added Net: Name=UART1_MCU_TX
+Added Pin To Net: NetName=UART3_1 Pin=H1-16
+Added Pin To Net: NetName=UART3_1 Pin=IC1-51
+Added Net: Name=UART3_1
+Added Pin To Net: NetName=UART3_2 Pin=H1-17
+Added Pin To Net: NetName=UART3_2 Pin=IC1-52
+Added Net: Name=UART3_2
+Added Pin To Net: NetName=VCC2 Pin=H1-1
+Added Pin To Net: NetName=VCC2 Pin=IC1-1
+Added Pin To Net: NetName=VCC2 Pin=IC1-13
+Added Pin To Net: NetName=VCC2 Pin=IC1-19
+Added Pin To Net: NetName=VCC2 Pin=IC1-32
+Added Pin To Net: NetName=VCC2 Pin=IC1-48
+Added Pin To Net: NetName=VCC2 Pin=IC1-64
+Added Net: Name=VCC2
+Added Pin To Net: NetName=VCC3 Pin=H1-2
+Added Net: Name=VCC3
+Added Member To Class: ClassName=MCU_M_V1 Member=Component C13 5.6pF
+Added Member To Class: ClassName=MCU_M_V1 Member=Component C14 5.6pF

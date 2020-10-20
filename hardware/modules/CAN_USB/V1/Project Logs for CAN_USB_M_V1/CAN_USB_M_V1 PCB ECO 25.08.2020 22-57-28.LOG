@@ -1,0 +1,18 @@
+Change Component Comment : Designator=C1 Old Comment=GRM188Z71A475ME15D New Comment=C0603C104K8RACTU
+Change Component Comment : Designator=C2 Old Comment=GRM188Z71A475ME15D New Comment=C0603C104K8RACTU
+Change component parameters: Designator = "C1"; Footprint = "CAPC1608X90N"; UniqueID = "\EWFUTDHQ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://search.kemet.com/component-edge/download/specsheet/C0603C104K8RACTU.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.9mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Kemet"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "C0603C104K8RACTU"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Change component parameters: Designator = "C2"; Footprint = "CAPC1608X90N"; UniqueID = "\GPGTXDWJ"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "https://search.kemet.com/component-edge/download/specsheet/C0603C104K8RACTU.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.9mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Kemet"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "C0603C104K8RACTU"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"

@@ -1,0 +1,12 @@
+Change Net Name : Old Net Name=D2-1 New Net Name=ETH_PHYAD0
+Change Net Name : Old Net Name=D2-2 New Net Name=ETH_NRST
+Change Net Name : Old Net Name=ETH1_1 New Net Name=ETH_REFCLO
+Change Net Name : Old Net Name=ETH1_2 New Net Name=ETH_MDIO
+Change Net Name : Old Net Name=ETH1_3 New Net Name=ETH_MDC
+Change Net Name : Old Net Name=ETH1_4 New Net Name=ETH_CRS
+Change Net Name : Old Net Name=ETH1_5 New Net Name=ETH_CLKLN
+Change Net Name : Old Net Name=ETH1_6 New Net Name=ETH_RXD0
+Change Net Name : Old Net Name=ETH1_7 New Net Name=ETH_RXD1
+Change Net Name : Old Net Name=ETH1_8 New Net Name=ETH_TXEN
+Change Net Name : Old Net Name=ETH1_9 New Net Name=ETH_TXD0
+Change Net Name : Old Net Name=ETH1_10 New Net Name=ETH_TXD1
