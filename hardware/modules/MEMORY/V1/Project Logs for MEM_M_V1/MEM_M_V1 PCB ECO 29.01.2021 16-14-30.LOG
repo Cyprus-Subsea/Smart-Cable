@@ -1,0 +1,6 @@
+Added Component: Designator=H11(CASTELLATED 9 pin)
+Add component. Clean all parameters for all variants
+Added Component: Designator=H22(CASTELLATED 9 pin)
+Add component. Clean all parameters for all variants
+Added Member To Class: ClassName=MEM_M_V1 Member=Component H11 CASTELLATED 9 pin
+Added Member To Class: ClassName=MEM_M_V1 Member=Component H22 CASTELLATED 9 pin
