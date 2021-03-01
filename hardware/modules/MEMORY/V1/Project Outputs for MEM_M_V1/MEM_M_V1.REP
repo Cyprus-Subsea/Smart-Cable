@@ -1,0 +1,149 @@
+*************************************************************
+FileName = MEM_M_V1.GBR
+AutoAperture = True
+*************************************************************
+Generating : Mechanical 1
+      File : MEM_M_V1.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D27
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : MEM_M_V1.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 15
+      File : MEM_M_V1.GM15
+
+    Adding Layer      : Mechanical 15
+
+
+Used DCodes :
+    D29
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : MEM_M_V1.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : MEM_M_V1.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D13
+    D14
+    D15
+    D16
+    D17
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 13
+      File : MEM_M_V1.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D28
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : MEM_M_V1.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D25
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : MEM_M_V1.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 4
+      File : MEM_M_V1.GM4
+
+    Adding Layer      : Mechanical 4
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : MEM_M_V1.GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D12
+    D26
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : MEM_M_V1.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D12
+    D23
+    D24
+*************************************************************
+

@@ -1,0 +1,25 @@
+--cpu Cortex-M3
+"adc_103\startup_stm32f103xe.o"
+"adc_103\main.o"
+"adc_103\stm32f1xx_it.o"
+"adc_103\stm32f1xx_hal_msp.o"
+"adc_103\stm32f1xx_hal_gpio_ex.o"
+"adc_103\stm32f1xx_hal_i2c.o"
+"adc_103\stm32f1xx_hal.o"
+"adc_103\stm32f1xx_hal_rcc.o"
+"adc_103\stm32f1xx_hal_rcc_ex.o"
+"adc_103\stm32f1xx_hal_gpio.o"
+"adc_103\stm32f1xx_hal_dma.o"
+"adc_103\stm32f1xx_hal_cortex.o"
+"adc_103\stm32f1xx_hal_pwr.o"
+"adc_103\stm32f1xx_hal_flash.o"
+"adc_103\stm32f1xx_hal_flash_ex.o"
+"adc_103\stm32f1xx_hal_exti.o"
+"adc_103\stm32f1xx_hal_tim.o"
+"adc_103\stm32f1xx_hal_tim_ex.o"
+"adc_103\stm32f1xx_hal_uart.o"
+"adc_103\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "ADC_103\ADC_103.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "ADC_103.map" -o ADC_103\ADC_103.axf

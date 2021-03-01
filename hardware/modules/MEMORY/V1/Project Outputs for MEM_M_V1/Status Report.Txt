@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [MEM_M_V1.PrjPcb]
+   Generated File[MEM_M_V1.TXT]
+   Generated File[MEM_M_V1.LDP]
+   Generated File[MEM_M_V1.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 12:18:45 On 01.02.2021

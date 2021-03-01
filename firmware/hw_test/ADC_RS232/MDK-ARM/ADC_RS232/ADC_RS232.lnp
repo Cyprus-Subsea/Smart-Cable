@@ -1,0 +1,25 @@
+--cpu Cortex-M3
+"adc_rs232\startup_stm32f107xc.o"
+"adc_rs232\main.o"
+"adc_rs232\stm32f1xx_it.o"
+"adc_rs232\stm32f1xx_hal_msp.o"
+"adc_rs232\stm32f1xx_hal_gpio_ex.o"
+"adc_rs232\stm32f1xx_hal_i2c.o"
+"adc_rs232\stm32f1xx_hal.o"
+"adc_rs232\stm32f1xx_hal_rcc.o"
+"adc_rs232\stm32f1xx_hal_rcc_ex.o"
+"adc_rs232\stm32f1xx_hal_gpio.o"
+"adc_rs232\stm32f1xx_hal_dma.o"
+"adc_rs232\stm32f1xx_hal_cortex.o"
+"adc_rs232\stm32f1xx_hal_pwr.o"
+"adc_rs232\stm32f1xx_hal_flash.o"
+"adc_rs232\stm32f1xx_hal_flash_ex.o"
+"adc_rs232\stm32f1xx_hal_exti.o"
+"adc_rs232\stm32f1xx_hal_tim.o"
+"adc_rs232\stm32f1xx_hal_tim_ex.o"
+"adc_rs232\stm32f1xx_hal_uart.o"
+"adc_rs232\system_stm32f1xx.o"
+--library_type=microlib --strict --scatter "ADC_RS232\ADC_RS232.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "ADC_RS232.map" -o ADC_RS232\ADC_RS232.axf
