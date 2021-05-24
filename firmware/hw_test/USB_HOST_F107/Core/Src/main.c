@@ -93,7 +93,9 @@ int main(void)
   MX_USB_HOST_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  //HAL_UART_Transmit(&huart1,"start",5,100);
+
+  HAL_Delay(5000);
+  HAL_UART_Transmit(&huart1,"start",5,100);
 
   /* USER CODE END 2 */
 

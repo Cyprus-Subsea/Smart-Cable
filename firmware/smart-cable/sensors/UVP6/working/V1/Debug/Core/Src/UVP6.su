@@ -1,0 +1,12 @@
+UVP6.c:20:6:uvp6_init	104	static
+UVP6.c:37:6:uvp6_media_process_byte	16	static
+UVP6.c:64:6:uvp6_loop	24	static
+UVP6.c:80:9:uvp6_media_get_byte	32	static
+UVP6.c:92:6:uvp6_send_cmd	80	static
+UVP6.c:128:9:uvp6_get_event	16	static
+UVP6.c:139:5:uvp6_parse_message	40	static
+UVP6.c:161:6:uvp6_messages_init	16	static
+UVP6.c:175:5:UVP6_MSG_HW_CONF_f	16	static
+UVP6.c:181:5:UVP6_MSG_BLACK_DATA_f	16	static
+UVP6.c:185:5:UVP6_MSG_LPM_DATA_f	32	static
+UVP6.c:222:5:UVP6_MSG_ACQ_CONF_f	16	static
