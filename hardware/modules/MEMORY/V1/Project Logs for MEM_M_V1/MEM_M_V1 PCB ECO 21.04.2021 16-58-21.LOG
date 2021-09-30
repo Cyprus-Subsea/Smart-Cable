@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=B4 Pin=IC1-2
+Removed Pin From Net: NetName=B5 Pin=IC1-5
+Removed Pin From Net: NetName=B4 Pin=IC2-2
+Removed Pin From Net: NetName=B5 Pin=IC2-5
+Added Pin To Net: NetName=B5 Pin=IC1-2
+Added Pin To Net: NetName=B4 Pin=IC1-5
+Added Pin To Net: NetName=B5 Pin=IC2-2
+Added Pin To Net: NetName=B4 Pin=IC2-5
+Added Room: Name=MEM_M_V1

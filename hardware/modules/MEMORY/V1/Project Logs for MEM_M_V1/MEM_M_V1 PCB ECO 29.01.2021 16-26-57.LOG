@@ -1,0 +1,26 @@
+Removed Pin From Net: NetName=GND Pin=H1-3
+Removed Pin From Net: NetName=VCC2 Pin=H1-6
+Removed Pin From Net: NetName=VCC3 Pin=H1-7
+Removed Pin From Net: NetName=D1 Pin=H1-8
+Removed Pin From Net: NetName=D2 Pin=H1-9
+Removed Pin From Net: NetName=B1 Pin=H2-7
+Removed Pin From Net: NetName=B2 Pin=H2-8
+Removed Pin From Net: NetName=GND Pin=H2-9
+Removed Member From Class: ClassName=MEM_M_V1 Member=H1
+Removed Member From Class: ClassName=MEM_M_V1 Member=H2
+Added Pin To Net: NetName=GND Pin=H11-3
+Added Pin To Net: NetName=VCC2 Pin=H11-6
+Added Pin To Net: NetName=VCC3 Pin=H11-7
+Added Pin To Net: NetName=D1 Pin=H11-8
+Added Pin To Net: NetName=D2 Pin=H11-9
+Added Pin To Net: NetName=B1 Pin=H22-5
+Added Pin To Net: NetName=B2 Pin=H22-6
+Added Pin To Net: NetName=GND Pin=H22-7
+Added Pin To Net: NetName=B3 Pin=H22-2
+Added Net: Name=B3
+Added Pin To Net: NetName=B4 Pin=H22-4
+Added Net: Name=B4
+Added Pin To Net: NetName=B5 Pin=H22-3
+Added Net: Name=B5
+Added Pin To Net: NetName=D7 Pin=H22-1
+Added Net: Name=D7

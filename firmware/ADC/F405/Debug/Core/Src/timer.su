@@ -1,0 +1,5 @@
+timer.c:12:6:timers_list_init	4	static
+timer.c:17:16:chronometer_register_new	16	static
+timer.c:35:6:chronometers_update	16	static
+timer.c:56:6:chronometer_set	16	static
+timer.c:64:6:chronometer_off	16	static

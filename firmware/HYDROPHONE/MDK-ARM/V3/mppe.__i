@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Inc -I ../Middlewares/Third_Party/LwIP/src/include -I ../Middlewares/Third_Party/LwIP/system -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Middlewares/Third_Party/LwIP/src/include/netif/ppp -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Middlewares/Third_Party/LwIP/src/include/lwip -I ../Middlewares/Third_Party/LwIP/src/include/lwip/apps -I ../Middlewares/Third_Party/LwIP/src/include/lwip/priv -I ../Middlewares/Third_Party/LwIP/src/include/lwip/prot -I ../Middlewares/Third_Party/LwIP/src/include/netif -I ../Middlewares/Third_Party/LwIP/src/include/posix -I ../Middlewares/Third_Party/LwIP/src/include/posix/sys -I ../Middlewares/Third_Party/LwIP/system/arch -I ../Drivers/CMSIS/Include
+-I.\RTE\_V3
+-I"C:\Program Files\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include"
+-I"C:\Program Files\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include"
+-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_CL -DUSE_HAL_DRIVER -DSTM32F107xC
+-o v3\mppe.o --omf_browse v3\mppe.crf --depend v3\mppe.d "../Middlewares/Third_Party/LwIP/src/netif/ppp/mppe.c"

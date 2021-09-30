@@ -1,0 +1,6 @@
+SSP.c:14:6:ssp_init	16	static
+SSP.c:22:6:ssp_event_callback	16	static
+SSP.c:35:6:ssp_loop	16	static
+SSP.c:48:10:ssp_new_byte_processing	32	static
+SSP.c:69:6:ssp_send_data	16	static
+SSP.c:87:20:ssp_update_rx_message	16	static

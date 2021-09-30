@@ -1,0 +1,6 @@
+usb_host.c:57:6:send_function	8	static
+usb_host.c:77:6:USBH_CDC_TransmitCallback	16	static
+usb_host.c:82:6:USBH_CDC_ReceiveCallback	16	static
+usb_host.c:94:6:MX_USB_HOST_Init	8	static
+usb_host.c:121:6:MX_USB_HOST_Process	8	static
+usb_host.c:129:13:USBH_UserProcess	16	static

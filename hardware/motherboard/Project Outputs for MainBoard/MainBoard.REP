@@ -2,30 +2,16 @@
 FileName = MainBoard.GBR
 AutoAperture = True
 *************************************************************
-Generating : Keep-Out Layer
-      File : MainBoard.GKO
+Generating : Bottom Overlay
+      File : MainBoard.GBO
 
-    Adding Layer      : Keep-Out Layer
-
-
-Used DCodes :
-*************************************************************
-
-*************************************************************
-Generating : Bottom Layer
-      File : MainBoard.GBL
-
-    Adding Layer      : Bottom Layer
-
-    Adding Layer      : Multi-Layer
+    Adding Layer      : Bottom Overlay
 
 
 Used DCodes :
     D10
+    D11
     D12
-    D15
-    D16
-    D17
 *************************************************************
 
 *************************************************************
@@ -42,22 +28,6 @@ Generating : Bottom Solder
 Used DCodes :
     D13
     D14
-*************************************************************
-
-*************************************************************
-Generating : Layer 2
-      File : MainBoard.G2
-
-    Adding Layer      : Layer 2
-
-    Adding Layer      : Multi-Layer
-
-
-Used DCodes :
-    D10
-    D12
-    D16
-    D17
 *************************************************************
 
 *************************************************************
@@ -90,10 +60,37 @@ Used DCodes :
 *************************************************************
 
 *************************************************************
-Generating : Layer 1
-      File : MainBoard.G1
+Generating : Bottom Layer
+      File : MainBoard.GBL
 
-    Adding Layer      : Layer 1
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D12
+    D15
+    D16
+    D17
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : MainBoard.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Layer 2
+      File : MainBoard.G2
+
+    Adding Layer      : Layer 2
 
     Adding Layer      : Multi-Layer
 
@@ -117,16 +114,19 @@ Used DCodes :
 *************************************************************
 
 *************************************************************
-Generating : Bottom Overlay
-      File : MainBoard.GBO
+Generating : Layer 1
+      File : MainBoard.G1
 
-    Adding Layer      : Bottom Overlay
+    Adding Layer      : Layer 1
+
+    Adding Layer      : Multi-Layer
 
 
 Used DCodes :
     D10
-    D11
     D12
+    D16
+    D17
 *************************************************************
 
 *************************************************************

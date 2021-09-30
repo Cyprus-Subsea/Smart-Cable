@@ -1,0 +1,11 @@
+Added Component: Designator=IC2(SON127P800X600X80-9N-D)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "https://business.kioxia.com/info/docget.jsp?did=58602&prodName=TH58CVG3S0HRAIJ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.8mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Kioxia America"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "TH58CVG3S0HRAIJ"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Mouser"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "757-TH58CVG3S0HRAIJ"; VariantName = "[No Variations]"
+Added Member To Class: ClassName=MEM_M_V1 Member=Component IC2 TH58CVG3S0HRAIJ

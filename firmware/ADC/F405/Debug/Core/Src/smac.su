@@ -1,0 +1,5 @@
+smac.c:19:6:smac_list_init	4	static
+smac.c:26:18:smac_create_new	32	static
+smac.c:53:6:smac_loop	24	static
+smac.c:86:10:smac_send	32	static
+smac.c:108:10:smac_register_rx_outQ	24	static
