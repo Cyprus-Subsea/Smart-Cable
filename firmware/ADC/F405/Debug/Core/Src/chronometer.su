@@ -1,0 +1,5 @@
+chronometer.c:12:6:chronometers_list_init	16	static
+chronometer.c:19:16:chronometer_register_new	16	static
+chronometer.c:36:6:chronometers_update	16	static
+chronometer.c:58:6:chronometer_set	16	static
+chronometer.c:66:6:chronometer_off	16	static

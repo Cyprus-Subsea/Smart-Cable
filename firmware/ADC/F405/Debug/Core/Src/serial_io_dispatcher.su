@@ -1,0 +1,4 @@
+serial_io_dispatcher.c:11:6:io_dispatcher_list_init	4	static
+serial_io_dispatcher.c:18:23:io_dispatcher_register_new	32	static
+serial_io_dispatcher.c:42:6:io_dispatcher_loop	24	static
+serial_io_dispatcher.c:69:6:io_dispatcher_send	32	static

@@ -1,0 +1,5 @@
+timed_callbacks.c:12:6:timed_callbacks_list_init	16	static
+timed_callbacks.c:19:19:timed_callback_register_new	24	static
+timed_callbacks.c:38:6:timed_callbacks_update	16	static
+timed_callbacks.c:64:6:timed_callback_set	16	static
+timed_callbacks.c:72:6:timed_callback_off	16	static

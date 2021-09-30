@@ -1,0 +1,3 @@
+interrupts.c:15:6:uart_start_rx_it	16	static
+interrupts.c:24:6:uart_rx_it	24	static
+interrupts.c:36:6:uart_tx_it	24	static
