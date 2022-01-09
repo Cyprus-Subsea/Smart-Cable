@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [ADC_UART_RX_V1.PrjPcb]
+   Generated File[ADC_UART_RX_V1.TXT]
+   Generated File[ADC_UART_RX_V1.LDP]
+   Generated File[ADC_UART_RX_V1.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 20:31:09 On 09.01.2022

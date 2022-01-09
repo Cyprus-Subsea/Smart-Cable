@@ -7,23 +7,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         0000983c  080001f0  080001f0  000101f0  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000004fc  08009a2c  08009a2c  00019a2c  2**2
+  2 .rodata       0000050c  08009a2c  08009a2c  00019a2c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08009f28  08009f28  000200c4  2**0
+  3 .ARM.extab    00000000  08009f38  08009f38  000200c4  2**0
                   CONTENTS
-  4 .ARM          00000008  08009f28  08009f28  00019f28  2**2
+  4 .ARM          00000008  08009f38  08009f38  00019f38  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08009f30  08009f30  000200c4  2**0
+  5 .preinit_array 00000000  08009f40  08009f40  000200c4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08009f30  08009f30  00019f30  2**2
+  6 .init_array   00000004  08009f40  08009f40  00019f40  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .fini_array   00000004  08009f34  08009f34  00019f34  2**2
+  7 .fini_array   00000004  08009f44  08009f44  00019f44  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  8 .data         000000c4  20000000  08009f38  00020000  2**2
+  8 .data         000000c4  20000000  08009f48  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          00002720  200000c4  08009ffc  000200c4  2**2
+  9 .bss          00002720  200000c4  0800a00c  000200c4  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  200027e4  08009ffc  000227e4  2**0
+ 10 ._user_heap_stack 00000604  200027e4  0800a00c  000227e4  2**0
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  000200c4  2**0
                   CONTENTS, READONLY
@@ -927,7 +927,7 @@ err_code puck_commands_init(void){
  80008f4:	08000d3d 	.word	0x08000d3d
  80008f8:	08000d69 	.word	0x08000d69
  80008fc:	08000d77 	.word	0x08000d77
- 8000900:	08009c64 	.word	0x08009c64
+ 8000900:	08009c74 	.word	0x08009c74
 
 08000904 <puck_loop>:
 
@@ -1897,12 +1897,12 @@ void ssp_send_data()
 	lwJsonStartObject(&ssp_main.jsonMsg);
  8000eb0:	481b      	ldr	r0, [pc, #108]	; (8000f20 <ssp_send_data+0x8c>)
  8000eb2:	f006 fbed 	bl	8007690 <lwJsonStartObject>
-	lwJsonAddIntToObject(&ssp_main.jsonMsg, "ch",1);
+	lwJsonAddIntToObject(&ssp_main.jsonMsg, "adc_channel",1);
  8000eb6:	2201      	movs	r2, #1
  8000eb8:	491a      	ldr	r1, [pc, #104]	; (8000f24 <ssp_send_data+0x90>)
  8000eba:	4819      	ldr	r0, [pc, #100]	; (8000f20 <ssp_send_data+0x8c>)
  8000ebc:	f006 fc24 	bl	8007708 <lwJsonAddIntToObject>
-	lwJsonAddIntToObject(&ssp_main.jsonMsg, "val",adc_main.adc_ch1_value);
+	lwJsonAddIntToObject(&ssp_main.jsonMsg, "adc_value",adc_main.adc_ch1_value);
  8000ec0:	4b19      	ldr	r3, [pc, #100]	; (8000f28 <ssp_send_data+0x94>)
  8000ec2:	889b      	ldrh	r3, [r3, #4]
  8000ec4:	461a      	mov	r2, r3
@@ -1950,8 +1950,8 @@ void ssp_send_data()
  8000f20:	200025d0 	.word	0x200025d0
  8000f24:	08009b08 	.word	0x08009b08
  8000f28:	2000248c 	.word	0x2000248c
- 8000f2c:	08009b0c 	.word	0x08009b0c
- 8000f30:	08009b10 	.word	0x08009b10
+ 8000f2c:	08009b14 	.word	0x08009b14
+ 8000f30:	08009b20 	.word	0x08009b20
 
 08000f34 <ssp_update_rx_message>:
 
@@ -2427,22 +2427,22 @@ int main(void)
   while (1)
  8001230:	e7fe      	b.n	8001230 <main+0x158>
  8001232:	bf00      	nop
- 8001234:	08009b48 	.word	0x08009b48
+ 8001234:	08009b58 	.word	0x08009b58
  8001238:	20002728 	.word	0x20002728
- 800123c:	08009b58 	.word	0x08009b58
+ 800123c:	08009b68 	.word	0x08009b68
  8001240:	200025e8 	.word	0x200025e8
- 8001244:	08009b68 	.word	0x08009b68
+ 8001244:	08009b78 	.word	0x08009b78
  8001248:	20002724 	.word	0x20002724
  800124c:	200025e0 	.word	0x200025e0
- 8001250:	08009b78 	.word	0x08009b78
+ 8001250:	08009b88 	.word	0x08009b88
  8001254:	200025e4 	.word	0x200025e4
- 8001258:	08009b94 	.word	0x08009b94
+ 8001258:	08009ba4 	.word	0x08009ba4
  800125c:	20002640 	.word	0x20002640
- 8001260:	08009bb0 	.word	0x08009bb0
+ 8001260:	08009bc0 	.word	0x08009bc0
  8001264:	20002720 	.word	0x20002720
- 8001268:	08009bcc 	.word	0x08009bcc
+ 8001268:	08009bdc 	.word	0x08009bdc
  800126c:	200026d4 	.word	0x200026d4
- 8001270:	08009be8 	.word	0x08009be8
+ 8001270:	08009bf8 	.word	0x08009bf8
  8001274:	20002688 	.word	0x20002688
 
 08001278 <SystemClock_Config>:
@@ -4907,7 +4907,7 @@ LoopFillZerobss:
   ldr r1, =_edata
  8001f40:	200000c4 	.word	0x200000c4
   ldr r2, =_sidata
- 8001f44:	08009f38 	.word	0x08009f38
+ 8001f44:	08009f48 	.word	0x08009f48
   ldr r2, =_sbss
  8001f48:	200000c4 	.word	0x200000c4
   ldr r4, =_ebss
@@ -10274,7 +10274,7 @@ if (((RCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK
  8003f8e:	bf00      	nop
  8003f90:	40022000 	.word	0x40022000
  8003f94:	40021000 	.word	0x40021000
- 8003f98:	08009cc4 	.word	0x08009cc4
+ 8003f98:	08009cd4 	.word	0x08009cd4
  8003f9c:	20000050 	.word	0x20000050
  8003fa0:	20000054 	.word	0x20000054
 
@@ -10504,8 +10504,8 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  80040fe:	3744      	adds	r7, #68	; 0x44
  8004100:	46bd      	mov	sp, r7
  8004102:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 8004104:	08009c04 	.word	0x08009c04
- 8004108:	08009c14 	.word	0x08009c14
+ 8004104:	08009c14 	.word	0x08009c14
+ 8004108:	08009c24 	.word	0x08009c24
  800410c:	40021000 	.word	0x40021000
  8004110:	00989680 	.word	0x00989680
  8004114:	003d0900 	.word	0x003d0900
@@ -10554,7 +10554,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  800414c:	4618      	mov	r0, r3
  800414e:	bd80      	pop	{r7, pc}
  8004150:	40021000 	.word	0x40021000
- 8004154:	08009cd4 	.word	0x08009cd4
+ 8004154:	08009ce4 	.word	0x08009ce4
 
 08004158 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -10580,7 +10580,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8004174:	4618      	mov	r0, r3
  8004176:	bd80      	pop	{r7, pc}
  8004178:	40021000 	.word	0x40021000
- 800417c:	08009cd4 	.word	0x08009cd4
+ 800417c:	08009ce4 	.word	0x08009ce4
 
 08004180 <HAL_RCC_GetClockConfig>:
   * contains the current clock configuration.
@@ -16916,9 +16916,9 @@ BaseType_t xReturn;
  80062e2:	3720      	adds	r7, #32
  80062e4:	46bd      	mov	sp, r7
  80062e6:	bd80      	pop	{r7, pc}
- 80062e8:	08009cfc 	.word	0x08009cfc
- 80062ec:	08009d1c 	.word	0x08009d1c
- 80062f0:	08009cdc 	.word	0x08009cdc
+ 80062e8:	08009d0c 	.word	0x08009d0c
+ 80062ec:	08009d2c 	.word	0x08009d2c
+ 80062f0:	08009cec 	.word	0x08009cec
 
 080062f4 <prvAddNewTaskToReadyList>:
 /*-----------------------------------------------------------*/
@@ -17298,7 +17298,7 @@ BaseType_t xReturn;
  80064de:	46bd      	mov	sp, r7
  80064e0:	bd80      	pop	{r7, pc}
  80064e2:	bf00      	nop
- 80064e4:	08009c24 	.word	0x08009c24
+ 80064e4:	08009c34 	.word	0x08009c34
  80064e8:	08006aad 	.word	0x08006aad
  80064ec:	200004bc 	.word	0x200004bc
  80064f0:	20000398 	.word	0x20000398
@@ -20797,7 +20797,7 @@ static int lwJsonCalculateValueStringLength(LwJsonValueType type, LwJsonValue *v
  80077e8:	46bd      	mov	sp, r7
  80077ea:	bd80      	pop	{r7, pc}
  80077ec:	200027a4 	.word	0x200027a4
- 80077f0:	08009c30 	.word	0x08009c30
+ 80077f0:	08009c40 	.word	0x08009c40
 
 080077f4 <lwJsonCheckWriteError>:
 
@@ -21220,11 +21220,11 @@ static int lwJsonAddNameAndValuePair(LwJsonMsg *msg, const char *name, LwJsonVal
  8007a94:	46bd      	mov	sp, r7
  8007a96:	bd80      	pop	{r7, pc}
  8007a98:	200027a4 	.word	0x200027a4
- 8007a9c:	08009c2c 	.word	0x08009c2c
- 8007aa0:	08009c30 	.word	0x08009c30
- 8007aa4:	08009c34 	.word	0x08009c34
- 8007aa8:	08009c3c 	.word	0x08009c3c
- 8007aac:	08009c44 	.word	0x08009c44
+ 8007a9c:	08009c3c 	.word	0x08009c3c
+ 8007aa0:	08009c40 	.word	0x08009c40
+ 8007aa4:	08009c44 	.word	0x08009c44
+ 8007aa8:	08009c4c 	.word	0x08009c4c
+ 8007aac:	08009c54 	.word	0x08009c54
 
 08007ab0 <lwJsonGetInt>:
     value[stringLen] = 0;
@@ -22171,9 +22171,9 @@ static void FindSmValueHandler(LwJsonParser *parser) {
  800803e:	3718      	adds	r7, #24
  8008040:	46bd      	mov	sp, r7
  8008042:	bd80      	pop	{r7, pc}
- 8008044:	08009c5c 	.word	0x08009c5c
- 8008048:	08009c4c 	.word	0x08009c4c
- 800804c:	08009c54 	.word	0x08009c54
+ 8008044:	08009c6c 	.word	0x08009c6c
+ 8008048:	08009c5c 	.word	0x08009c5c
+ 800804c:	08009c64 	.word	0x08009c64
 
 08008050 <FindSmStringHandler>:
 
@@ -22481,7 +22481,7 @@ static void FindSmValueEndHandler(LwJsonParser *parser) {
  800821a:	46bd      	mov	sp, r7
  800821c:	bd80      	pop	{r7, pc}
  800821e:	bf00      	nop
- 8008220:	08009c5c 	.word	0x08009c5c
+ 8008220:	08009c6c 	.word	0x08009c6c
 
 08008224 <FindSmLevelEndHandler>:
 
@@ -22856,7 +22856,7 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  800849e:	2301      	movs	r3, #1
  80084a0:	61a3      	str	r3, [r4, #24]
  80084a2:	e7d1      	b.n	8008448 <__sinit+0xc>
- 80084a4:	08009d3c 	.word	0x08009d3c
+ 80084a4:	08009d4c 	.word	0x08009d4c
  80084a8:	080083d5 	.word	0x080083d5
 
 080084ac <__sfp>:
@@ -22911,7 +22911,7 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  800852a:	603b      	str	r3, [r7, #0]
  800852c:	e7ee      	b.n	800850c <__sfp+0x60>
  800852e:	bf00      	nop
- 8008530:	08009d3c 	.word	0x08009d3c
+ 8008530:	08009d4c 	.word	0x08009d4c
  8008534:	ffff0001 	.word	0xffff0001
 
 08008538 <_fwalk_reent>:
@@ -22968,10 +22968,10 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  80085aa:	4798      	blx	r3
  80085ac:	3601      	adds	r6, #1
  80085ae:	e7f2      	b.n	8008596 <__libc_init_array+0x1e>
- 80085b0:	08009f30 	.word	0x08009f30
- 80085b4:	08009f30 	.word	0x08009f30
- 80085b8:	08009f30 	.word	0x08009f30
- 80085bc:	08009f34 	.word	0x08009f34
+ 80085b0:	08009f40 	.word	0x08009f40
+ 80085b4:	08009f40 	.word	0x08009f40
+ 80085b8:	08009f40 	.word	0x08009f40
+ 80085bc:	08009f44 	.word	0x08009f44
 
 080085c0 <__retarget_lock_init_recursive>:
  80085c0:	4770      	bx	lr
@@ -23432,8 +23432,8 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  80089a4:	e8bd 41f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, lr}
  80089a8:	f000 b806 	b.w	80089b8 <__strtok_r>
  80089ac:	20000060 	.word	0x20000060
- 80089b0:	08009d40 	.word	0x08009d40
- 80089b4:	08009d57 	.word	0x08009d57
+ 80089b0:	08009d50 	.word	0x08009d50
+ 80089b4:	08009d67 	.word	0x08009d67
 
 080089b8 <__strtok_r>:
  80089b8:	b5f0      	push	{r4, r5, r6, r7, lr}
@@ -23579,7 +23579,7 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  8008b0a:	230a      	movs	r3, #10
  8008b0c:	e7ac      	b.n	8008a68 <_strtol_l.isra.0+0x60>
  8008b0e:	bf00      	nop
- 8008b10:	08009df5 	.word	0x08009df5
+ 8008b10:	08009e05 	.word	0x08009e05
 
 08008b14 <strtol>:
  8008b14:	4613      	mov	r3, r2
@@ -23630,9 +23630,9 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  8008b74:	e7f3      	b.n	8008b5e <__assert_func+0x12>
  8008b76:	bf00      	nop
  8008b78:	20000060 	.word	0x20000060
- 8008b7c:	08009db8 	.word	0x08009db8
- 8008b80:	08009dc5 	.word	0x08009dc5
- 8008b84:	08009df3 	.word	0x08009df3
+ 8008b7c:	08009dc8 	.word	0x08009dc8
+ 8008b80:	08009dd5 	.word	0x08009dd5
+ 8008b84:	08009e03 	.word	0x08009e03
 
 08008b88 <_close_r>:
  8008b88:	b538      	push	{r3, r4, r5, lr}
@@ -23824,9 +23824,9 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  8008d1a:	bf08      	it	eq
  8008d1c:	68ec      	ldreq	r4, [r5, #12]
  8008d1e:	e7da      	b.n	8008cd6 <_fflush_r+0x22>
- 8008d20:	08009cfc 	.word	0x08009cfc
- 8008d24:	08009d1c 	.word	0x08009d1c
- 8008d28:	08009cdc 	.word	0x08009cdc
+ 8008d20:	08009d0c 	.word	0x08009d0c
+ 8008d24:	08009d2c 	.word	0x08009d2c
+ 8008d28:	08009cec 	.word	0x08009cec
 
 08008d2c <fiprintf>:
  8008d2c:	b40e      	push	{r1, r2, r3}
@@ -24153,11 +24153,11 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  8009028:	f000 f9d4 	bl	80093d4 <_printf_i>
  800902c:	e7eb      	b.n	8009006 <_svfiprintf_r+0x1c2>
  800902e:	bf00      	nop
- 8009030:	08009ef5 	.word	0x08009ef5
- 8009034:	08009eff 	.word	0x08009eff
+ 8009030:	08009f05 	.word	0x08009f05
+ 8009034:	08009f0f 	.word	0x08009f0f
  8009038:	00000000 	.word	0x00000000
  800903c:	08008d8d 	.word	0x08008d8d
- 8009040:	08009efb 	.word	0x08009efb
+ 8009040:	08009f0b 	.word	0x08009f0b
 
 08009044 <__sfputc_r>:
  8009044:	6893      	ldr	r3, [r2, #8]
@@ -24440,14 +24440,14 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  80092cc:	f000 f882 	bl	80093d4 <_printf_i>
  80092d0:	e7e4      	b.n	800929c <_vfiprintf_r+0x208>
  80092d2:	bf00      	nop
- 80092d4:	08009cfc 	.word	0x08009cfc
- 80092d8:	08009d1c 	.word	0x08009d1c
- 80092dc:	08009cdc 	.word	0x08009cdc
- 80092e0:	08009ef5 	.word	0x08009ef5
- 80092e4:	08009eff 	.word	0x08009eff
+ 80092d4:	08009d0c 	.word	0x08009d0c
+ 80092d8:	08009d2c 	.word	0x08009d2c
+ 80092dc:	08009cec 	.word	0x08009cec
+ 80092e0:	08009f05 	.word	0x08009f05
+ 80092e4:	08009f0f 	.word	0x08009f0f
  80092e8:	00000000 	.word	0x00000000
  80092ec:	0800906f 	.word	0x0800906f
- 80092f0:	08009efb 	.word	0x08009efb
+ 80092f0:	08009f0b 	.word	0x08009f0b
 
 080092f4 <_printf_common>:
  80092f4:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -24784,8 +24784,8 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  8009610:	2500      	movs	r5, #0
  8009612:	f104 0619 	add.w	r6, r4, #25
  8009616:	e7f5      	b.n	8009604 <_printf_i+0x230>
- 8009618:	08009f06 	.word	0x08009f06
- 800961c:	08009f17 	.word	0x08009f17
+ 8009618:	08009f16 	.word	0x08009f16
+ 800961c:	08009f27 	.word	0x08009f27
 
 08009620 <_read_r>:
  8009620:	b538      	push	{r3, r4, r5, lr}
@@ -24877,9 +24877,9 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  80096d4:	f04f 37ff 	mov.w	r7, #4294967295
  80096d8:	e7ea      	b.n	80096b0 <__swbuf_r+0x6c>
  80096da:	bf00      	nop
- 80096dc:	08009cfc 	.word	0x08009cfc
- 80096e0:	08009d1c 	.word	0x08009d1c
- 80096e4:	08009cdc 	.word	0x08009cdc
+ 80096dc:	08009d0c 	.word	0x08009d0c
+ 80096e0:	08009d2c 	.word	0x08009d2c
+ 80096e4:	08009cec 	.word	0x08009cec
 
 080096e8 <__swsetup_r>:
  80096e8:	4b32      	ldr	r3, [pc, #200]	; (80097b4 <__swsetup_r+0xcc>)
@@ -24971,9 +24971,9 @@ static void lwJsonParserPop(LwJsonParser *parser, LwJsonParentType expectedParen
  80097b0:	e7f7      	b.n	80097a2 <__swsetup_r+0xba>
  80097b2:	bf00      	nop
  80097b4:	20000060 	.word	0x20000060
- 80097b8:	08009cfc 	.word	0x08009cfc
- 80097bc:	08009d1c 	.word	0x08009d1c
- 80097c0:	08009cdc 	.word	0x08009cdc
+ 80097b8:	08009d0c 	.word	0x08009d0c
+ 80097bc:	08009d2c 	.word	0x08009d2c
+ 80097c0:	08009cec 	.word	0x08009cec
 
 080097c4 <abort>:
  80097c4:	2006      	movs	r0, #6

@@ -75,8 +75,8 @@ void ssp_send_data()
 	json_buffer[0]=0;
 	lwJsonWriteStart(&ssp_main.jsonMsg);
 	lwJsonStartObject(&ssp_main.jsonMsg);
-	lwJsonAddIntToObject(&ssp_main.jsonMsg, "ch",1);
-	lwJsonAddIntToObject(&ssp_main.jsonMsg, "val",adc_main.adc_ch1_value);
+	lwJsonAddIntToObject(&ssp_main.jsonMsg, "channel",1);
+	lwJsonAddIntToObject(&ssp_main.jsonMsg, "value",adc_main.adc_ch1_value);
 	lwJsonCloseObject(&ssp_main.jsonMsg);
 	lwJsonWriteEnd(&ssp_main.jsonMsg);
     strcat(json_buffer,"\r");

@@ -50,9 +50,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/system_definitions.h ../Core/Inc/interrupts.h \
  ../Core/Inc/PUCK.h ../Core/Inc/smac.h ../Core/Inc/timed_callbacks.h \
  ../Core/Inc/SSP.h \
- D:/YD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson.h \
- D:/YD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson_types.h \
- D:/YD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson_config.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson_types.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson_config.h \
  ../Core/Inc/ADC.h
 
 ../Core/Inc/main.h:
@@ -169,10 +169,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Core/Inc/SSP.h:
 
-D:/YD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson.h:
 
-D:/YD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson_types.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson_types.h:
 
-D:/YD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson_config.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/ADC/F405/Middlewares/Third_Party/lwjson-master/inc/lwjson_config.h:
 
 ../Core/Inc/ADC.h:

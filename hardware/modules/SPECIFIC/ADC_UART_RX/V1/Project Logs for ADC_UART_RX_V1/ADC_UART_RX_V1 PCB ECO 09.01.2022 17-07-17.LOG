@@ -1,0 +1,28 @@
+Removed Pin From Net: NetName=ADC Pin=H1-5
+Change Component Footprint: Designator=R1 Old Footprint=SMD-0603-RES New Footprint=RESC1608X55N
+Change Component Comment : Designator=R1 Old Comment=33 New Comment=MCT06030C1001FP500
+Change component parameters: Designator = "R1"; Footprint = "RESC1608X55N"; UniqueID = "\DQPUCAIX"
+Change component parameters. Clean all parameters for all variants
+Change component parameters (AddParameter): Name = "Datasheet Link"; Value = "http://www.vishay.com/docs/28705/mcx0x0xpro.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Name"; Value = "Vishay"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer_Part_Number"; Value = "MCT06030C1001FP500"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=R2(RESC1608X55N)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.vishay.com/docs/28705/mcx0x0xpro.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "Vishay"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "MCT06030C1001FP500"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Part Number"; Value = ""; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser2 Price/Stock"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=ADC Pin=R1-2
+Added Pin To Net: NetName=GND Pin=R2-1
+Added Pin To Net: NetName=ADC_CALIBRATED Pin=D1-1
+Added Pin To Net: NetName=ADC_CALIBRATED Pin=D2-3
+Added Pin To Net: NetName=ADC_CALIBRATED Pin=H1-5
+Added Pin To Net: NetName=ADC_CALIBRATED Pin=R1-1
+Added Pin To Net: NetName=ADC_CALIBRATED Pin=R2-2
+Added Net: Name=ADC_CALIBRATED
+Added Member To Class: ClassName=ADC_UART_RX_V1 Member=Component R2 MCT06030C1001FP500

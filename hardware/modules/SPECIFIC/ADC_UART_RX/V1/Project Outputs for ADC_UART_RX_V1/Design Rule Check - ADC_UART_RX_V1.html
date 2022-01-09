@@ -1,0 +1,380 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD20\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">09.01.2022</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">17:44:25</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc" class="file"><acronym title="D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc">D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">8</td></tr>
+</table>
+</td>
+</table><a name="IDUVY0FT33BO20GVV0CNOXMVB5EGV2C3QIFQ0E1VHLTPYQTIX0WZZH"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDJ4RRB2HSCYNEC4YVXFX3MQALHTTGBURG44QQOLSI03TVEIC5QJP">Clearance Constraint (Gap=0.152mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID0QZSZOEBSWAVDC3OJYPMVTG5ROLOXZWSJBHQF2MD3P5CWV4SCI1L">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5F11I3LIITJ0KEOJTPNEZKQZUK3DQ125VH5IXBKWTK2OIL0D1ADO">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPIH5K5S13XX3LDGGXWUQVRP0NLZW0TRIVWAJ1PFMHYTKLPJXMFJH">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAKRQR1NH05D5N2HR4AW1RWAHENA5I3DDGUWFA1EYB5W4TBRB4QJF">Width Constraint (Min=0.152mm) (Max=2.54mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAYSTBOQA55XMN0NPAVVDL52KNFIZKUX3RGKTEQPRNO2DQN4TBMQ">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDITBDZCVYUNXQNLG2GTMSSGYDHEV3N3ROHKK14KMDRPR4BE5U0XSL">Hole Size Constraint (Min=0.3mm) (Max=6.35mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDWK00HSCCEBP5JL3OYQVCSSQBOHIZFLSK0IJ5I1FBXW11NS41NE2O">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMBNEQP2DZO5YC3NRVU1KV0C32CAPYFNUYX1PYKME02REDI3MZBTP">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLVQ4VHQ4VU21EWSZFTTFVS4TGIJYQ10JCQQCXBKQGAV4IN2KM04">Minimum Solder Mask Sliver (Gap=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMCBUZTCQZV25BKFNTN0AIVRDHM3U4R11ZAT3V2GWNKJCZK5M5H4H">Minimum Solder Mask Sliver (Gap=0.1mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDOE34DE43CZT3OZSDMZT5KF4PCKNNKBGKG2WQFKOIHFMXNBOHKL1F">Minimum Solder Mask Sliver (Gap=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID345QBX21YXZPFTAUVHFX505MBIMLHQMY5LTDBPLMB2MNTQ5X411K">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAAEC404OI3CHL5FW43QBGXYXGEOL3AUZIFGOBAHF2CPEX13HVJ4I">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDG42L2B0DKRYKOF5U05GED0JUGLTA525B4ZUASKROJEOB1NWA55H">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVF1B0DQZ52KIJ4BDUMEWUD5YHOVJ124PJJSKD4GYB3YJCZKY3OGG">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMTPLYWVZGOSRLT4TFPCCH25QJL5X5Q1AHN05L0LTNX0OWXHN2QIH">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDC1SBWHOBIN0JDJUXHRX3GPZC3DYF3BB34LULTEPJ42KAHHKITY3M">Matched Lengths(Tolerance=0.152mm) (InDifferentialPairClass('DIFF100'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVDPIQFERGOD0CVWMDGY2QHNMXPDRXCDU1KRRAOKJDWB0OXO1VPHK">Room ADC_UART_RX_V1 (Bounding Region = (102.901mm, 67.046mm, 117.008mm, 87.266mm) (InComponentClass('ADC_UART_RX_V1'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDHELDWGZWH1ZPB5WTS0ZYZGBGUMKGKXXSOK45SRODSKR3J0FBZEOI">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">8</td>
+</tr>
+</table><br><a name="IDG42L2B0DKRYKOF5U05GED0JUGLTA525B4ZUASKROJEOB1NWA55H"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4205.162mil|Location2.X=4216.412mil|Location1.Y=3177.721mil|Location2.Y=3188.971mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4205.162mil|Location2.X=4216.412mil|Location1.Y=3177.721mil|Location2.Y=3188.971mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad D1-1(4.667mm,12.996mm) on Top Layer And Track (3.792mm,12.496mm)(3.792mm,15.396mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4251.422mil|Location2.X=4262.672mil|Location1.Y=3151.147mil|Location2.Y=3162.397mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4251.422mil|Location2.X=4262.672mil|Location1.Y=3151.147mil|Location2.Y=3162.397mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad D1-1(4.667mm,12.996mm) on Top Layer And Track (4.142mm,12.446mm)(5.192mm,12.446mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4205.162mil|Location2.X=4216.412mil|Location1.Y=3252.525mil|Location2.Y=3263.775mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4205.162mil|Location2.X=4216.412mil|Location1.Y=3252.525mil|Location2.Y=3263.775mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad D1-2(4.667mm,14.896mm) on Top Layer And Track (3.792mm,12.496mm)(3.792mm,15.396mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4169.729mil|Location2.X=4180.979mil|Location1.Y=3191.501mil|Location2.Y=3202.751mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4169.729mil|Location2.X=4180.979mil|Location1.Y=3191.501mil|Location2.Y=3202.751mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad D1-3(2.467mm,13.946mm) on Top Layer And Track (3.342mm,12.496mm)(3.342mm,15.396mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.966mil|Location2.X=4501.216mil|Location1.Y=3151.147mil|Location2.Y=3162.397mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4489.966mil|Location2.X=4501.216mil|Location1.Y=3151.147mil|Location2.Y=3162.397mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad D2-1(10.726mm,12.996mm) on Top Layer And Track (10.201mm,12.446mm)(11.251mm,12.446mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4443.706mil|Location2.X=4454.956mil|Location1.Y=3177.721mil|Location2.Y=3188.971mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4443.706mil|Location2.X=4454.956mil|Location1.Y=3177.721mil|Location2.Y=3188.971mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad D2-1(10.726mm,12.996mm) on Top Layer And Track (9.851mm,12.496mm)(9.851mm,15.396mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4443.706mil|Location2.X=4454.956mil|Location1.Y=3252.525mil|Location2.Y=3263.775mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4443.706mil|Location2.X=4454.956mil|Location1.Y=3252.525mil|Location2.Y=3263.775mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad D2-2(10.726mm,14.896mm) on Top Layer And Track (9.851mm,12.496mm)(9.851mm,15.396mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4408.273mil|Location2.X=4419.523mil|Location1.Y=3191.501mil|Location2.Y=3202.751mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\GD\upwork\projects\Ehsan_Abdi\USIB\HW\Smart-Cable\hardware\modules\SPECIFIC\ADC_UART_RX\V1\ADC_UART_RX_V1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4408.273mil|Location2.X=4419.523mil|Location1.Y=3191.501mil|Location2.Y=3202.751mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad D2-3(8.526mm,13.946mm) on Top Layer And Track (9.401mm,12.496mm)(9.401mm,15.396mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
