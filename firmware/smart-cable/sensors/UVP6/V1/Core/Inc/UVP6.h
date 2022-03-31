@@ -89,8 +89,7 @@ void uvp6_init(uvp6* uvp6_obj);
 void uvp6_media_process_byte(uvp6* uvp6_obj,uint8_t rx_byte);
 uint8_t uvp6_media_get_byte(uvp6* uvp6_obj,uint8_t* tx_byte);
 
-int ((*uvp6_functions[UVP6_MSG_NUM_OF_FUNCTIONS]))(uvp6* uvp6_obj,uint8_t* msg);
-char*  uvp6_messages_strings[UVP6_MSG_NUM_OF_FUNCTIONS];
+
 
 void uvp6_send_cmd(uvp6* uvp6_obj,uint8_t cmd_id,void* arg);
 

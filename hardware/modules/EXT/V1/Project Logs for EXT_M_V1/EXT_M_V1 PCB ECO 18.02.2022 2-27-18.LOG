@@ -1,0 +1,18 @@
+Added Pin To Net: NetName=B1 Pin=H2-18
+Added Pin To Net: NetName=B1 Pin=J1-8
+Added Net: Name=B1
+Added Pin To Net: NetName=B2 Pin=H2-17
+Added Pin To Net: NetName=B2 Pin=J1-9
+Added Net: Name=B2
+Added Pin To Net: NetName=B3 Pin=H2-21
+Added Pin To Net: NetName=B3 Pin=J1-5
+Added Net: Name=B3
+Added Pin To Net: NetName=B4 Pin=H2-19
+Added Pin To Net: NetName=B4 Pin=J1-7
+Added Net: Name=B4
+Added Pin To Net: NetName=B5 Pin=H2-20
+Added Pin To Net: NetName=B5 Pin=J1-6
+Added Net: Name=B5
+Added Pin To Net: NetName=GND Pin=H2-16
+Added Pin To Net: NetName=GND Pin=J1-10
+Added Net: Name=GND

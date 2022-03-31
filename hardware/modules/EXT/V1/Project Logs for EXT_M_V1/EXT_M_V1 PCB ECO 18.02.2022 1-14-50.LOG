@@ -1,0 +1,3 @@
+Added Component: Designator=J1(FCC_24P_0.5MM)
+Add component. Clean all parameters for all variants
+Added Member To Class: ClassName=EXT_M_V1 Member=Component J1 FCC 24pin 0.5mm pitch

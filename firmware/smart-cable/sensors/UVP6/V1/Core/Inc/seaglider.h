@@ -87,10 +87,6 @@ void seaglider_init(seaglider* seaglider_obj);
 void seaglider_media_process_byte(seaglider* seaglider_obj,uint8_t rx_byte);
 uint8_t seaglider_media_get_byte(seaglider* seaglider_obj,uint8_t* tx_byte);
 
-
-int ((*seaglider_functions[SEAGLIDER_MSG_NUM_OF_FUNCTIONS]))(seaglider* seaglider_obj,uint8_t* msg);
-char*  seaglider_messages_strings[SEAGLIDER_MSG_NUM_OF_FUNCTIONS];
-
 int seaglider_parse_message(seaglider* seaglider_obj,uint8_t* msg);
 void seaglider_messages_init(seaglider* seaglider_obj);
 

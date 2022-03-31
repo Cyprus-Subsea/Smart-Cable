@@ -6,15 +6,17 @@
  */
 
 #include "UVP6.h"
-
 #include "string.h"
+#include "main.h"
 
 //debug
-#include "main.h"
 extern UART_HandleTypeDef huart1;
 //HAL_UART_Transmit(&huart1,msg,strlen(msg),100);
 
 //$start:ACQ_CSCS_022H,20211404,120000;\n
+
+int (*uvp6_functions[UVP6_MSG_NUM_OF_FUNCTIONS])(uvp6* uvp6_obj,uint8_t* msg);
+char*  uvp6_messages_strings[UVP6_MSG_NUM_OF_FUNCTIONS];
 const char* uvp6_commands_strings[]={"$start:ACQ_CSCS_002H,","$stop;\n","wkp;\n","$start:ACQ_CSCS_052L,"};
 
 void uvp6_init(uvp6* uvp6_obj)
@@ -171,6 +173,7 @@ int uvp6_parse_message(uvp6* uvp6_obj,uint8_t* msg)
 
 void uvp6_messages_init(uvp6* uvp6_obj)
 {
+
 	uvp6_functions[UVP6_MSG_HW_CONF] = UVP6_MSG_HW_CONF_f;
 	uvp6_functions[UVP6_MSG_BLACK_DATA] = UVP6_MSG_BLACK_DATA_f;
 	uvp6_functions[UVP6_MSG_LPM_DATA] = UVP6_MSG_LPM_DATA_f;

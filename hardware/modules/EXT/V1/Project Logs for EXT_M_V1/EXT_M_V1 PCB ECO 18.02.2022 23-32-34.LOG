@@ -1,0 +1,12 @@
+Added Pin To Net: NetName=GND Pin=H1-4
+Added Pin To Net: NetName=GND Pin=H1-10
+Added Pin To Net: NetName=M2_D6 Pin=H1-9
+Added Net: Name=M2_D6
+Added Pin To Net: NetName=M2_D7 Pin=H1-8
+Added Net: Name=M2_D7
+Added Pin To Net: NetName=M2_D8 Pin=H1-7
+Added Net: Name=M2_D8
+Added Pin To Net: NetName=M2_D9 Pin=H1-6
+Added Net: Name=M2_D9
+Added Pin To Net: NetName=M2_D10 Pin=H1-5
+Added Net: Name=M2_D10

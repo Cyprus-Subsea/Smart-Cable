@@ -1,0 +1,5 @@
+Change Component Footprint: Designator=H1 Old Footprint=CASTELLATED 24 pin New Footprint=CASTELLATED 22P
+Change Component Comment : Designator=H1 Old Comment=CASTELLATED 24 pin New Comment=CASTELLATED 22P
+Added Class: Name=EXT_M_V1
+Change Room Name: Old Name=ETH_M_V1 New Name=EXT_M_V1
+Change Room Scope: Old Scope=InComponentClass('ETH_M_V1') New Scope=InComponentClass('EXT_M_V1')

@@ -1,0 +1,17 @@
+../Core/Src/seaglider.c:25:6:seaglider_init	104	static
+../Core/Src/seaglider.c:49:6:seaglider_loop	24	static
+../Core/Src/seaglider.c:65:6:seaglider_media_process_byte	16	static
+../Core/Src/seaglider.c:92:9:seaglider_media_get_byte	32	static
+../Core/Src/seaglider.c:104:6:seaglider_send_cmd	40	static
+../Core/Src/seaglider.c:126:9:seaglider_get_event	16	static
+../Core/Src/seaglider.c:136:5:seaglider_parse_message	24	static
+../Core/Src/seaglider.c:153:6:seaglider_messages_init	16	static
+../Core/Src/seaglider.c:178:5:SEAGLIDER_MSG_DEPTH_f	24	static
+../Core/Src/seaglider.c:194:5:SEAGLIDER_MSG_STOP_f	24	static
+../Core/Src/seaglider.c:203:5:SEAGLIDER_MSG_START_f	24	static
+../Core/Src/seaglider.c:219:5:SEAGLIDER_MSG_SEND_TXT_FILE_f	16	static
+../Core/Src/seaglider.c:224:5:SEAGLIDER_MSG_SEND_INFO_f	16	static
+../Core/Src/seaglider.c:228:5:SEAGLIDER_MSG_RESET_f	16	static
+../Core/Src/seaglider.c:232:5:SEAGLIDER_MSG_TEST_f	16	static
+../Core/Src/seaglider.c:237:5:SEAGLIDER_MSG_CLOCK_f	24	static
+../Core/Src/seaglider.c:250:5:SEAGLIDER_MSG_WAKEUP_f	16	static

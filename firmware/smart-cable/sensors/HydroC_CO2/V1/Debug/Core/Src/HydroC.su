@@ -1,0 +1,10 @@
+../Core/Src/HydroC.c:18:6:hydroc_init	104	static
+../Core/Src/HydroC.c:35:6:hydroc_media_process_byte	16	static
+../Core/Src/HydroC.c:62:6:hydroc_loop	24	static
+../Core/Src/HydroC.c:78:9:hydroc_media_get_byte	32	static
+../Core/Src/HydroC.c:90:6:hydroc_send_cmd	112	static
+../Core/Src/HydroC.c:157:9:hydroc_get_event	16	static
+../Core/Src/HydroC.c:168:5:hydroc_parse_message	40	static
+../Core/Src/HydroC.c:190:6:hydroc_messages_init	16	static
+../Core/Src/HydroC.c:202:5:HYDROC_MSG_COSIM_f	16	static
+../Core/Src/HydroC.c:209:5:HYDROC_MSG_CODS4_f	16	static

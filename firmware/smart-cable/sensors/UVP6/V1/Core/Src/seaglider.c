@@ -15,6 +15,10 @@
 extern UART_HandleTypeDef huart1;
 //HAL_UART_Transmit(&huart1,msg,strlen(msg),100);
 
+int ((*seaglider_functions[SEAGLIDER_MSG_NUM_OF_FUNCTIONS]))(seaglider* seaglider_obj,uint8_t* msg);
+char*  seaglider_messages_strings[SEAGLIDER_MSG_NUM_OF_FUNCTIONS];
+
+
 const char* seaglider_commands_strings[]={"UV>\r"};
 
 

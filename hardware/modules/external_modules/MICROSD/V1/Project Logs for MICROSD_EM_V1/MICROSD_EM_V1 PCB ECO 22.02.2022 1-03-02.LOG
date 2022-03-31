@@ -1,0 +1,28 @@
+Removed Pin From Net: NetName=GND Pin=H1-4
+Removed Pin From Net: NetName=M2_D10 Pin=H1-5
+Removed Pin From Net: NetName=M2_D9 Pin=H1-6
+Removed Pin From Net: NetName=M2_D8 Pin=H1-7
+Removed Pin From Net: NetName=M2_D7 Pin=H1-8
+Removed Pin From Net: NetName=M2_D6 Pin=H1-9
+Removed Pin From Net: NetName=GND Pin=H1-10
+Removed Pin From Net: NetName=VCC2 Pin=H1-19
+Removed Pin From Net: NetName=VCC3 Pin=H1-20
+Removed Pin From Net: NetName=M3_D1 Pin=H1-21
+Removed Pin From Net: NetName=M3_D2 Pin=H1-22
+Removed Pin From Net: NetName=M3_D7 Pin=H2-1
+Removed Pin From Net: NetName=B3 Pin=H2-2
+Removed Pin From Net: NetName=B5 Pin=H2-3
+Removed Pin From Net: NetName=B4 Pin=H2-4
+Removed Pin From Net: NetName=B1 Pin=H2-5
+Removed Pin From Net: NetName=B2 Pin=H2-6
+Removed Pin From Net: NetName=GND Pin=H2-7
+Removed Pin From Net: NetName=GND Pin=H2-15
+Removed Pin From Net: NetName=M2_D1 Pin=H2-16
+Removed Pin From Net: NetName=M2_D2 Pin=H2-17
+Removed Pin From Net: NetName=M2_D3 Pin=H2-18
+Removed Pin From Net: NetName=M2_D4 Pin=H2-19
+Removed Pin From Net: NetName=M2_D5 Pin=H2-20
+Removed Pin From Net: NetName=GND Pin=H2-21
+Added Class: Name=MICROSD_EM_V1
+Change Room Name: Old Name=EXT_M_V1 New Name=MICROSD_EM_V1
+Change Room Scope: Old Scope=InComponentClass('EXT_M_V1') New Scope=InComponentClass('MICROSD_EM_V1')

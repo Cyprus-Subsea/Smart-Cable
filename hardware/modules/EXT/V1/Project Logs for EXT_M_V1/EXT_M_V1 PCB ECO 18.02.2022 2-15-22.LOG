@@ -1,0 +1,8 @@
+Added Pin To Net: NetName=M3_D1 Pin=H1-2
+Added Net: Name=M3_D1
+Added Pin To Net: NetName=M3_D2 Pin=H1-1
+Added Net: Name=M3_D2
+Added Pin To Net: NetName=VCC2 Pin=H1-4
+Added Net: Name=VCC2
+Added Pin To Net: NetName=VCC3 Pin=H1-3
+Added Net: Name=VCC3

@@ -36,8 +36,8 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define  UVP6_UART               huart5
-#define  GLIDER_UART             huart1
+#define  UVP6_UART               huart1
+#define  GLIDER_UART             huart5
 
 #define  UVP_DEPTH_HL_LEVEL      100.0
 /* USER CODE END PD */
@@ -222,7 +222,7 @@ static void MX_UART5_Init(void)
 
   /* USER CODE END UART5_Init 1 */
   huart5.Instance = UART5;
-  huart5.Init.BaudRate = 38400;
+  huart5.Init.BaudRate = 115200;
   huart5.Init.WordLength = UART_WORDLENGTH_8B;
   huart5.Init.StopBits = UART_STOPBITS_1;
   huart5.Init.Parity = UART_PARITY_NONE;
@@ -255,7 +255,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 38400;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -364,6 +364,7 @@ void StartDefaultTask(void const * argument)
 			 memcpy(tmp_str+8,",",1);
 			 memcpy(tmp_str+9,glider1.time,6);
 			 tmp_str[15]=0x00;
+
 			 if(glider1.last_depth>UVP_DEPTH_HL_LEVEL&&glider1.prev_depth<=UVP_DEPTH_HL_LEVEL)
 		     {
 				uvp6_send_cmd(&uvp6_sensor1,UVP6_CMD_STOP_ACQ,NULL);
@@ -498,7 +499,7 @@ void uart_tx_f(void const * argument)
   /* USER CODE END uart_tx_f */
 }
 
- /**
+/**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM1 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
