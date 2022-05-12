@@ -54,7 +54,7 @@ UART_HandleTypeDef huart1;
 
 osThreadId defaultTaskHandle;
 osThreadId uart_tx_tHandle;
-osThreadId one_time_tHandle;
+osTimerId timer1Handle;
 osSemaphoreId glider_uart_semHandle;
 osSemaphoreId sensor_uart_semHandle;
 /* USER CODE BEGIN PV */
@@ -72,7 +72,7 @@ static void MX_UART5_Init(void);
 static void MX_USART1_UART_Init(void);
 void StartDefaultTask(void const * argument);
 void uart_tx_f(void const * argument);
-void one_time_f(void const * argument);
+void timer1_cb(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -141,6 +141,11 @@ int main(void)
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
 
+  /* Create the timer(s) */
+  /* definition and creation of timer1 */
+  osTimerDef(timer1, timer1_cb);
+  timer1Handle = osTimerCreate(osTimer(timer1), osTimerOnce, NULL);
+
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
@@ -151,16 +156,12 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of uart_tx_t */
-  osThreadDef(uart_tx_t, uart_tx_f, osPriorityNormal, 0, 128);
+  osThreadDef(uart_tx_t, uart_tx_f, osPriorityNormal, 0, 256);
   uart_tx_tHandle = osThreadCreate(osThread(uart_tx_t), NULL);
-
-  /* definition and creation of one_time_t */
-  osThreadDef(one_time_t, one_time_f, osPriorityNormal, 0, 128);
-  one_time_tHandle = osThreadCreate(osThread(one_time_t), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -360,7 +361,7 @@ void StartDefaultTask(void const * argument)
   char tmp_str[30];
   memory_region_pointer ptr1;
 
-  osDelay(200);
+  osDelay(50);
   seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
 
   for(;;)
@@ -370,23 +371,62 @@ void StartDefaultTask(void const * argument)
 		 {
 			switch(event_id)
 			{
+			 case SEAGLIDER_EVNT_CLEAR_RCVD:
+				  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENTER_CFG,NULL);
+				  osDelay(1000);
+				  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_CLEAR,NULL);
+				  osDelay(1000);
+				  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_EXIT_CFG,NULL);
+				  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
+			 break;
+			 case SEAGLIDER_EVNT_POFF_RCVD:
+				  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENTER_CFG,NULL);
+				  osDelay(1000);
+				  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_DISABLE_PUMP,NULL);
+				  osDelay(1000);
+				  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_EXIT_CFG,NULL);
+				  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
+			 break;
 			 case SEAGLIDER_EVNT_DEPTH_RCVD:
 				  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
 	         break;
+			 case SEAGLIDER_EVNT_STOP_RCVD:
+
+				  mcu_flash_close(&data_flash,MCU_FLASH_CLEAN_FLAG);
+
+				  if(glider1.dive_status==glider1.param_y)
+				  {
+					hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENTER_CFG,NULL);
+					osDelay(1000);
+					hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_SET_ZERO_MODE,NULL);
+					osDelay(1000);
+				    if(glider1.stop_trigger==SEAGLIDER_STOP_WAIT)
+				    {
+					  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_DISABLE_PUMP,NULL);
+					  osDelay(1000);
+				    }
+					hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_EXIT_CFG,NULL);
+					osDelay(1000);
+					glider1.stop_trigger=SEAGLIDER_STOP_TRIGGERED;
+				  }
+
+				  //hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_TEST,NULL);
+				  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
+			 break;
 			 case SEAGLIDER_EVNT_START_RCVD:
+
 				  hydroc_sensor1.status=HYDROC_WAIT_DATA;
-				  if(hydroc_sensor1.warmup_status==HYDROC_WARMUP_IN_PROGRESS){
-					hydroc_sensor1.warmup_status=HYDROC_WARMUP_START_RECEIVED;
+
+				  if(glider1.start_trigger==SEAGLIDER_START_WAIT)
+				  {
+					hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENTER_CFG,NULL);
+					osDelay(1000);
+					hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENABLE_PUMP,NULL);
+					osDelay(1000);
+					hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_EXIT_CFG,NULL);
+					glider1.start_trigger=SEAGLIDER_START_TRIGGERED;
 				  }
-				  else{
-    				  xSemaphoreTake(sensor_uart_semHandle,portMAX_DELAY);
-	         		  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENTER_CFG,NULL);
-			    	  osDelay(1000);
-				      hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_SET_MEASURE_MODE,glider1.param_z);
-				      osDelay(1000);
-				      hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_EXIT_CFG,NULL);
-				      xSemaphoreGive(sensor_uart_semHandle);
-				  }
+				  //hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_TEST,NULL);
 				  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
 			 break;
 			 case SEAGLIDER_EVNT_CLOCK_RCVD:
@@ -409,22 +449,7 @@ void StartDefaultTask(void const * argument)
 			 case SEAGLIDER_EVNT_WAKEUP_RCVD:
 				  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
 			 break;
-			 case SEAGLIDER_EVNT_STOP_RCVD:
-				  mcu_flash_close(&data_flash,MCU_FLASH_CLEAN_FLAG);
 
-				  if(glider1.dive_status==glider1.param_y)
-				  {
-					xSemaphoreTake(sensor_uart_semHandle,portMAX_DELAY);
-					hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENTER_CFG,NULL);
-					osDelay(1000);
-					hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_SET_ZERO_MODE,NULL);
-					osDelay(1000);
-				    hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_EXIT_CFG,NULL);
-				    xSemaphoreGive(sensor_uart_semHandle);
-				  }
-
-				  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
-			 break;
 			 case SEAGLIDER_EVNT_TEST_RCVD:
 				  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
 				  ptr1.start_addr=data_flash.data_pages_addr;
@@ -499,41 +524,11 @@ void uart_tx_f(void const * argument)
   /* USER CODE END uart_tx_f */
 }
 
-/* USER CODE BEGIN Header_one_time_f */
-/**
-* @brief Function implementing the one_time_t thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_one_time_f */
-void one_time_f(void const * argument)
+/* timer1_cb function */
+void timer1_cb(void const * argument)
 {
-  /* USER CODE BEGIN one_time_f */
-  /* Infinite loop */
-  hydroc_sensor1.warmup_status=HYDROC_WARMUP_IN_PROGRESS;
-  osDelay(HYDROC_WARMUP_DELAY*1000);
-  for(;;)
-  {
-	if(hydroc_sensor1.warmup_status==HYDROC_WARMUP_START_RECEIVED)
-	{
-	  xSemaphoreTake(sensor_uart_semHandle,portMAX_DELAY );
-	  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENTER_CFG,NULL);
-	  osDelay(1000);
-	  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_ENABLE_PUMP,NULL);
-      osDelay(1000);
-	  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_SET_MEASURE_MODE,glider1.param_z);
-	  osDelay(1000);
-	  hydroc_send_cmd(&hydroc_sensor1,HYDROC_CMD_EXIT_CFG,NULL);
- 	  xSemaphoreGive(sensor_uart_semHandle);
-
- 	  hydroc_sensor1.warmup_status=HYDROC_WARMUP_FINISHED;
-	  vTaskSuspend( NULL );
-	}
-
-    osDelay(1);
-
-  }
-  /* USER CODE END one_time_f */
+  /* USER CODE BEGIN timer1_cb */
+  /* USER CODE END timer1_cb */
 }
 
 /**

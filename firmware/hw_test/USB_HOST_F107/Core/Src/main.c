@@ -19,6 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
+#include "usb_host.h"
 #include "usb_host.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -43,18 +45,23 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
 
+osThreadId defaultTaskHandle;
+osThreadId USB_tHandle;
+osMessageQId AppliEventHandle;
 /* USER CODE BEGIN PV */
-
+extern ApplicationTypeDef Appli_state;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
-void MX_USB_HOST_Process(void);
+void StartDefaultTask(void const * argument);
+void USB_f(void const * argument);
 
 /* USER CODE BEGIN PFP */
-
+extern uint8_t uart_tx_msg[5];
+extern uint8_t uart_rx_msg[5];
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -90,27 +97,61 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USB_HOST_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  HAL_Delay(5000);
+  HAL_Delay(1000);
   HAL_UART_Transmit(&huart1,"start",5,100);
+  HAL_UART_Receive_IT(&huart1,uart_tx_msg,1);
 
   /* USER CODE END 2 */
 
+  /* USER CODE BEGIN RTOS_MUTEX */
+  /* add mutexes, ... */
+  /* USER CODE END RTOS_MUTEX */
+
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* add semaphores, ... */
+  /* USER CODE END RTOS_SEMAPHORES */
+
+  /* USER CODE BEGIN RTOS_TIMERS */
+  /* start timers, add new ones, ... */
+  /* USER CODE END RTOS_TIMERS */
+
+  /* Create the queue(s) */
+  /* definition and creation of AppliEvent */
+  osMessageQDef(AppliEvent, 10, uint16_t);
+  AppliEventHandle = osMessageCreate(osMessageQ(AppliEvent), NULL);
+
+  /* USER CODE BEGIN RTOS_QUEUES */
+  /* add queues, ... */
+  /* USER CODE END RTOS_QUEUES */
+
+  /* Create the thread(s) */
+  /* definition and creation of defaultTask */
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  /* definition and creation of USB_t */
+  osThreadDef(USB_t, USB_f, osPriorityNormal, 0, 256);
+  USB_tHandle = osThreadCreate(osThread(USB_t), NULL);
+
+  /* USER CODE BEGIN RTOS_THREADS */
+  /* add threads, ... */
+  /* USER CODE END RTOS_THREADS */
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-    MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
-   //send_function();
-
-
-  }
+    }
   /* USER CODE END 3 */
 }
 
@@ -214,20 +255,112 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(VBUS_FS_GPIO_Port, VBUS_FS_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PB0 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  /*Configure GPIO pin : VBUS_FS_Pin */
+  GPIO_InitStruct.Pin = VBUS_FS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(VBUS_FS_GPIO_Port, &GPIO_InitStruct);
 
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	send_function();
+	HAL_UART_Receive_IT(&huart1,uart_tx_msg,1);
+}
 
 /* USER CODE END 4 */
+
+/* USER CODE BEGIN Header_StartDefaultTask */
+/**
+  * @brief  Function implementing the defaultTask thread.
+  * @param  argument: Not used
+  * @retval None
+  */
+/* USER CODE END Header_StartDefaultTask */
+void StartDefaultTask(void const * argument)
+{
+  /* init code for USB_HOST */
+  MX_USB_HOST_Init();
+  /* USER CODE BEGIN 5 */
+
+  osEvent event;
+  /* Infinite loop */
+  for(;;)
+  {
+	  event = osMessageGet(AppliEventHandle, osWaitForever);
+
+	  if(event.status == osEventMessage)
+	  {
+		switch(event.value.v)
+		{
+		 case APPLICATION_DISCONNECT:
+		  Appli_state = APPLICATION_DISCONNECT;
+		  HAL_UART_Transmit(&huart1,"ds",2,100);
+		 break;
+
+		 case APPLICATION_READY:
+		   Appli_state = APPLICATION_READY;
+		   HAL_UART_Transmit(&huart1,"rd",2,100);
+		   send_function();
+		 break;
+
+		 case APPLICATION_START:
+		   Appli_state = APPLICATION_START;
+		   HAL_UART_Transmit(&huart1,"st",2,100);
+
+		 break;
+		 default:
+		 break;
+		 }
+	   }
+  }
+
+  /* USER CODE END 5 */
+}
+
+/* USER CODE BEGIN Header_USB_f */
+/**
+* @brief Function implementing the USB_t thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_USB_f */
+void USB_f(void const * argument)
+{
+  /* USER CODE BEGIN USB_f */
+  /* Infinite loop */
+  for(;;)
+  {
+	osDelay(1);
+  }
+  /* USER CODE END USB_f */
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM1 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM1) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

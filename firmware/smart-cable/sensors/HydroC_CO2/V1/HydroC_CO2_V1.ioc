@@ -1,9 +1,11 @@
 #MicroXplorer Configuration settings - do not modify
 FREERTOS.BinarySemaphores01=glider_uart_sem,Dynamic,NULL;sensor_uart_sem,Dynamic,NULL
 FREERTOS.FootprintOK=true
-FREERTOS.IPParameters=Tasks01,FootprintOK,configTOTAL_HEAP_SIZE,BinarySemaphores01
-FREERTOS.Tasks01=defaultTask,0,128,StartDefaultTask,Default,NULL,Dynamic,NULL,NULL;uart_tx_t,0,128,uart_tx_f,Default,NULL,Dynamic,NULL,NULL;one_time_t,0,128,one_time_f,Default,NULL,Dynamic,NULL,NULL
-FREERTOS.configTOTAL_HEAP_SIZE=16000
+FREERTOS.IPParameters=Tasks01,FootprintOK,configTOTAL_HEAP_SIZE,BinarySemaphores01,configUSE_TIMERS,Timers01
+FREERTOS.Tasks01=defaultTask,0,256,StartDefaultTask,Default,NULL,Dynamic,NULL,NULL;uart_tx_t,0,256,uart_tx_f,Default,NULL,Dynamic,NULL,NULL
+FREERTOS.Timers01=timer1,timer1_cb,osTimerOnce,Default,NULL,Dynamic,NULL
+FREERTOS.configTOTAL_HEAP_SIZE=20000
+FREERTOS.configUSE_TIMERS=1
 File.Version=6
 GPIO.groupedBy=
 KeepUserPlacement=false

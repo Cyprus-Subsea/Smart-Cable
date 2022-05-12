@@ -1,5 +1,0 @@
-../Core/Src/mcu_flash.c:18:6:mcu_flash_write	24	static
-../Core/Src/mcu_flash.c:29:6:mcu_flash_init	16	static
-../Core/Src/mcu_flash.c:38:6:mcu_flash_open	16	static
-../Core/Src/mcu_flash.c:56:6:mcu_flash_close	72	static
-../Core/Src/mcu_flash.c:105:6:mcu_flash_flush	16	static

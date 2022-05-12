@@ -33,7 +33,7 @@
 
 /* USER CODE BEGIN INCLUDE */
 
- void send_function(void);
+ void send_function();
 /* USER CODE END INCLUDE */
 
 /** @addtogroup USBH_OTG_DRIVER
@@ -71,8 +71,6 @@ typedef enum {
 
 /** @brief USB Host initialization function. */
 void MX_USB_HOST_Init(void);
-
-void MX_USB_HOST_Process(void);
 
 /**
   * @}

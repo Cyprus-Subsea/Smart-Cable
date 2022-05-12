@@ -13,7 +13,7 @@ extern UART_HandleTypeDef huart1;
 
 int (*hydroc_functions[HYDROC_MSG_NUM_OF_FUNCTIONS])(hydroc* hydroc_obj,uint8_t* msg);
 char*  hydroc_messages_strings[HYDROC_MSG_NUM_OF_FUNCTIONS];
-const char* hydroc_commands_strings[]={"$COCFG,0,0,W,1\r\n","$COCFG,0,0,W,0\r\n","$CORTS,0,0,W,1000,","$COPEX,0,0,W,1,0\r\n","$COPEX,0,0,W,0,0\r\n","$COMDI,0,0,W,"};
+const char* hydroc_commands_strings[]={"$COCFG,0,0,W,1\r\n","$COCFG,0,0,W,0\r\n","$CORTS,0,0,W,1000,","$COPEX,0,0,W,1,0\r\n","$COPEX,0,0,W,0,0\r\n","$COMDI,0,0,W,","$","$","$CODBC,0,0,W,1\r\n","TEST\r\n"};
 
 void hydroc_init(hydroc* hydroc_obj)
 {
@@ -30,14 +30,17 @@ void hydroc_init(hydroc* hydroc_obj)
 
 	osThreadDef(hydroc_task, hydroc_loop, osPriorityNormal, 0, 256);
 	osThreadCreate(osThread(hydroc_task), hydroc_obj);
+
+	hydroc_obj->rx_buffer_indx=0;
 }
 
 void hydroc_media_process_byte(hydroc* hydroc_obj,uint8_t rx_byte)
 {
+
 	if(hydroc_obj->media_status==HYDROC_MEDIA_READY)
 	{
 		hydroc_obj->rx_buffer[hydroc_obj->rx_buffer_indx]=rx_byte;
-		if(rx_byte=='\n')
+		if(rx_byte=='\r'|| rx_byte=='\n')
 		{
 			hydroc_obj->rx_buffer[hydroc_obj->rx_buffer_indx]=0x00;
 			osMessagePut(hydroc_obj->media_rx_messages_q,hydroc_obj->rx_buffer_new_string_indx,1);
@@ -57,6 +60,7 @@ void hydroc_media_process_byte(hydroc* hydroc_obj,uint8_t rx_byte)
 		hydroc_obj->rx_buffer_indx=0;
 		hydroc_obj->rx_buffer_new_string_indx=hydroc_obj->rx_buffer_indx;
 	}
+
 }
 
 void hydroc_loop(hydroc* hydroc_obj)
@@ -64,10 +68,10 @@ void hydroc_loop(hydroc* hydroc_obj)
  uint16_t msg_indx;
  for(;;)
  {
-	if(xQueueReceive(hydroc_obj->media_rx_messages_q,&msg_indx,0))
+	if(xQueueReceive(hydroc_obj->media_rx_messages_q,&msg_indx,1))
 	{
 		uint8_t* msg=hydroc_obj->rx_buffer+msg_indx;
-		hydroc_parse_message(hydroc_obj,msg);
+		//hydroc_parse_message(hydroc_obj,msg);
 	}
 	osDelay(1);
  }
@@ -77,7 +81,7 @@ void hydroc_loop(hydroc* hydroc_obj)
 
 uint8_t hydroc_media_get_byte(hydroc* hydroc_obj,uint8_t* tx_byte)
 {
-	osEvent res=osMessageGet(hydroc_obj->media_tx_q,0);
+	osEvent res=osMessageGet(hydroc_obj->media_tx_q,1);
 	if(res.status==osEventMessage)
      {
 		*tx_byte=res.value.v;
@@ -94,6 +98,14 @@ void hydroc_send_cmd(hydroc* hydroc_obj,uint8_t cmd_id,void* arg)
  osDelay(20);
  switch(cmd_id)
  {
+     case HYDROC_CMD_TEST:
+      tmp_cmd[0]=0x00;
+      strcat(tmp_cmd,hydroc_commands_strings[HYDROC_CMD_TEST_STRING]);
+	  for(int i=0;i<strlen(tmp_cmd);i++)
+	  {
+		   osMessagePut(hydroc_obj->media_tx_q,tmp_cmd[i],0);
+	  }
+	 break;
      case HYDROC_CMD_ENTER_CFG:
        tmp_cmd[0]=0x00;
        strcat(tmp_cmd,hydroc_commands_strings[HYDROC_CMD_ENTER_CFG]);
@@ -131,7 +143,7 @@ void hydroc_send_cmd(hydroc* hydroc_obj,uint8_t cmd_id,void* arg)
      case HYDROC_CMD_SET_ZERO_MODE:
        tmp_cmd[0]=0x00;
        strcat(tmp_cmd,hydroc_commands_strings[HYDROC_CMD_SET_MODE]);
-       strcat(tmp_cmd,"1,3600,1,1,1\r\n");
+       strcat(tmp_cmd,"1,120,2,2,2\r\n");
   	   for(int i=0;i<strlen(tmp_cmd);i++)
   	   {
   		   osMessagePut(hydroc_obj->media_tx_q,tmp_cmd[i],0);
@@ -148,7 +160,22 @@ void hydroc_send_cmd(hydroc* hydroc_obj,uint8_t cmd_id,void* arg)
   		   osMessagePut(hydroc_obj->media_tx_q,tmp_cmd[i],0);
   	   }
 	 break;
-
+     case HYDROC_CMD_CLEAR:
+       tmp_cmd[0]=0x00;
+       strcat(tmp_cmd,hydroc_commands_strings[HYDROC_CMD_CLEAR]);
+  	   for(int i=0;i<strlen(tmp_cmd);i++)
+  	   {
+  		   osMessagePut(hydroc_obj->media_tx_q,tmp_cmd[i],0);
+  	   }
+  	 break;
+     case HYDROC_CMD_DISABLE_PUMP:
+       tmp_cmd[0]=0x00;
+       strcat(tmp_cmd,hydroc_commands_strings[HYDROC_CMD_DISABLE_PUMP]);
+       for(int i=0;i<strlen(tmp_cmd);i++)
+       {
+         osMessagePut(hydroc_obj->media_tx_q,tmp_cmd[i],0);
+       }
+     break;
  }
 
 }
@@ -210,9 +237,10 @@ int HYDROC_MSG_CODS4_f(hydroc* hydroc_obj,uint8_t* msg)
 {
    if(hydroc_obj->status==HYDROC_WAIT_DATA)
    {
+	 hydroc_obj->status=HYDROC_IDLE;
      osMessagePut(hydroc_obj->events_q,HYDROC_EVNT_CODS4,1);
      strcpy(hydroc_obj->ds4_data,msg);
-     hydroc_obj->status=HYDROC_IDLE;
+
    }
    return HYDROC_F_OK;
 }

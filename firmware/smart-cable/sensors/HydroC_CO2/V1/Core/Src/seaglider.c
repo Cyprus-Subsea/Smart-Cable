@@ -27,6 +27,8 @@ void seaglider_init(seaglider* seaglider_obj)
 	seaglider_obj->last_depth=0.0;
 	seaglider_obj->prev_depth=0.0;
 	seaglider_obj->dive_status=SEAGLIDER_STATUS_UNKNOWN;
+	seaglider_obj->start_trigger=SEAGLIDER_START_WAIT;
+	seaglider_obj->stop_trigger=SEAGLIDER_STOP_WAIT;
 	seaglider_messages_init(seaglider_obj);
 
 
@@ -161,7 +163,8 @@ void seaglider_messages_init(seaglider* seaglider_obj)
 	seaglider_functions[SEAGLIDER_MSG_TEST] =SEAGLIDER_MSG_TEST_f;
 	seaglider_functions[SEAGLIDER_MSG_CLOCK] =SEAGLIDER_MSG_CLOCK_f;
 	seaglider_functions[SEAGLIDER_MSG_WAKEUP] =SEAGLIDER_MSG_WAKEUP_f;
-
+	seaglider_functions[SEAGLIDER_MSG_CLEAR] =SEAGLIDER_MSG_CLEAR_f;
+	seaglider_functions[SEAGLIDER_MSG_POFF] =SEAGLIDER_MSG_POFF_f;
 
 	seaglider_messages_strings[SEAGLIDER_MSG_DEPTH] = "DEPTH";
 	seaglider_messages_strings[SEAGLIDER_MSG_STOP] = "STOP";
@@ -172,6 +175,8 @@ void seaglider_messages_init(seaglider* seaglider_obj)
 	seaglider_messages_strings[SEAGLIDER_MSG_TEST] ="TEST";
 	seaglider_messages_strings[SEAGLIDER_MSG_CLOCK] ="CLOCK";
 	seaglider_messages_strings[SEAGLIDER_MSG_WAKEUP] ="WAKEUP";
+	seaglider_messages_strings[SEAGLIDER_MSG_CLEAR] ="CLEAR";
+	seaglider_messages_strings[SEAGLIDER_MSG_POFF] ="POFF";
 }
 
 
@@ -195,7 +200,7 @@ int SEAGLIDER_MSG_STOP_f(seaglider* seaglider_obj,uint8_t* msg)
 {
 	char * pch;
 	pch = strtok (msg,":");//header
-	pch = strtok (NULL,",");//dive climb
+	pch = strtok (NULL,",");//dive-climb
 	seaglider_obj->dive_status=strtol(pch,NULL,10);
 	osMessagePut(seaglider_obj->events_q,SEAGLIDER_EVNT_STOP_RCVD,1);
 	return SEAGLIDER_F_OK;
@@ -204,14 +209,16 @@ int SEAGLIDER_MSG_START_f(seaglider* seaglider_obj,uint8_t* msg)
 {
 	char * pch;
 	pch = strtok (msg,":");//header
+	pch = strtok (NULL,",");//param_x
+	seaglider_obj->stop_trigger=strtol(pch,NULL,10);
 	pch = strtok (NULL,",");//param_y
 	seaglider_obj->param_y=strtol(pch,NULL,10);
-	pch = strtok (NULL,",");//param_z
-	memcpy(seaglider_obj->param_z,pch,1);
-	memcpy(seaglider_obj->param_z+1,",",1);
-	memcpy(seaglider_obj->param_z+2,pch+1,1);
-	memcpy(seaglider_obj->param_z+3,",",1);
-	memcpy(seaglider_obj->param_z+4,pch+2,1);
+
+	//memcpy(seaglider_obj->param_z,pch,1);
+	//memcpy(seaglider_obj->param_z+1,",",1);
+	//memcpy(seaglider_obj->param_z+2,pch+1,1);
+	//memcpy(seaglider_obj->param_z+3,",",1);
+	//memcpy(seaglider_obj->param_z+4,pch+2,1);
 
 	osMessagePut(seaglider_obj->events_q,SEAGLIDER_EVNT_START_RCVD,1);
 	return SEAGLIDER_F_OK;
@@ -250,5 +257,17 @@ int SEAGLIDER_MSG_CLOCK_f(seaglider* seaglider_obj,uint8_t* msg)
 int SEAGLIDER_MSG_WAKEUP_f(seaglider* seaglider_obj,uint8_t* msg)
 {
 	osMessagePut(seaglider_obj->events_q,SEAGLIDER_EVNT_WAKEUP_RCVD,1);
+	return SEAGLIDER_F_OK;
+}
+
+int SEAGLIDER_MSG_CLEAR_f(seaglider* seaglider_obj,uint8_t* msg)
+{
+	osMessagePut(seaglider_obj->events_q,SEAGLIDER_EVNT_CLEAR_RCVD,1);
+	return SEAGLIDER_F_OK;
+}
+
+int SEAGLIDER_MSG_POFF_f(seaglider* seaglider_obj,uint8_t* msg)
+{
+	osMessagePut(seaglider_obj->events_q,SEAGLIDER_EVNT_POFF_RCVD,1);
 	return SEAGLIDER_F_OK;
 }

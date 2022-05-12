@@ -1,0 +1,1 @@
+1. No need to enable FATFS in MX. FATFS 0.12 copied from F405 version.

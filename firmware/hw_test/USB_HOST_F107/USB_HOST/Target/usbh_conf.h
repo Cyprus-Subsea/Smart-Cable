@@ -87,7 +87,7 @@
 #define USBH_DEBUG_LEVEL      0U
 
 /*----------   -----------*/
-#define USBH_USE_OS      0U
+#define USBH_USE_OS      1U
 
 /****************************************/
 /* #define for FS and HS identification */
@@ -97,7 +97,7 @@
 #if (USBH_USE_OS == 1)
   #include "cmsis_os.h"
   #define USBH_PROCESS_PRIO          osPriorityNormal
-  #define USBH_PROCESS_STACK_SIZE    ((uint16_t)0)
+  #define USBH_PROCESS_STACK_SIZE    ((uint16_t)128)
 #endif /* (USBH_USE_OS == 1) */
 
 /**

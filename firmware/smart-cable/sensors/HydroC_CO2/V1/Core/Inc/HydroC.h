@@ -11,7 +11,7 @@
 #include "cmsis_os.h"
 
 
-#define HYDROC_WARMUP_DELAY               30
+#define HYDROC_WARMUP_DELAY               40
 
 #define HYDROC_RX_BUFFER_SIZE             1024
 #define HYDROC_RX_BUFFER_THR              768
@@ -50,6 +50,11 @@
 #define  HYDROC_CMD_SET_MODE                   5
 #define  HYDROC_CMD_SET_ZERO_MODE              6
 #define  HYDROC_CMD_SET_MEASURE_MODE           7
+#define  HYDROC_CMD_CLEAR                      8
+#define  HYDROC_CMD_TEST                       9
+
+#define HYDROC_CMD_TEST_STRING                 9
+
 
 
 //events definitions

@@ -35,8 +35,13 @@ extern UART_HandleTypeDef huart1;
 
 uint8_t uart_rx_buf[20];
 uint8_t usb_rx_buf[20];
-uint8_t uart_tx_msg[]="hello";
 
+uint8_t uart_tx_msg[5];
+uint8_t uart_rx_msg[5];
+
+uint8_t read_info[]={0x2A,0x45,0x00,0x00,0x19,0xCD};
+
+extern osMessageQId AppliEventHandle;
 
 /* USER CODE END PV */
 
@@ -54,12 +59,9 @@ ApplicationTypeDef Appli_state = APPLICATION_IDLE;
  */
 /* USER CODE BEGIN 0 */
 
-void send_function(void){
+void send_function(){
 	 if(Appli_state == APPLICATION_READY ){
-		 if(HAL_UART_Receive(&huart1,uart_rx_buf,1,1)==HAL_OK){
-			 //HAL_UART_Transmit(&huart1,uart_rx_buf,1,1);
-		     USBH_CDC_Transmit(&hUsbHostFS,uart_rx_buf,1);
-		 }
+		USBH_CDC_Transmit(&hUsbHostFS,read_info,6);
 	  }
 }
 
@@ -76,12 +78,14 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
 /* USER CODE BEGIN 1 */
 void USBH_CDC_TransmitCallback(USBH_HandleTypeDef *phost)
 {
-	USBH_CDC_Receive(phost,usb_rx_buf,5);
+  USBH_CDC_Receive(phost,usb_rx_buf,20);
 }
 
 void USBH_CDC_ReceiveCallback(USBH_HandleTypeDef *phost)
 {
-  HAL_UART_Transmit(&huart1,usb_rx_buf,5,100);
+
+  HAL_UART_Transmit(&huart1,usb_rx_buf,20,100);
+  USBH_CDC_Transmit(&hUsbHostFS,read_info,6);
 }
 
 
@@ -116,14 +120,6 @@ void MX_USB_HOST_Init(void)
 }
 
 /*
- * Background task
- */
-void MX_USB_HOST_Process(void)
-{
-  /* USB Host Background task */
-  USBH_Process(&hUsbHostFS);
-}
-/*
  * user callback definition
  */
 static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
@@ -136,17 +132,17 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
 
   case HOST_USER_DISCONNECTION:
   Appli_state = APPLICATION_DISCONNECT;
+  osMessagePut(AppliEventHandle, APPLICATION_DISCONNECT, 0);
   break;
 
   case HOST_USER_CLASS_ACTIVE:
   Appli_state = APPLICATION_READY;
-  HAL_UART_Transmit(&huart1,"rd",2,1);
-  USBH_CDC_Transmit(&hUsbHostFS,uart_tx_msg,5);
+  osMessagePut(AppliEventHandle, APPLICATION_READY, 0);
   break;
 
   case HOST_USER_CONNECTION:
   Appli_state = APPLICATION_START;
-  HAL_UART_Transmit(&huart1,"st",2,1);
+  osMessagePut(AppliEventHandle, APPLICATION_START, 0);
   break;
 
   default:

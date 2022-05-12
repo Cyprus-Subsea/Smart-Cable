@@ -19,6 +19,9 @@
 #define SEAGLIDER_STATUS_CLIMB     2
 
 
+
+
+
 #define SEAGLIDER_F_OK      0
 #define SEAGLIDER_F_ERR     1
 
@@ -33,9 +36,11 @@
 #define SEAGLIDER_EVNT_CLOCK_RCVD                4
 #define SEAGLIDER_EVNT_WAKEUP_RCVD               5
 #define SEAGLIDER_EVNT_DEPTH_RCVD                6
+#define SEAGLIDER_EVNT_CLEAR_RCVD                7
+#define SEAGLIDER_EVNT_POFF_RCVD                 8
 
 // seaglider messages definitions
-#define  SEAGLIDER_MSG_NUM_OF_FUNCTIONS           9
+#define  SEAGLIDER_MSG_NUM_OF_FUNCTIONS           11
 #define  SEAGLIDER_MSG_DEPTH                      0
 #define  SEAGLIDER_MSG_STOP                       1
 #define  SEAGLIDER_MSG_SEND_TXT_FILE              2
@@ -45,10 +50,19 @@
 #define  SEAGLIDER_MSG_TEST                       6
 #define  SEAGLIDER_MSG_CLOCK                      7
 #define  SEAGLIDER_MSG_WAKEUP                     8
+#define  SEAGLIDER_MSG_CLEAR                      9
+#define  SEAGLIDER_MSG_POFF                       10
 
 // seaglider commands definitions
 #define  SEAGLIDER_CMD_PROMPT                     0
 #define  SEAGLIDER_CMD_SEND_DATA                  1
+
+#define  SEAGLIDER_START_WAIT                     0
+#define  SEAGLIDER_START_TRIGGERED                1
+
+#define  SEAGLIDER_STOP_WAIT                      1
+#define  SEAGLIDER_STOP_TRIGGERED                 0
+
 
 #pragma pack (push, 1)
 typedef struct
@@ -57,6 +71,7 @@ typedef struct
   uint32_t size;
 } memory_region_pointer;
 #pragma pack (pop)
+
 
 #pragma pack (push, 1)
 typedef struct
@@ -70,6 +85,8 @@ typedef struct
 
    uint8_t      status;
    uint8_t      dive_status;
+   uint8_t      start_trigger;
+   uint8_t      stop_trigger;
 
    float        last_depth;
    float        prev_depth;
@@ -110,6 +127,7 @@ int SEAGLIDER_MSG_RESET_f(seaglider* seaglider_obj,uint8_t* msg);
 int SEAGLIDER_MSG_TEST_f(seaglider* seaglider_obj,uint8_t* msg);
 int SEAGLIDER_MSG_CLOCK_f(seaglider* seaglider_obj,uint8_t* msg);
 int SEAGLIDER_MSG_WAKEUP_f(seaglider* seaglider_obj,uint8_t* msg);
-
+int SEAGLIDER_MSG_CLEAR_f(seaglider* seaglider_obj,uint8_t* msg);
+int SEAGLIDER_MSG_POFF_f(seaglider* seaglider_obj,uint8_t* msg);
 
 #endif /* SEAGLIDER_H_ */
