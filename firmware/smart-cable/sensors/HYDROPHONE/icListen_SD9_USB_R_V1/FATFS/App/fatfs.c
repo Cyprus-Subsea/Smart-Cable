@@ -20,6 +20,10 @@
 
 uint8_t retUSER;    /* Return value for USER */
 char USERPath[4];   /* USER logical drive path */
+char SD0Path[4];   /* USER logical drive path */
+char SD1Path[4];   /* USER logical drive path */
+char SD2Path[4];   /* USER logical drive path */
+char SD3Path[4];   /* USER logical drive path */
 FATFS USERFatFS;    /* File system object for USER logical drive */
 FIL USERFile;       /* File object for USER */
 
@@ -30,7 +34,12 @@ FIL USERFile;       /* File object for USER */
 void MX_FATFS_Init(void)
 {
   /*## FatFS: Link the USER driver ###########################*/
-  retUSER = FATFS_LinkDriver(&USER_Driver, USERPath);
+  //retUSER = FATFS_LinkDriver(&USER_Driver, USERPath);
+	FATFS_LinkDriver(&SD0_Driver, SD0Path);
+	FATFS_LinkDriver(&SD1_Driver, SD1Path);
+	FATFS_LinkDriver(&SD2_Driver, SD2Path);
+	FATFS_LinkDriver(&SD3_Driver, SD3Path);
+
 
   /* USER CODE BEGIN Init */
   /* additional user code for init */

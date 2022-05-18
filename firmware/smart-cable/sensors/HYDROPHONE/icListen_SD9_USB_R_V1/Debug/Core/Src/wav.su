@@ -1,0 +1,4 @@
+../Core/Src/wav.c:5:6:wav_file_open	16	static
+../Core/Src/wav.c:16:6:wav_file_close	16	static
+../Core/Src/wav.c:25:6:wav_file_write	24	static
+../Core/Src/wav.c:31:6:readDir	904	static

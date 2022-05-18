@@ -34,6 +34,10 @@
 /* Exported constants --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 extern Diskio_drvTypeDef  USER_Driver;
+extern Diskio_drvTypeDef  SD0_Driver;
+extern Diskio_drvTypeDef  SD1_Driver;
+extern Diskio_drvTypeDef  SD2_Driver;
+extern Diskio_drvTypeDef  SD3_Driver;
 
 /* USER CODE END 0 */
 

@@ -21,12 +21,13 @@
 #include "main.h"
 #include "cmsis_os.h"
 #include "usb_host.h"
-#include "usb_host.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "string.h"
 #include "fatfs.h"
+#include "wav.h"
+#include "sd.h"
 
 /* USER CODE END Includes */
 
@@ -37,7 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DEBUG_SD
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -46,7 +47,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-SPI_HandleTypeDef hspi1;
+ SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim2;
 
@@ -58,14 +59,18 @@ osThreadId sensor_tHandle;
 osMessageQId AppliEventHandle;
 /* USER CODE BEGIN PV */
 
-FATFS SDFatFs;
-FATFS *fs;
-FIL MyFile;
-FILINFO fileInfo;
-uint32_t byteswritten,bytesread;
-FRESULT res;
-
 extern ApplicationTypeDef Appli_state;
+
+wav_file wav_file1;
+wav_file wav_file2;
+wav_file wav_file3;
+wav_file wav_file4;
+
+
+
+extern ss_pp cards_ss[4];
+
+
 
 /* USER CODE END PV */
 
@@ -80,8 +85,6 @@ void storage_f(void const * argument);
 void sensor_f(void const * argument);
 
 /* USER CODE BEGIN PFP */
-
-void readDir();
 
 /* USER CODE END PFP */
 
@@ -152,7 +155,7 @@ int main(void)
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of storage_t */
-  osThreadDef(storage_t, storage_f, osPriorityNormal, 0, 512);
+  osThreadDef(storage_t, storage_f, osPriorityNormal, 0, 1024);
   storage_tHandle = osThreadCreate(osThread(storage_t), NULL);
 
   /* definition and creation of sensor_t */
@@ -206,6 +209,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -225,6 +229,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Configure the Systick interrupt time
   */
   __HAL_RCC_PLLI2S_ENABLE();
@@ -400,64 +405,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	//HAL_UART_Receive_IT(&huart1,uart_tx_msg,1);
 }
 
-void readDir()
-{
-	//DWORD fre_clust, fre_sect, tot_sect;
-	//uint32_t byteswritten,bytesread;
-	//FRESULT res;
-	char *fn;
-	DIR dir;
-	FILINFO fileInfo;
-	uint8_t sect[512];
-	uint8_t result;
-
-	 if(f_mount(&SDFatFs,"0",0)!=FR_OK)
-	  {
-	    Error_Handler();
-	  }
-	  else
-	  {
-	    //fileInfo.fname = (char*)sect;
-	    fileInfo.fsize = sizeof(sect);
-	    result = f_opendir(&dir, "/");
-	    if (result == FR_OK)
-	    {
-	    	while(1)
-	    	  {
-	    	    result = f_readdir(&dir, &fileInfo);
-	    	    if (result==FR_OK && fileInfo.fname[0])
-	    	    {
-	    	    	  fn = fileInfo.fname;
-	    	    	  if(strlen(fn))
-	    	    		  {
-							#ifdef DEBUG_SD
-	    	    		  	HAL_UART_Transmit(&huart1,(uint8_t*)fn,strlen(fn),0x1000);
-							#endif
-	    	    		  }
-	    	    	  else
-	    	    	  {
-						#ifdef DEBUG_SD
-	    	    		HAL_UART_Transmit(&huart1,(uint8_t*)fileInfo.fname,strlen((char*)fileInfo.fname),0x1000);
-						#endif
-	    	    	  }
-	    	    	  if(fileInfo.fattrib&AM_DIR)
-	    	    	  {
-						#ifdef DEBUG_SD
-	    	    		HAL_UART_Transmit(&huart1,(uint8_t*)" [DIR]",7,0x1000);
-					    #endif
-	    	    	  }
-					  #ifdef DEBUG_SD
-	    	    	  HAL_UART_Transmit(&huart1,(uint8_t*)"\n\r",4,0x1000);
-					  #endif
-	    	    }
-
-	    	    else break;
-	    	  }
-	   	    f_closedir(&dir);
-	    }
-	  }
-}
-
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -486,38 +433,73 @@ void StartDefaultTask(void const * argument)
 * @param argument: Not used
 * @retval None
 */
+
 /* USER CODE END Header_storage_f */
 void storage_f(void const * argument)
 {
   /* USER CODE BEGIN storage_f */
-  MX_FATFS_Init();
-  osDelay(2000);
-	HAL_UART_Transmit(&huart1,(uint8_t*)"Start\r",6,100);
 
-	disk_initialize(SDFatFs.drv);
+  osDelay(500);
+  HAL_UART_Transmit(&huart1,"FATFS start\n",12,100);
 
-	HAL_UART_Transmit(&huart1,(uint8_t*)"Mounted\r",8,100);
+  cards_ss[0].sd_ss_pin=SS_SD1_Pin;
+  cards_ss[0].sd_ss_port=GPIOA;
+  cards_ss[1].sd_ss_pin=SS_SD2_Pin;
+  cards_ss[1].sd_ss_port=GPIOA;
+  cards_ss[2].sd_ss_pin=SS_SD3_Pin;
+  cards_ss[2].sd_ss_port=SS_SD3_GPIO_Port;
+  cards_ss[3].sd_ss_pin=SS_SD4_Pin;
+  cards_ss[3].sd_ss_port=GPIOA;
 
-	if(f_mount(&SDFatFs,"",1)!=FR_OK)
-	{
+  sd_init_lib();
+  FATFS    fs0;
+  FATFS    fs1;
+  FATFS    fs2;
+  FATFS    fs3;
 
-	  HAL_UART_Transmit(&huart1,(uint8_t*)"MNT error\r",10,100);
-	   Error_Handler();
-	}
+  HAL_UART_Transmit(&huart1,"Mount0\n",7,100);
+  sd_init_disk(&fs0,"0:");
+  HAL_UART_Transmit(&huart1,"Mount1\n",7,100);
+  sd_init_disk(&fs1,"1:");
+  HAL_UART_Transmit(&huart1,"Mount2\n",7,100);
+  sd_init_disk(&fs2,"2:");
+  HAL_UART_Transmit(&huart1,"Mount3\n",7,100);
+  sd_init_disk(&fs3,"3:");
 
-	if(f_open(&MyFile,"lastdata.txt",FA_CREATE_ALWAYS|FA_WRITE)!=FR_OK)
-		{
+  HAL_UART_Transmit(&huart1,"Read0\n",6,100);
+  sd_read_free_space(&fs0,"0:");
+  HAL_UART_Transmit(&huart1,"Read1\n",6,100);
+  sd_read_free_space(&fs1,"1:");
+  HAL_UART_Transmit(&huart1,"Read2\n",6,100);
+  sd_read_free_space(&fs2,"2:");
+  HAL_UART_Transmit(&huart1,"Read3\n",6,100);
+  sd_read_free_space(&fs3,"3:");
 
-		  HAL_UART_Transmit(&huart1,(uint8_t*)"SD error\r",9,100);
-		   Error_Handler();
-		}
-	else
-	  {
-		 HAL_UART_Transmit(&huart1,(uint8_t*)"Created\r",8,100);
-	  }
-	f_write(&MyFile,(uint8_t*)"HELLO FILE",10,(void*)&byteswritten);
-	f_close(&MyFile);
+  //wav_file_open(&wav_file1,"0:test1.wav");
+  //wav_file_open(&wav_file2,"1:test2.wav");
+  wav_file_open(&wav_file3,"2:test3.wav");
+  wav_file_open(&wav_file4,"3:test4.wav");
 
+  //wav_file_write(&wav_file1,"Test1.wav",8);
+  //wav_file_write(&wav_file2,"Test2.wav",8);
+  wav_file_write(&wav_file3,"Test3.wav",8);
+  wav_file_write(&wav_file4,"Test4.wav",8);
+
+  //wav_file_close(&wav_file1);
+  //wav_file_close(&wav_file2);
+  wav_file_close(&wav_file3);
+  wav_file_close(&wav_file4);
+
+  HAL_UART_Transmit(&huart1,"read SD1\n",9,100);
+  readDir("0:/");
+  HAL_UART_Transmit(&huart1,"read SD2\n",9,100);
+  readDir("1:/");
+  HAL_UART_Transmit(&huart1,"read SD3\n",9,100);
+  readDir("2:/");
+  HAL_UART_Transmit(&huart1,"read SD4\n",9,100);
+  readDir("3:/");
+
+  HAL_UART_Transmit(&huart1,"FATFS finished\n",15,100);
 
   /* Infinite loop */
   for(;;)
@@ -627,5 +609,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

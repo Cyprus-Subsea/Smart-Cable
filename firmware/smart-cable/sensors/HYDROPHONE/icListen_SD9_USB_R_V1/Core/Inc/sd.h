@@ -6,29 +6,34 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "main.h"
+#include "fatfs.h"
 
 //--------------------------------------------------
 //--------------------------------------------------
 #endif /* SD_H_ */
 
-//extern volatile uint16_t Timer1;
 
-
-void SD_PowerOn(void);
+void    SD_PowerOn(void);
 uint8_t sd_ini(void);
+
 uint8_t SPIx_WriteRead(uint8_t Byte);
-void SPI_SendByte(uint8_t bt);
+void    SPI_SendByte(uint8_t bt);
 uint8_t SPI_ReceiveByte(void);
-void SPI_Release(void);
+void    SPI_Release(void);
 uint8_t SD_Read_Block (uint8_t *buff, uint32_t lba);
 uint8_t SD_Write_Block (uint8_t *buff, uint32_t lba);
 uint8_t SPI_wait_ready(void);
 
+void    sd_ss_set_active(uint8_t drv);
+void    sd_ss_active_pin_down();
+void    sd_ss_active_pin_up();
+void    sd_init_disk(FATFS* fs,char* path);
+void    sd_init_lib();
+void    sd_read_free_space(FATFS* fs,char* path);
 
-#define CS_SD_GPIO_PORT GPIOA
-#define CS_SD_PIN       SS_SD1_Pin
-#define SS_SD_SELECT() HAL_GPIO_WritePin(CS_SD_GPIO_PORT, CS_SD_PIN, GPIO_PIN_RESET)
-#define SS_SD_DESELECT() HAL_GPIO_WritePin(CS_SD_GPIO_PORT, CS_SD_PIN, GPIO_PIN_SET)
+
+#define SS_SD_SELECT()   sd_ss_active_pin_down()
+#define SS_SD_DESELECT() sd_ss_active_pin_up()
 //#define LD_ON HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET); //RED
 //#define LD_OFF HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_SET); //RED
 
@@ -45,4 +50,13 @@ uint8_t SPI_wait_ready(void);
 typedef struct sd_info {
   volatile uint8_t type;
 } sd_info_ptr;
+
+typedef struct{
+	uint16_t sd_ss_pin;
+	GPIO_TypeDef* sd_ss_port;
+}ss_pp;
+
+
+
+
 //--------------------------------------------------

@@ -1,8 +1,9 @@
 #MicroXplorer Configuration settings - do not modify
-FATFS.IPParameters=_FS_TINY,_USE_LFN,_FS_EXFAT
+FATFS.IPParameters=_FS_TINY,_USE_LFN,_FS_EXFAT,_VOLUMES
 FATFS._FS_EXFAT=1
 FATFS._FS_TINY=0
 FATFS._USE_LFN=1
+FATFS._VOLUMES=4
 File.Version=6
 GPIO.groupedBy=Group By Peripherals
 KeepUserPlacement=false

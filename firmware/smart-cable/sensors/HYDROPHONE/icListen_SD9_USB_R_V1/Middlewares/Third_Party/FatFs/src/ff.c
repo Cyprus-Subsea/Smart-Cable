@@ -20,7 +20,8 @@
 
 #include "ff.h"			/* Declarations of FatFs API */
 #include "diskio.h"		/* Declarations of device I/O functions */
-
+#include "string.h"
+#include "main.h"
 
 /*--------------------------------------------------------------------------
 
@@ -3010,6 +3011,7 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
 	vol = get_ldnumber(path);
 	if (vol < 0) return FR_INVALID_DRIVE;
 
+
 	/* Check if the file system object is valid or not */
 	fs = FatFs[vol];					/* Get pointer to the file system object */
 	if (!fs) return FR_NOT_ENABLED;		/* Is the file system object available? */
@@ -3019,6 +3021,7 @@ FRESULT find_volume (	/* FR_OK(0): successful, !=0: any error occurred */
 
 	mode &= (BYTE)~FA_READ;				/* Desired access mode, write access or not */
 	if (fs->fs_type) {					/* If the volume has been mounted */
+
 		stat = disk_status(fs->drv);
 		if (!(stat & STA_NOINIT)) {		/* and the physical drive is kept initialized */
 			if (!_FS_READONLY && mode && (stat & STA_PROTECT)) {	/* Check write protection if needed */

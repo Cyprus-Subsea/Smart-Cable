@@ -1,8 +1,5 @@
 #include "sd.h"
-//--------------------------------------------------
-
-extern SPI_HandleTypeDef hspi1;
-extern UART_HandleTypeDef huart1;
+#include "string.h"
 
 // Definitions for MMC/SDC command
 #define CMD0 (0x40+0) // GO_IDLE_STATE
@@ -17,9 +14,76 @@ extern UART_HandleTypeDef huart1;
 #define CMD58 (0x40+58) // READ_OCR
 //--------------------------------------------------
 
-extern volatile uint16_t htim2;
 sd_info_ptr sdinfo;
-char str1[60]={0};
+uint16_t active_sd_ss_pin;
+GPIO_TypeDef* active_sd_ss_port;
+ss_pp cards_ss[4];
+char tt[100];
+
+extern SPI_HandleTypeDef hspi1;
+extern UART_HandleTypeDef huart1;
+extern volatile uint16_t htim2;
+
+void sd_init_lib()
+{
+ MX_FATFS_Init();
+}
+
+void sd_init_disk(FATFS*    fs,char* path)
+{
+
+  FRESULT res;
+
+  res=f_mount(fs,path,1);
+
+  if(res){
+   sprintf(tt,"Mount error %d.\n",res);
+   HAL_UART_Transmit(&huart1,tt,strlen(tt),200);
+
+  }
+}
+
+void sd_ss_set_active(uint8_t drv)
+{
+  active_sd_ss_pin=cards_ss[drv].sd_ss_pin;
+  active_sd_ss_port=cards_ss[drv].sd_ss_port;
+}
+
+void sd_ss_active_pin_down()
+{
+  HAL_GPIO_WritePin(active_sd_ss_port, active_sd_ss_pin, GPIO_PIN_RESET);
+}
+void sd_ss_active_pin_up()
+{
+  HAL_GPIO_WritePin(active_sd_ss_port, active_sd_ss_pin, GPIO_PIN_SET);
+}
+
+void sd_read_free_space(FATFS* fs,char* path)
+{
+
+	DWORD fre_clust, fre_sect, tot_sect;
+	FRESULT res;
+
+
+
+	/* Get volume information and free clusters of drive 1 */
+	res = f_getfree(path, &fre_clust, &fs);
+	if (res){
+		sprintf(tt,"Get free error.\n");
+		HAL_UART_Transmit(&huart1,tt,strlen(tt),200);
+	}
+	else{
+	/* Get total sectors and free sectors */
+	tot_sect = (fs->n_fatent - 2) * fs->csize;
+	fre_sect = fre_clust * fs->csize;
+
+	/* Print the free space (assuming 512 bytes/sector) */
+	sprintf(tt,"%10lu KiB total drive space.\n%10lu KiB available.\n", tot_sect / 2, fre_sect / 2);
+	HAL_UART_Transmit(&huart1,tt,strlen(tt),200);
+	}
+
+
+}
 
 
 
@@ -30,20 +94,6 @@ void SD_PowerOn(void)
     ;
 }
 
-//-----------------------------------------------
-uint8_t SPI_wait_ready(void)
-{
-  uint8_t res;
-  uint16_t cnt;
-  cnt=0;
-  do {
-    res=SPI_ReceiveByte();
-    cnt++;
-  } while ( (res!=0xFF)&&(cnt<0xFFFF) );
-  if (cnt>=0xFFFF) return 1;
-  return res;
-}
-//-----------------------------------------------
 
 
 //-----------------------------------------------
@@ -60,6 +110,7 @@ static uint8_t SD_cmd (uint8_t cmd, uint32_t arg)
   // Select the card
   SS_SD_DESELECT();
   SPI_ReceiveByte();
+
   SS_SD_SELECT();
   SPI_ReceiveByte();
   // Send a command packet
@@ -78,7 +129,6 @@ static uint8_t SD_cmd (uint8_t cmd, uint32_t arg)
   do {
     res = SPI_ReceiveByte();
   } while ((res & 0x80) && --n);
-
   return res;
 }
 //-----------------------------------------------
@@ -93,6 +143,7 @@ uint8_t sd_ini(void)
 	  //LD_OFF;
 	  sdinfo.type = 0;
 
+	  /*
 	  temp=hspi1.Init.BaudRatePrescaler;
 	  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256; //156.25 kbbs
 	  HAL_SPI_Init(&hspi1);
@@ -102,6 +153,8 @@ uint8_t sd_ini(void)
 
 	  hspi1.Init.BaudRatePrescaler = temp;
 	  HAL_SPI_Init(&hspi1);
+	  */
+
 	  SS_SD_SELECT();
 	  if (SD_cmd(CMD0, 0) == 1) // Enter Idle state
 	  {
@@ -136,9 +189,11 @@ uint8_t sd_ini(void)
 			    if (!tmr || SD_cmd(CMD16, 512) != 0) // Set R/W block length to 512
 			    sdinfo.type = 0;
 		  }
+
 	  }
 	  else
 	  {
+
 	    return 1;
 	  }
 
@@ -152,6 +207,20 @@ uint8_t sd_ini(void)
 static void Error (void)
 {
   //LD_ON;
+}
+//-----------------------------------------------
+//-----------------------------------------------
+uint8_t SPI_wait_ready(void)
+{
+  uint8_t res;
+  uint16_t cnt;
+  cnt=0;
+  do {
+    res=SPI_ReceiveByte();
+    cnt++;
+  } while ( (res!=0xFF)&&(cnt<0xFFFF) );
+  if (cnt>=0xFFFF) return 1;
+  return res;
 }
 //-----------------------------------------------
 
@@ -191,9 +260,10 @@ uint8_t SD_Read_Block (uint8_t *buff, uint32_t lba)
   uint8_t result;
   uint16_t cnt;
 
-
   result=SD_cmd (CMD17, lba);
-  if (result!=0x00) return 5;
+  if (result!=0x00){
+	  return 5;
+  }
 
   SPI_Release();
    cnt=0;
@@ -201,11 +271,12 @@ uint8_t SD_Read_Block (uint8_t *buff, uint32_t lba)
      result=SPI_ReceiveByte();
      cnt++;
    } while ( (result!=0xFE)&&(cnt<0xFFFF) );
-   if (cnt>=0xFFFF) return 5;
+   if (cnt>=0xFFFF) {
+	   return 5;
+   }
    for (cnt=0;cnt<512;cnt++) buff[cnt]=SPI_ReceiveByte();
    SPI_Release();
    SPI_Release();
-
 
 
 
@@ -216,23 +287,31 @@ uint8_t SD_Read_Block (uint8_t *buff, uint32_t lba)
 //-----------------------------------------------
 uint8_t SD_Write_Block (uint8_t *buff, uint32_t lba)
 {
+
   uint8_t result;
   uint16_t cnt;
   result=SD_cmd(CMD24,lba);
-  if (result!=0x00) return 6;
+  if (result!=0x00){
+	  return 6;
+  }
   SPI_Release();
   SPI_SendByte (0xFE);
   for (cnt=0;cnt<512;cnt++) SPI_SendByte(buff[cnt]);
   SPI_Release();
   SPI_Release();
   result=SPI_ReceiveByte();
-  if ((result&0x05)!=0x05) return 6;
+  if ((result&0x05)!=0x05) {
+	  return 6;
+  }
   cnt=0;
   do {
     result=SPI_ReceiveByte();
     cnt++;
   } while ( (result!=0xFF)&&(cnt<0xFFFF) );
-  if (cnt>=0xFFFF) return 6;
+  if (cnt>=0xFFFF) {
+	  return 6;
+  }
+
   return 0;
 }
 //-----------------------------------------------
