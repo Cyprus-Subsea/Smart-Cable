@@ -7,10 +7,12 @@
 #include <stdint.h>
 #include "main.h"
 #include "fatfs.h"
+#include "system_definitions.h"
 
 //--------------------------------------------------
 //--------------------------------------------------
 #endif /* SD_H_ */
+
 
 
 void    SD_PowerOn(void);
@@ -27,9 +29,6 @@ uint8_t SPI_wait_ready(void);
 void    sd_ss_set_active(uint8_t drv);
 void    sd_ss_active_pin_down();
 void    sd_ss_active_pin_up();
-void    sd_init_disk(FATFS* fs,char* path);
-void    sd_init_lib();
-void    sd_read_free_space(FATFS* fs,char* path);
 
 
 #define SS_SD_SELECT()   sd_ss_active_pin_down()

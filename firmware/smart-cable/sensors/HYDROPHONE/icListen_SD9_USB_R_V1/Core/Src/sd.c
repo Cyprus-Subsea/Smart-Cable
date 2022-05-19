@@ -17,36 +17,18 @@
 sd_info_ptr sdinfo;
 uint16_t active_sd_ss_pin;
 GPIO_TypeDef* active_sd_ss_port;
-ss_pp cards_ss[4];
+ss_pp sd_cards_ss[4];
 char tt[100];
 
 extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart1;
 extern volatile uint16_t htim2;
 
-void sd_init_lib()
-{
- MX_FATFS_Init();
-}
-
-void sd_init_disk(FATFS*    fs,char* path)
-{
-
-  FRESULT res;
-
-  res=f_mount(fs,path,1);
-
-  if(res){
-   sprintf(tt,"Mount error %d.\n",res);
-   HAL_UART_Transmit(&huart1,tt,strlen(tt),200);
-
-  }
-}
 
 void sd_ss_set_active(uint8_t drv)
 {
-  active_sd_ss_pin=cards_ss[drv].sd_ss_pin;
-  active_sd_ss_port=cards_ss[drv].sd_ss_port;
+  active_sd_ss_pin=sd_cards_ss[drv].sd_ss_pin;
+  active_sd_ss_port=sd_cards_ss[drv].sd_ss_port;
 }
 
 void sd_ss_active_pin_down()
@@ -58,32 +40,7 @@ void sd_ss_active_pin_up()
   HAL_GPIO_WritePin(active_sd_ss_port, active_sd_ss_pin, GPIO_PIN_SET);
 }
 
-void sd_read_free_space(FATFS* fs,char* path)
-{
 
-	DWORD fre_clust, fre_sect, tot_sect;
-	FRESULT res;
-
-
-
-	/* Get volume information and free clusters of drive 1 */
-	res = f_getfree(path, &fre_clust, &fs);
-	if (res){
-		sprintf(tt,"Get free error.\n");
-		HAL_UART_Transmit(&huart1,tt,strlen(tt),200);
-	}
-	else{
-	/* Get total sectors and free sectors */
-	tot_sect = (fs->n_fatent - 2) * fs->csize;
-	fre_sect = fre_clust * fs->csize;
-
-	/* Print the free space (assuming 512 bytes/sector) */
-	sprintf(tt,"%10lu KiB total drive space.\n%10lu KiB available.\n", tot_sect / 2, fre_sect / 2);
-	HAL_UART_Transmit(&huart1,tt,strlen(tt),200);
-	}
-
-
-}
 
 
 

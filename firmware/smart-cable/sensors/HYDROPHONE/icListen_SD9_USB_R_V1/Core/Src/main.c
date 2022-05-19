@@ -25,9 +25,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "string.h"
-#include "fatfs.h"
+#include "em_sd_storage.h"
 #include "wav.h"
-#include "sd.h"
+
 
 /* USER CODE END Includes */
 
@@ -66,11 +66,7 @@ wav_file wav_file2;
 wav_file wav_file3;
 wav_file wav_file4;
 
-
-
-extern ss_pp cards_ss[4];
-
-
+sd_storage_t storage1;
 
 /* USER CODE END PV */
 
@@ -438,59 +434,40 @@ void StartDefaultTask(void const * argument)
 void storage_f(void const * argument)
 {
   /* USER CODE BEGIN storage_f */
-
+  char t5[40];
   osDelay(500);
   HAL_UART_Transmit(&huart1,"FATFS start\n",12,100);
 
-  cards_ss[0].sd_ss_pin=SS_SD1_Pin;
-  cards_ss[0].sd_ss_port=GPIOA;
-  cards_ss[1].sd_ss_pin=SS_SD2_Pin;
-  cards_ss[1].sd_ss_port=GPIOA;
-  cards_ss[2].sd_ss_pin=SS_SD3_Pin;
-  cards_ss[2].sd_ss_port=SS_SD3_GPIO_Port;
-  cards_ss[3].sd_ss_pin=SS_SD4_Pin;
-  cards_ss[3].sd_ss_port=GPIOA;
+  sd_storage_link_ss(&storage1,0,SS_SD1_Pin,GPIOA);
+  sd_storage_link_ss(&storage1,1,SS_SD2_Pin,GPIOA);
+  sd_storage_link_ss(&storage1,2,SS_SD3_Pin,SS_SD3_GPIO_Port);
+  sd_storage_link_ss(&storage1,3,SS_SD4_Pin,GPIOA);
+  sd_storage_init(&storage1);
 
-  sd_init_lib();
-  FATFS    fs0;
-  FATFS    fs1;
-  FATFS    fs2;
-  FATFS    fs3;
+  for(int i=0;i<SD_STORAGE_NUM_DISKS;i++)
+  {
+	sprintf(t5,"I:%d S:%d T:%d F:%d\n",i,storage1.disks[i].status,storage1.disks[i].size,storage1.disks[i].free_space);
+	HAL_UART_Transmit(&huart1,t5,strlen(t5),100);
+  }
 
-  HAL_UART_Transmit(&huart1,"Mount0\n",7,100);
-  sd_init_disk(&fs0,"0:");
-  HAL_UART_Transmit(&huart1,"Mount1\n",7,100);
-  sd_init_disk(&fs1,"1:");
-  HAL_UART_Transmit(&huart1,"Mount2\n",7,100);
-  sd_init_disk(&fs2,"2:");
-  HAL_UART_Transmit(&huart1,"Mount3\n",7,100);
-  sd_init_disk(&fs3,"3:");
+  /*
+  wav_file_open(&wav_file1,"0:test1.wav");
+  wav_file_write(&wav_file1,"Test1.wav",8);
+  wav_file_close(&wav_file1);
 
-  HAL_UART_Transmit(&huart1,"Read0\n",6,100);
-  sd_read_free_space(&fs0,"0:");
-  HAL_UART_Transmit(&huart1,"Read1\n",6,100);
-  sd_read_free_space(&fs1,"1:");
-  HAL_UART_Transmit(&huart1,"Read2\n",6,100);
-  sd_read_free_space(&fs2,"2:");
-  HAL_UART_Transmit(&huart1,"Read3\n",6,100);
-  sd_read_free_space(&fs3,"3:");
+  wav_file_open(&wav_file2,"1:test2.wav");
+  wav_file_write(&wav_file2,"Test2.wav",8);
+  wav_file_close(&wav_file2);
 
-  //wav_file_open(&wav_file1,"0:test1.wav");
-  //wav_file_open(&wav_file2,"1:test2.wav");
   wav_file_open(&wav_file3,"2:test3.wav");
-  wav_file_open(&wav_file4,"3:test4.wav");
-
-  //wav_file_write(&wav_file1,"Test1.wav",8);
-  //wav_file_write(&wav_file2,"Test2.wav",8);
   wav_file_write(&wav_file3,"Test3.wav",8);
-  wav_file_write(&wav_file4,"Test4.wav",8);
-
-  //wav_file_close(&wav_file1);
-  //wav_file_close(&wav_file2);
   wav_file_close(&wav_file3);
+
+  wav_file_open(&wav_file4,"3:test4.wav");
+  wav_file_write(&wav_file4,"Test4.wav",8);
   wav_file_close(&wav_file4);
 
-  HAL_UART_Transmit(&huart1,"read SD1\n",9,100);
+  HAL_UART_Transmit(&huart1,"\nread SD1\n",10,100);
   readDir("0:/");
   HAL_UART_Transmit(&huart1,"read SD2\n",9,100);
   readDir("1:/");
@@ -499,12 +476,26 @@ void storage_f(void const * argument)
   HAL_UART_Transmit(&huart1,"read SD4\n",9,100);
   readDir("3:/");
 
+  f_unlink("0:test1.wav");
+  f_unlink("1:test2.wav");
+  f_unlink("2:test3.wav");
+  f_unlink("3:test4.wav");
+
+  HAL_UART_Transmit(&huart1,"\nread SD1\n",10,100);
+  readDir("0:/");
+  HAL_UART_Transmit(&huart1,"read SD2\n",9,100);
+  readDir("1:/");
+  HAL_UART_Transmit(&huart1,"read SD3\n",9,100);
+  readDir("2:/");
+  HAL_UART_Transmit(&huart1,"read SD4\n",9,100);
+  readDir("3:/");
+  */
+
   HAL_UART_Transmit(&huart1,"FATFS finished\n",15,100);
 
   /* Infinite loop */
   for(;;)
   {
-	//readDir();
     osDelay(200);
   }
   /* USER CODE END storage_f */
