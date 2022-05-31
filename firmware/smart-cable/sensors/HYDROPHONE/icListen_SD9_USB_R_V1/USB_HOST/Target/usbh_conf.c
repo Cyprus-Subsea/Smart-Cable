@@ -24,7 +24,8 @@
 #include "usbh_platform.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "main.h"
+#include "cmsis_os.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

@@ -31,18 +31,13 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
 extern UART_HandleTypeDef huart1;
-
-uint8_t uart_rx_buf[20];
-uint8_t usb_rx_buf[20];
-
-uint8_t uart_tx_msg[5];
-uint8_t uart_rx_msg[5];
-
+CDC_LineCodingTypeDef FrameFormat;
+extern osMessageQId AppliEventHandle;
+extern osMessageQId USB_rxHandle;
+uint8_t  usb_rx_buff[512];
 uint8_t read_info[]={0x2A,0x45,0x00,0x00,0x19,0xCD};
 
-extern osMessageQId AppliEventHandle;
 
 /* USER CODE END PV */
 
@@ -61,9 +56,22 @@ ApplicationTypeDef Appli_state = APPLICATION_IDLE;
 /* USER CODE BEGIN 0 */
 
 void send_function(){
-	 if(Appli_state == APPLICATION_READY ){
-		USBH_CDC_Transmit(&hUsbHostFS,read_info,6);
-	  }
+  USBH_CDC_Stop(&hUsbHostFS);
+  USBH_CDC_Transmit(&hUsbHostFS,read_info,6);
+}
+
+void receive_function(){
+  USBH_CDC_Stop(&hUsbHostFS);
+  USBH_CDC_Receive(&hUsbHostFS,usb_rx_buff,1);
+}
+
+void set_line_coding(){
+	FrameFormat.b.dwDTERate = 115200;
+	FrameFormat.b.bCharFormat = 0;
+	FrameFormat.b.bDataBits = 8;
+	FrameFormat.b.bParityType = 0;
+
+	USBH_CDC_SetLineCoding(&hUsbHostFS, &FrameFormat);
 }
 
 /* USER CODE END 0 */
@@ -80,12 +88,16 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
 
 void USBH_CDC_TransmitCallback(USBH_HandleTypeDef *phost)
 {
-  USBH_CDC_Receive(phost,usb_rx_buf,1);
+  //osMessagePut(USB_rxHandle,(uint8_t*)'a',0);
+  receive_function();
+
 }
 
 void USBH_CDC_ReceiveCallback(USBH_HandleTypeDef *phost)
 {
 
+   HAL_UART_Transmit(&huart1,usb_rx_buff,USBH_CDC_GetLastReceivedDataSize(phost),100);
+  // receive_function();
 }
 
 /* USER CODE END 1 */
@@ -97,6 +109,7 @@ void USBH_CDC_ReceiveCallback(USBH_HandleTypeDef *phost)
 void MX_USB_HOST_Init(void)
 {
   /* USER CODE BEGIN USB_HOST_Init_PreTreatment */
+
 
   /* USER CODE END USB_HOST_Init_PreTreatment */
 

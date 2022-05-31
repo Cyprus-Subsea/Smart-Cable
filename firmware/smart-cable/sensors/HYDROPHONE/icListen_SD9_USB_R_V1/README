@@ -1,16 +1,5 @@
 1. No need to enable FATFS in MX. FATFS 0.12 copied from F405 version.
 
-void MX_FATFS_Init(void)  //define here initialition of each new drive.
-{
-  /*## FatFS: Link the USER driver ###########################*/
-  retUSER = FATFS_LinkDriver(&USER_Driver, USERPath);
-  retUSER = FATFS_LinkDriver(&USER_Driver, USERPath2);
-
-  /* USER CODE BEGIN Init */
-  /* additional user code for init */
-  /* USER CODE END Init */
-}
- 	
 
  	
  	

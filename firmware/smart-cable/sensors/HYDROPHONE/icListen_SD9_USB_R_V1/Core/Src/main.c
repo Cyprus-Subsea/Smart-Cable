@@ -55,18 +55,21 @@ UART_HandleTypeDef huart1;
 
 osThreadId defaultTaskHandle;
 osThreadId storage_tHandle;
-osThreadId sensor_tHandle;
 osMessageQId AppliEventHandle;
+osMessageQId USB_rxHandle;
 /* USER CODE BEGIN PV */
 
 extern ApplicationTypeDef Appli_state;
-
+extern uint32_t buf_indx;
+uint32_t buf_read_indx;
+/*
 wav_file wav_file1;
 wav_file wav_file2;
 wav_file wav_file3;
 wav_file wav_file4;
 
 sd_storage_t storage1;
+*/
 
 /* USER CODE END PV */
 
@@ -78,7 +81,6 @@ static void MX_USART1_UART_Init(void);
 static void MX_TIM2_Init(void);
 void StartDefaultTask(void const * argument);
 void storage_f(void const * argument);
-void sensor_f(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -121,7 +123,6 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -141,22 +142,22 @@ int main(void)
   osMessageQDef(AppliEvent, 16, uint16_t);
   AppliEventHandle = osMessageCreate(osMessageQ(AppliEvent), NULL);
 
+  /* definition and creation of USB_rx */
+  osMessageQDef(USB_rx, 80, uint8_t);
+  USB_rxHandle = osMessageCreate(osMessageQ(USB_rx), NULL);
+
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of storage_t */
-  osThreadDef(storage_t, storage_f, osPriorityNormal, 0, 1024);
+  osThreadDef(storage_t, storage_f, osPriorityNormal, 0, 256);
   storage_tHandle = osThreadCreate(osThread(storage_t), NULL);
-
-  /* definition and creation of sensor_t */
-  osThreadDef(sensor_t, sensor_f, osPriorityNormal, 0, 128);
-  sensor_tHandle = osThreadCreate(osThread(sensor_t), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -197,7 +198,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.Prediv1Source = RCC_PREDIV1_SOURCE_PLL2;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   RCC_OscInitStruct.PLL2.PLL2State = RCC_PLL2_ON;
   RCC_OscInitStruct.PLL2.PLL2MUL = RCC_PLL2_MUL8;
   RCC_OscInitStruct.PLL2.HSEPrediv2Value = RCC_HSE_PREDIV2_DIV2;
@@ -215,12 +216,12 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     Error_Handler();
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB;
-  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL_DIV3;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL_DIV2;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -363,7 +364,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(SS_SD3_GPIO_Port, SS_SD3_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, SS_SD1_Pin|SS_SD2_Pin|SS_SD4_Pin, GPIO_PIN_SET);
@@ -371,12 +372,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USB_VBUS_GPIO_Port, USB_VBUS_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : SS_SD3_Pin */
-  GPIO_InitStruct.Pin = SS_SD3_Pin;
+  /*Configure GPIO pin : PC1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_1;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(SS_SD3_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SS_SD1_Pin SS_SD2_Pin SS_SD4_Pin */
   GPIO_InitStruct.Pin = SS_SD1_Pin|SS_SD2_Pin|SS_SD4_Pin;
@@ -415,11 +416,49 @@ void StartDefaultTask(void const * argument)
   /* init code for USB_HOST */
   MX_USB_HOST_Init();
   /* USER CODE BEGIN 5 */
+   osEvent event;
+   uint8_t ttt=3;
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	  event = osMessageGet(AppliEventHandle, osWaitForever);
+
+	  if(event.status == osEventMessage)
+	  {
+		switch(event.value.v)
+		{
+		 case APPLICATION_DISCONNECT:
+		  //osMessagePut(USB_rxHandle,(uint8_t*)'D', 1);
+		  //for(int i=0;i<20;i++){
+			  //osMessagePut(USB_rxHandle,usb_rx_buff[i], 1);
+		  //}
+		  //HAL_UART_Transmit(&huart1,"D",1,1);
+		 break;
+
+		 case APPLICATION_READY:
+		  //osMessagePut(USB_rxHandle,(uint8_t*)'R', 0);
+		  //HAL_UART_Transmit(&huart1,"R",1,1);
+		  while(1){
+			  send_function();
+			  osDelay(2000);
+		  }
+
+
+
+		 break;
+
+		 case APPLICATION_START:
+		   //osMessagePut(USB_rxHandle,(uint8_t*)'S', 0);
+		   set_line_coding();
+		   //HAL_UART_Transmit(&huart1,"S",1,1);
+		 break;
+
+		 default:
+		 break;
+		 }
+	   }
   }
+
   /* USER CODE END 5 */
 }
 
@@ -434,8 +473,9 @@ void StartDefaultTask(void const * argument)
 void storage_f(void const * argument)
 {
   /* USER CODE BEGIN storage_f */
-  char t5[40];
   osDelay(500);
+
+  /*
   HAL_UART_Transmit(&huart1,"FATFS start\n",12,100);
 
   sd_storage_link_ss(&storage1,0,SS_SD1_Pin,GPIOA);
@@ -450,10 +490,11 @@ void storage_f(void const * argument)
 	HAL_UART_Transmit(&huart1,t5,strlen(t5),100);
   }
 
-  /*
+
   wav_file_open(&wav_file1,"0:test1.wav");
   wav_file_write(&wav_file1,"Test1.wav",8);
   wav_file_close(&wav_file1);
+
 
   wav_file_open(&wav_file2,"1:test2.wav");
   wav_file_write(&wav_file2,"Test2.wav",8);
@@ -491,7 +532,7 @@ void storage_f(void const * argument)
   readDir("3:/");
   */
 
-  HAL_UART_Transmit(&huart1,"FATFS finished\n",15,100);
+ // HAL_UART_Transmit(&huart1,"FATFS finished\n",15,100);
 
   /* Infinite loop */
   for(;;)
@@ -499,53 +540,6 @@ void storage_f(void const * argument)
     osDelay(200);
   }
   /* USER CODE END storage_f */
-}
-
-/* USER CODE BEGIN Header_sensor_f */
-/**
-* @brief Function implementing the sensor_t thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_sensor_f */
-void sensor_f(void const * argument)
-{
-  /* USER CODE BEGIN sensor_f */
-  /* Infinite loop */
-  /* USER CODE BEGIN 5 */
-
-  MX_USB_HOST_Init();
-  //HAL_UART_Transmit(&huart1,(uint8_t*)"USB Start\r",10,100);
-
-  osEvent event;
-  /* Infinite loop */
-  for(;;)
-  {
-	  event = osMessageGet(AppliEventHandle, osWaitForever);
-
-	  if(event.status == osEventMessage)
-	  {
-		switch(event.value.v)
-		{
-		 case APPLICATION_DISCONNECT:
-		  HAL_UART_Transmit(&huart1,"ds",2,100);
-		 break;
-
-		 case APPLICATION_READY:
-		   HAL_UART_Transmit(&huart1,"rd",2,100);
-		   send_function();
-		 break;
-
-		 case APPLICATION_START:
-		   HAL_UART_Transmit(&huart1,"st",2,100);
-		 break;
-
-		 default:
-		 break;
-		 }
-	   }
-  }
-  /* USER CODE END sensor_f */
 }
 
 /**

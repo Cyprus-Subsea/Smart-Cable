@@ -33,6 +33,9 @@
 
 /* USER CODE BEGIN INCLUDE */
  void send_function();
+ void receive_function();
+ void set_line_coding();
+ void CDC_HANDLE (void);
 /* USER CODE END INCLUDE */
 
 /** @addtogroup USBH_OTG_DRIVER

@@ -10,6 +10,11 @@
 extern ss_pp sd_cards_ss[4];
 extern UART_HandleTypeDef huart1;
 
+F_RES sd_storage_disk_init(FATFS* fs,char* path)
+{
+	if(f_mount(fs,path,1)==FR_OK) return F_OK;
+	else return F_ERR;
+}
 F_RES sd_storage_init(sd_storage_t* self_object)
 {
   char tt[10];
@@ -23,7 +28,7 @@ F_RES sd_storage_init(sd_storage_t* self_object)
   for(int i=0;i<SD_STORAGE_NUM_DISKS;i++)
   {
 	  sprintf(tt,"%d:",i);
-	  if(f_mount(&self_object->disks[i].fs,tt,1)==FR_OK){
+	  if(sd_storage_disk_init(&self_object->disks[i].fs,tt)==F_OK){
 		  self_object->disks[i].status=DISK_PRESENT;
 		  sprintf(t5,"ID:%d\n",i);
 		  HAL_UART_Transmit(&huart1,t5,strlen(t5),100);
