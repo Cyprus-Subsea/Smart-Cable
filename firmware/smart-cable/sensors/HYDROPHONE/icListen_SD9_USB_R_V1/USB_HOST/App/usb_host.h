@@ -32,10 +32,21 @@
 #include "stm32f1xx_hal.h"
 
 /* USER CODE BEGIN INCLUDE */
- void send_function();
+#include "usbh_core.h"
+#include "usbh_cdc.h"
+#define USB_RX_BUFF_SIZE    4000
+
+
+
+ void set_time();
+ void enquire_device();
+ void collect_data();
+ void job_setup();
  void receive_function();
  void set_line_coding();
  void CDC_HANDLE (void);
+ uint32_t read_bytes(USBH_HandleTypeDef *phost);
+ void stop_function();
 /* USER CODE END INCLUDE */
 
 /** @addtogroup USBH_OTG_DRIVER

@@ -1,5 +1,78 @@
 1. No need to enable FATFS in MX. FATFS 0.12 copied from F405 version.
 
+2. usbh_cdc.c
+   function: static void CDC_ProcessReception(USBH_HandleTypeDef *phost)
+   line  with bug:    if (((CDC_Handle->RxDataLength - length) > 0U) && (length > CDC_Handle->DataItf.InEpSize))     
+   fixed:             if (((CDC_Handle->RxDataLength - length) > 0U) && (CDC_Handle->RxDataLength > CDC_Handle->DataItf.InEpSize))
+ 	
+ 	static void CDC_ProcessReception(USBH_HandleTypeDef *phost)
+{
+  CDC_HandleTypeDef *CDC_Handle = (CDC_HandleTypeDef *) phost->pActiveClass->pData;
+  USBH_URBStateTypeDef URB_Status = USBH_URB_IDLE;
+  uint32_t length;
 
- 	
- 	
+  switch (CDC_Handle->data_rx_state)
+  {
+
+    case CDC_RECEIVE_DATA:
+
+      USBH_BulkReceiveData(phost,
+                           CDC_Handle->pRxData,
+                           CDC_Handle->DataItf.InEpSize,
+                           CDC_Handle->DataItf.InPipe);
+
+      CDC_Handle->data_rx_state = CDC_RECEIVE_DATA_WAIT;
+
+      break;
+
+    case CDC_RECEIVE_DATA_WAIT:
+
+      URB_Status = USBH_LL_GetURBState(phost, CDC_Handle->DataItf.InPipe);
+
+      /*Check the status done for reception*/
+      if (URB_Status == USBH_URB_DONE)
+      {
+        length = USBH_LL_GetLastXferSize(phost, CDC_Handle->DataItf.InPipe);
+
+        if (((CDC_Handle->RxDataLength - length) > 0U) && (CDC_Handle->RxDataLength > CDC_Handle->DataItf.InEpSize))
+        {
+          CDC_Handle->RxDataLength -= length ;
+          CDC_Handle->pRxData += length;
+          if((wav_full_hdr_p->basic_hdr.length+6)==(USB_RX_BUFF_SIZE-CDC_Handle->RxDataLength))
+          {
+              CDC_Handle->data_rx_state = CDC_IDLE;
+              switch(wav_full_hdr_p->basic_hdr.type)
+              {
+               case MSG_TYPE_COLLECT_DATA:
+            	   osMessagePut(USB_rxHandle,(uint32_t)wav_full_hdr_p->wav_hdr.seq_num,0);
+            	   collect_data();
+               break;
+
+              };
+          }
+          else{
+        	CDC_Handle->data_rx_state = CDC_RECEIVE_DATA;
+          }
+
+        }
+        else
+        {
+          CDC_Handle->data_rx_state = CDC_IDLE;
+          USBH_CDC_ReceiveCallback(phost);
+        }
+
+#if (USBH_USE_OS == 1U)
+        phost->os_msg = (uint32_t)USBH_CLASS_EVENT;
+#if (osCMSIS < 0x20000U)
+        (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
+#else
+        (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
+#endif
+#endif
+      }
+      break;
+
+    default:
+      break;
+  }
+}

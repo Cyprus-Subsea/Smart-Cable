@@ -52,7 +52,8 @@ Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Src/usbh_cdc.o: \
  ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ioreq.h \
  ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_core.h \
  ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_pipes.h \
- ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ctlreq.h
+ ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ctlreq.h \
+ ../USB_HOST/App/usb_host.h ../Core/Inc/icListen.h
 ../Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Inc/usbh_cdc.h:
 ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_core.h:
 ../USB_HOST/Target/usbh_conf.h:
@@ -107,3 +108,5 @@ Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Src/usbh_cdc.o: \
 ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_core.h:
 ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_pipes.h:
 ../Middlewares/ST/STM32_USB_Host_Library/Core/Inc/usbh_ctlreq.h:
+../USB_HOST/App/usb_host.h:
+../Core/Inc/icListen.h:

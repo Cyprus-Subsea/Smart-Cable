@@ -1,0 +1,8 @@
+1. No need to enable FATFS in MX. FATFS 0.12 copied from F405 version.
+
+2. usbh_cdc.c
+   function: static void CDC_ProcessReception(USBH_HandleTypeDef *phost)
+   line  with bug:    if (((CDC_Handle->RxDataLength - length) > 0U) && (length > CDC_Handle->DataItf.InEpSize))     
+   fixed:             if (((CDC_Handle->RxDataLength - length) > 0U) && (CDC_Handle->RxDataLength > CDC_Handle->DataItf.InEpSize))
+ 	
+

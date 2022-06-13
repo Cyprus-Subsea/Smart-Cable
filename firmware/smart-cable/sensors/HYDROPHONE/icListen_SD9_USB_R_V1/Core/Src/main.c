@@ -27,7 +27,7 @@
 #include "string.h"
 #include "em_sd_storage.h"
 #include "wav.h"
-
+#include "icListen.h"
 
 /* USER CODE END Includes */
 
@@ -55,13 +55,17 @@ UART_HandleTypeDef huart1;
 
 osThreadId defaultTaskHandle;
 osThreadId storage_tHandle;
+osThreadId icListen_tHandle;
 osMessageQId AppliEventHandle;
 osMessageQId USB_rxHandle;
 /* USER CODE BEGIN PV */
-
+extern uint8_t usb_rx_buff[USB_RX_BUFF_SIZE];
 extern ApplicationTypeDef Appli_state;
-extern uint32_t buf_indx;
-uint32_t buf_read_indx;
+extern USBH_HandleTypeDef hUsbHostFS;
+CDC_HandleTypeDef *CDC_Handle;
+
+icListen_wav_full_header* wav_full_hdr_p;
+
 /*
 wav_file wav_file1;
 wav_file wav_file2;
@@ -71,6 +75,10 @@ wav_file wav_file4;
 sd_storage_t storage1;
 */
 
+char t5[50];
+
+char temp[100];
+uint8_t usb_status;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -81,6 +89,7 @@ static void MX_USART1_UART_Init(void);
 static void MX_TIM2_Init(void);
 void StartDefaultTask(void const * argument);
 void storage_f(void const * argument);
+void icListen_f(void const * argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -143,7 +152,7 @@ int main(void)
   AppliEventHandle = osMessageCreate(osMessageQ(AppliEvent), NULL);
 
   /* definition and creation of USB_rx */
-  osMessageQDef(USB_rx, 80, uint8_t);
+  osMessageQDef(USB_rx, 10, uint32_t);
   USB_rxHandle = osMessageCreate(osMessageQ(USB_rx), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
@@ -152,12 +161,16 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of storage_t */
-  osThreadDef(storage_t, storage_f, osPriorityNormal, 0, 256);
+  osThreadDef(storage_t, storage_f, osPriorityNormal, 0, 512);
   storage_tHandle = osThreadCreate(osThread(storage_t), NULL);
+
+  /* definition and creation of icListen_t */
+  osThreadDef(icListen_t, icListen_f, osPriorityNormal, 0, 256);
+  icListen_tHandle = osThreadCreate(osThread(icListen_t), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -255,7 +268,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -364,7 +377,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_1, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(SS_SD3_GPIO_Port, SS_SD3_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, SS_SD1_Pin|SS_SD2_Pin|SS_SD4_Pin, GPIO_PIN_SET);
@@ -372,12 +385,12 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(USB_VBUS_GPIO_Port, USB_VBUS_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : PC1 */
-  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  /*Configure GPIO pin : SS_SD3_Pin */
+  GPIO_InitStruct.Pin = SS_SD3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_Init(SS_SD3_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SS_SD1_Pin SS_SD2_Pin SS_SD4_Pin */
   GPIO_InitStruct.Pin = SS_SD1_Pin|SS_SD2_Pin|SS_SD4_Pin;
@@ -416,8 +429,9 @@ void StartDefaultTask(void const * argument)
   /* init code for USB_HOST */
   MX_USB_HOST_Init();
   /* USER CODE BEGIN 5 */
+
    osEvent event;
-   uint8_t ttt=3;
+   HAL_UART_Transmit(&huart1,"USB start\n",10,100);
   /* Infinite loop */
   for(;;)
   {
@@ -428,29 +442,16 @@ void StartDefaultTask(void const * argument)
 		switch(event.value.v)
 		{
 		 case APPLICATION_DISCONNECT:
-		  //osMessagePut(USB_rxHandle,(uint8_t*)'D', 1);
-		  //for(int i=0;i<20;i++){
-			  //osMessagePut(USB_rxHandle,usb_rx_buff[i], 1);
-		  //}
-		  //HAL_UART_Transmit(&huart1,"D",1,1);
+			 usb_status=0;
 		 break;
 
 		 case APPLICATION_READY:
-		  //osMessagePut(USB_rxHandle,(uint8_t*)'R', 0);
-		  //HAL_UART_Transmit(&huart1,"R",1,1);
-		  while(1){
-			  send_function();
-			  osDelay(2000);
-		  }
-
-
-
+			 osDelay(5000);
+			 usb_status=1;
 		 break;
 
 		 case APPLICATION_START:
-		   //osMessagePut(USB_rxHandle,(uint8_t*)'S', 0);
-		   set_line_coding();
-		   //HAL_UART_Transmit(&huart1,"S",1,1);
+		   //set_line_coding();
 		 break;
 
 		 default:
@@ -508,6 +509,7 @@ void storage_f(void const * argument)
   wav_file_write(&wav_file4,"Test4.wav",8);
   wav_file_close(&wav_file4);
 
+
   HAL_UART_Transmit(&huart1,"\nread SD1\n",10,100);
   readDir("0:/");
   HAL_UART_Transmit(&huart1,"read SD2\n",9,100);
@@ -530,9 +532,10 @@ void storage_f(void const * argument)
   readDir("2:/");
   HAL_UART_Transmit(&huart1,"read SD4\n",9,100);
   readDir("3:/");
-  */
 
- // HAL_UART_Transmit(&huart1,"FATFS finished\n",15,100);
+
+  HAL_UART_Transmit(&huart1,"FATFS finished\n",15,100);
+  */
 
   /* Infinite loop */
   for(;;)
@@ -540,6 +543,56 @@ void storage_f(void const * argument)
     osDelay(200);
   }
   /* USER CODE END storage_f */
+}
+
+/* USER CODE BEGIN Header_icListen_f */
+/**
+* @brief Function implementing the icListen_t thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_icListen_f */
+void icListen_f(void const * argument)
+{
+  /* USER CODE BEGIN icListen_f */
+	osEvent event;
+  /* Infinite loop */
+  usb_status=0;
+  uint16_t prev_seq;
+
+  while(usb_status==0)
+  {
+	  osDelay(1);
+  }
+  set_time();
+  osDelay(100);
+  enquire_device();
+  osDelay(100);
+  job_setup();
+  osDelay(2000);
+  collect_data();
+  for(;;)
+  {
+	  if(usb_status==1){
+	   event = osMessageGet(USB_rxHandle, osWaitForever);
+	   if(event.status == osEventMessage)
+	   {
+		   if(event.value.v!=(prev_seq+1) || event.value.v==0){
+	         //sprintf(temp,"Type:%d Len:%d\n",wav_full_hdr_p->basic_hdr.type,wav_full_hdr_p->basic_hdr.length);
+	         //HAL_UART_Transmit(&huart1,temp,strlen(temp),100);
+	         //sprintf(temp,"Mask:%d\n",wav_full_hdr_p->mask_hdr.mask);
+	         //HAL_UART_Transmit(&huart1,temp,strlen(temp),100);
+	         //sprintf(temp,"S:%d D:%d L:%d G:%d S:%d HS:%d MF:%d\n",wav_full_hdr_p->wav_hdr.seq_num,wav_full_hdr_p->wav_hdr.bit_depth,wav_full_hdr_p->wav_hdr.num_of_bytes,wav_full_hdr_p->wav_hdr.gain,wav_full_hdr_p->wav_hdr.sample_rate,wav_full_hdr_p->wav_hdr.sensitivity,wav_full_hdr_p->wav_hdr.full_scale_mv);
+	         //HAL_UART_Transmit(&huart1,temp,strlen(temp),100);
+		     sprintf(temp,"Seq:%d\n",event.value.v);
+		     HAL_UART_Transmit(&huart1,temp,strlen(temp),100);
+		   }
+		   prev_seq=event.value.v;
+		 }
+	   }
+
+  }
+  /* USER CODE END icListen_f */
 }
 
 /**
