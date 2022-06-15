@@ -282,6 +282,15 @@ DRESULT USER_read (
 	}
 	else /* Multiple block read */
 	{
+		do{
+			SD_Read_Block((BYTE*)buff,sector);
+			if (!(sdinfo.type & 4)){
+				sector+=512;
+			}
+			else sector++;
+			buff+=512;
+			count--;
+		}while(count>0);
 	}
 	SPI_Release();
 	SS_SD_DESELECT();
@@ -329,7 +338,6 @@ DRESULT USER_write (
 )
 {
   /* USER CODE BEGIN WRITE */
-	HAL_UART_Transmit(&huart1,&count,sizeof(UINT),100);
   /* USER CODE HERE */
 	SS_SD_SELECT();
 	if (pdrv || !count) return RES_PARERR;
@@ -343,6 +351,16 @@ DRESULT USER_write (
 	}
 	else /* Multiple block write */
 	{
+		do{
+			SD_Write_Block((BYTE*)buff,sector);
+			if (!(sdinfo.type & 4)){
+				sector+=512;
+			}
+			else sector++;
+			buff+=512;
+			count--;
+
+		}while(count>0);
 	}
 	SPI_Release();
 	SS_SD_DESELECT();
@@ -350,6 +368,7 @@ DRESULT USER_write (
 	return count ? RES_ERROR : RES_OK;
   /* USER CODE END WRITE */
 }
+
 #endif /* _USE_WRITE == 1 */
 
 /**

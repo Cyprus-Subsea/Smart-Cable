@@ -6,6 +6,7 @@
 "./Core/Src/main.o"
 "./Core/Src/mcu_flash.o"
 "./Core/Src/sd.o"
+"./Core/Src/sdcard.o"
 "./Core/Src/stm32f4xx_hal_msp.o"
 "./Core/Src/stm32f4xx_hal_timebase_tim.o"
 "./Core/Src/stm32f4xx_it.o"
