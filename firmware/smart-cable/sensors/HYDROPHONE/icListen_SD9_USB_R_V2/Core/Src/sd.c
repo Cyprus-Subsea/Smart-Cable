@@ -18,7 +18,7 @@ sd_info_ptr sdinfo;
 uint16_t active_sd_ss_pin;
 GPIO_TypeDef* active_sd_ss_port;
 ss_pp sd_cards_ss[4];
-char tt[100];
+
 
 extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart1;

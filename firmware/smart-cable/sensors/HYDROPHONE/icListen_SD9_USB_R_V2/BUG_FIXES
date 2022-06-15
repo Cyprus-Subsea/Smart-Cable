@@ -54,8 +54,11 @@ EndBSPDependencies */
 /** @addtogroup USBH_LIB
 * @{
 */
-extern icListen_wav_full_header* wav_full_hdr_p;
+icListen_basic_header*  icListen_rx_msg_basic_header;
 extern osMessageQId USB_rxHandle;
+extern osMessageQId USB_txHandle;
+extern uint8_t usb_rx_buff[USB_RX_NUM_OF_BUFFERS][USB_RX_BUFF_SIZE];
+extern uint8_t usb_rx_buff_active;
 
 /** @addtogroup USBH_LIB
   * @{
@@ -616,7 +619,7 @@ USBH_StatusTypeDef  USBH_CDC_Receive(USBH_HandleTypeDef *phost, uint8_t *pbuff, 
 
   if ((CDC_Handle->state == CDC_IDLE_STATE) || (CDC_Handle->state == CDC_TRANSFER_DATA))
   {
-	wav_full_hdr_p=(icListen_wav_full_header*)pbuff;
+	icListen_rx_msg_basic_header=(icListen_wav_full_header*)pbuff;
     CDC_Handle->pRxData = pbuff;
     CDC_Handle->RxDataLength = length;
     CDC_Handle->state = CDC_TRANSFER_DATA;
@@ -765,17 +768,12 @@ static void CDC_ProcessReception(USBH_HandleTypeDef *phost)
          {
            CDC_Handle->RxDataLength -= length ;
            CDC_Handle->pRxData += length;
-           if((wav_full_hdr_p->basic_hdr.length+6)==(USB_RX_BUFF_SIZE-CDC_Handle->RxDataLength))
+           if((icListen_rx_msg_basic_header->length+6)==(USB_RX_BUFF_SIZE-CDC_Handle->RxDataLength))
            {
                CDC_Handle->data_rx_state = CDC_IDLE;
-               switch(wav_full_hdr_p->basic_hdr.type)
-               {
-                case MSG_TYPE_COLLECT_DATA:
-             	   osMessagePut(USB_rxHandle,(uint32_t)wav_full_hdr_p->wav_hdr.seq_num,0);
-             	   collect_data();
-                break;
-
-               };
+               osMessagePut(USB_rxHandle, (uint8_t*)usb_rx_buff[usb_rx_buff_active], 0U);
+               usb_rx_buff_active++;
+               usb_rx_buff_active%=USB_RX_NUM_OF_BUFFERS;
            }
            else{
          	CDC_Handle->data_rx_state = CDC_RECEIVE_DATA;

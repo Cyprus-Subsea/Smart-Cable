@@ -11,6 +11,11 @@
 #include "main.h"
 #include "system_definitions.h"
 
+
+#define ICLISTEN_DEFAULT_WAV_SAMPLE_RATE            32000
+#define ICLISTEN_DEFAULT_WAV_SAMPLE_BIT_DEPTH          24
+#define ICLISTEN_DEFAULT_FILE_DURATION                  1
+
 #define MSG_SYNC                       0x2A
 
 
@@ -159,11 +164,15 @@ typedef struct
 
 //------------- icListen object -------------------------
 
+typedef enum{
+	CONNECTED=0,
+	DISCONNECTED
+}icListen_status_typedef;
+
 #pragma pack (push, 1)
 typedef struct
 {
   uint32_t           wav_sample_rate;
-  uint32_t      wav_sample_bit_depth;
   uint32_t      wav_sample_bit_depth;
   uint32_t             file_duration;
 } icListen_settings_typedef;
@@ -176,8 +185,8 @@ typedef struct
 	uint8_t                               firmware_version[8];
 	uint8_t                                    build_date[18];
 	uint8_t                                       device_type;
-	uint8_t                                            status;
-	icListen_settings_typedef                        settings;
+	icListen_status_typedef                            status;
+	icListen_settings_typedef*                       settings;
 } icListen_object_typedef;
 
 

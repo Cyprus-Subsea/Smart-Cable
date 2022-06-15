@@ -1,0 +1,12 @@
+../Core/Src/UI.c:27:6:UI_init	104	static
+../Core/Src/UI.c:46:6:UI_loop	24	static
+../Core/Src/UI.c:61:6:UI_media_process_byte	16	static
+../Core/Src/UI.c:88:9:UI_media_get_byte	32	static
+../Core/Src/UI.c:100:6:UI_send_msg	32	static
+../Core/Src/UI.c:123:9:UI_get_event	16	static
+../Core/Src/UI.c:133:5:UI_parse_message	32	static
+../Core/Src/UI.c:149:6:UI_messages_init	16	static
+../Core/Src/UI.c:162:5:UI_MSG_HELP_f	32	static
+../Core/Src/UI.c:172:5:UI_MSG_RESET_f	32	static
+../Core/Src/UI.c:188:5:UI_MSG_SHOW_f	40	static
+../Core/Src/UI.c:215:5:UI_MSG_SET_f	16	static

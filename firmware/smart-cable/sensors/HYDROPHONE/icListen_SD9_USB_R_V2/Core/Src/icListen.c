@@ -7,6 +7,13 @@
 #include "icListen.h"
 #include "crc.h"
 #include "string.h"
+#include "cmsis_os.h"
+#include "UI.h"
+
+icListen_object_typedef icListen;
+extern osMessageQId storage_wHandle;
+extern UART_HandleTypeDef huart1;
+memory_region_pointer msg_ptr2;
 
 void icListen_prepare_setup_msg(icListen_setup_full_msg* msg,uint32_t wav_sample_rate,uint32_t wav_sample_bit_depth)
 {
@@ -84,6 +91,7 @@ void icListen_prepare_enquire_device_msg(icListen_enquire_device_msg* msg)
 
 F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object)
 {
+
 	icListen_basic_header* basic_header=(icListen_basic_header*)msg;
 	icListen_status_basic_msg* status_msg=(icListen_status_basic_msg*)msg;
 
@@ -91,23 +99,25 @@ F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object)
 
 	if(basic_header->sync==MSG_SYNC){
 
-	 if(crc_msg==get_crc16_arc(msg,(uint16_t)basic_header->length+4)){
-		  switch(basic_header->type){
-		      case MSG_TYPE_ENQUIRE_DEVICE:
+	switch(basic_header->type){
+	     case MSG_TYPE_ENQUIRE_DEVICE:
+	    	 if(crc_msg==get_crc16_arc(msg,(uint16_t)basic_header->length+4)){
 		    	  self_object->status=status_msg->status;
 		    	  memcpy(self_object->build_date,status_msg->build_date,18);
 		    	  memcpy(self_object->firmware_version,status_msg->firmware_version,8);
 		    	  self_object->serial_number=status_msg->serial_number;
 		    	  self_object->device_type=status_msg->device_type;
 		    	  return F_OK;
-			  break;
-		      case MSG_TYPE_COLLECT_DATA:
-			  break;
-		  };
-	 }
-	 else{
-		 return F_ERR;
-	 }
+	    	  }
+	    	 else return F_ERR;
+	     break;
+		 case MSG_TYPE_COLLECT_DATA:
+		    	  msg_ptr2.start_addr=msg+sizeof(icListen_basic_header);
+		    	  msg_ptr2.size=basic_header->length;
+		    	  osMessagePut(storage_wHandle,&msg_ptr2,0);
+		    	  return F_OK;
+		 break;
+	 };
 	}
 	else{
 		return F_ERR;

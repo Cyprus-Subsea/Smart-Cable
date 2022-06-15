@@ -10,6 +10,7 @@
 
 #include "main.h"
 #include "fatfs.h"
+#include "system_definitions.h"
 
 #define DEBUG_SD
 
@@ -60,22 +61,22 @@ typedef struct
 	wav_chunk_header          chunk;
 	wav_subchunk_fmt_header   subchunk_fmt;
 	wav_subchunk_data_header  subchunk_data;
-} wav_header;
+} wav_header_typedef;
 #pragma pack (pop)
 
 
 #pragma pack (push, 1)
 typedef struct
 {
-	wav_header              header;
+	wav_header_typedef            header;
 	uint32_t                data_counter;
 	fatfs_media             media;
-} wav_file;
+} wav_file_typedef;
 #pragma pack (pop)
 
-void wav_file_open(wav_file* self_object,char* filename);
-void wav_file_close(wav_file* self_object);
-void wav_file_write(wav_file* self_object,uint8_t* data,uint32_t length);
+F_RES wav_file_open(wav_file_typedef* self_object,char* filename);
+F_RES wav_file_close(wav_file_typedef* self_object);
+F_RES wav_file_write(wav_file_typedef* self_object,uint8_t* data,uint32_t length);
 
 void readDir(char* dir_name);
 

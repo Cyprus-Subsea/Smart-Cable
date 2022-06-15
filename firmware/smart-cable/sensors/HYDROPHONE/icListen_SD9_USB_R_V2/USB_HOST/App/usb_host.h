@@ -34,19 +34,15 @@
 /* USER CODE BEGIN INCLUDE */
 #include "usbh_core.h"
 #include "usbh_cdc.h"
-#define USB_RX_BUFF_SIZE    4000
 
 
+#define USB_RX_NUM_OF_BUFFERS             4
+#define USB_RX_BUFF_SIZE               4000
 
- void set_time();
- void enquire_device();
- void collect_data();
- void job_setup();
- void receive_function();
- void set_line_coding();
- void CDC_HANDLE (void);
- uint32_t read_bytes(USBH_HandleTypeDef *phost);
- void stop_function();
+ void USB_transmit_msg(uint8_t* data,uint32_t size);
+ void USB_receive_msg();
+ void USB_set_line_coding();
+
 /* USER CODE END INCLUDE */
 
 /** @addtogroup USBH_OTG_DRIVER

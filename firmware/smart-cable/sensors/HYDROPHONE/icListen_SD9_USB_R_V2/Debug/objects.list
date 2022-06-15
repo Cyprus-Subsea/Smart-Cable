@@ -1,3 +1,4 @@
+"./Core/Src/UI.o"
 "./Core/Src/crc.o"
 "./Core/Src/em_sd_storage.o"
 "./Core/Src/freertos.o"

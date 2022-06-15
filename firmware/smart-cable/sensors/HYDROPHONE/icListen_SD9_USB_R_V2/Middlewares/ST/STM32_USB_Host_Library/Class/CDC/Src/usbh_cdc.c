@@ -47,6 +47,18 @@ EndBSPDependencies */
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbh_cdc.h"
+#include "usb_host.h"
+#include "icListen.h"
+#include "cmsis_os.h"
+
+/** @addtogroup USBH_LIB
+* @{
+*/
+icListen_basic_header*  icListen_rx_msg_basic_header;
+extern osMessageQId USB_rxHandle;
+extern osMessageQId USB_txHandle;
+extern uint8_t usb_rx_buff[USB_RX_NUM_OF_BUFFERS][USB_RX_BUFF_SIZE];
+extern uint8_t usb_rx_buff_active;
 
 /** @addtogroup USBH_LIB
   * @{
@@ -607,6 +619,7 @@ USBH_StatusTypeDef  USBH_CDC_Receive(USBH_HandleTypeDef *phost, uint8_t *pbuff, 
 
   if ((CDC_Handle->state == CDC_IDLE_STATE) || (CDC_Handle->state == CDC_TRANSFER_DATA))
   {
+	icListen_rx_msg_basic_header=(icListen_wav_full_header*)pbuff;
     CDC_Handle->pRxData = pbuff;
     CDC_Handle->RxDataLength = length;
     CDC_Handle->state = CDC_TRANSFER_DATA;
@@ -751,17 +764,27 @@ static void CDC_ProcessReception(USBH_HandleTypeDef *phost)
       {
         length = USBH_LL_GetLastXferSize(phost, CDC_Handle->DataItf.InPipe);
 
-        if (((CDC_Handle->RxDataLength - length) > 0U) && (length > CDC_Handle->DataItf.InEpSize))
-        {
-          CDC_Handle->RxDataLength -= length ;
-          CDC_Handle->pRxData += length;
-          CDC_Handle->data_rx_state = CDC_RECEIVE_DATA;
-        }
-        else
-        {
-          CDC_Handle->data_rx_state = CDC_IDLE;
-          USBH_CDC_ReceiveCallback(phost);
-        }
+        if (((CDC_Handle->RxDataLength - length) > 0U) && (CDC_Handle->RxDataLength > CDC_Handle->DataItf.InEpSize))
+         {
+           CDC_Handle->RxDataLength -= length ;
+           CDC_Handle->pRxData += length;
+           if((icListen_rx_msg_basic_header->length+6)==(USB_RX_BUFF_SIZE-CDC_Handle->RxDataLength))
+           {
+               CDC_Handle->data_rx_state = CDC_IDLE;
+               osMessagePut(USB_rxHandle, (uint8_t*)usb_rx_buff[usb_rx_buff_active], 0U);
+               usb_rx_buff_active++;
+               usb_rx_buff_active%=USB_RX_NUM_OF_BUFFERS;
+           }
+           else{
+         	CDC_Handle->data_rx_state = CDC_RECEIVE_DATA;
+           }
+
+         }
+         else
+         {
+           CDC_Handle->data_rx_state = CDC_IDLE;
+           USBH_CDC_ReceiveCallback(phost);
+         }
 
 #if (USBH_USE_OS == 1U)
         phost->os_msg = (uint32_t)USBH_CLASS_EVENT;

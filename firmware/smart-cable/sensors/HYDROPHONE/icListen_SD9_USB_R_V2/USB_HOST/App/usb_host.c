@@ -36,11 +36,8 @@ CDC_LineCodingTypeDef FrameFormat;
 extern osMessageQId AppliEventHandle;
 extern osMessageQId USB_rxHandle;
 
-const uint8_t  enquire_device_cmd[]={0x2A,0x45,0x00,0x00,0x19,0xCD};
-const uint8_t  collect_data_cmd[]={0x2A,0x43,0x01,0x00,0x20,0x5C,0x5A};
-const uint8_t  job_setup_cmd[]={0x2A,0x44,0x5C,0x00,0x14,0x00,0x0B,0x00,0x01,0x00,0x04,0x00,0xFF,0xFF,0xFF,0xFF,0x02,0x00,0x04,0x00,0x80,0xA9,0x03,0x00,0x06,0x00,0x04,0x00,0x04,0x00,0x00,0x00,0x07,0x00,0x04,0x00,0x76,0x00,0x00,0x00,0x09,0x00,0x04,0x00,0x00,0x00,0x00,0x00,0x0A,0x00,0x04,0x00,0x01,0x00,0x00,0x00,0x0E,0x00,0x04,0x00,0x80,0xA9,0x03,0x00,0x0F,0x00,0x04,0x00,0x18,0x00,0x00,0x00,0x12,0x00,0x04,0x00,0x00,0x00,0x00,0x00,0x13,0x00,0x04,0x00,0x01,0x00,0x00,0x00,0x14,0x00,0x04,0x00,0x01,0x00,0x00,0x00,0x9C,0x49};
-const uint8_t  set_time_cmd[]={0x2A,0x41,0x04,0x00,0x9F,0x46,0x99,0x62,0x00,0x00};
-uint8_t usb_rx_buff[USB_RX_BUFF_SIZE];
+uint8_t usb_rx_buff[USB_RX_NUM_OF_BUFFERS][USB_RX_BUFF_SIZE];
+uint8_t usb_rx_buff_active=0;
 
 /* USER CODE END PV */
 
@@ -57,42 +54,18 @@ ApplicationTypeDef Appli_state = APPLICATION_IDLE;
  * -- Insert your variables declaration here --
  */
 /* USER CODE BEGIN 0 */
-
-void set_time(){
-
+void USB_transmit_msg(uint8_t* data,uint32_t size){
   USBH_CDC_Stop(&hUsbHostFS);
-  USBH_CDC_Transmit(&hUsbHostFS,set_time_cmd,10);
+  USBH_CDC_Transmit(&hUsbHostFS,data, size);
 }
-void enquire_device(){
 
+void USB_receive_msg(){
   USBH_CDC_Stop(&hUsbHostFS);
-  USBH_CDC_Transmit(&hUsbHostFS,enquire_device_cmd,6);
+  USBH_CDC_Receive(&hUsbHostFS,usb_rx_buff[usb_rx_buff_active],USB_RX_BUFF_SIZE);
 }
 
-void collect_data(){
 
-  USBH_CDC_Stop(&hUsbHostFS);
-  USBH_CDC_Transmit(&hUsbHostFS,collect_data_cmd,7);
-}
-
-void job_setup(){
-
-  USBH_CDC_Stop(&hUsbHostFS);
-  USBH_CDC_Transmit(&hUsbHostFS,job_setup_cmd,98);
-}
-
-void stop_function(){
-  USBH_CDC_Stop(&hUsbHostFS);
-}
-void receive_function(){
-  USBH_CDC_Stop(&hUsbHostFS);
-  USBH_CDC_Receive(&hUsbHostFS,usb_rx_buff,USB_RX_BUFF_SIZE);
-}
-uint32_t read_bytes(USBH_HandleTypeDef *phost){
-	return USBH_CDC_GetLastReceivedDataSize(phost);
-}
-
-void set_line_coding(){
+void USB_set_line_coding(){
 	FrameFormat.b.dwDTERate = 1250000;
 	FrameFormat.b.bCharFormat = 0;
 	FrameFormat.b.bDataBits = 8;
@@ -115,7 +88,7 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
 
 void USBH_CDC_TransmitCallback(USBH_HandleTypeDef *phost)
 {
-  receive_function();
+  USB_receive_msg();
 }
 
 

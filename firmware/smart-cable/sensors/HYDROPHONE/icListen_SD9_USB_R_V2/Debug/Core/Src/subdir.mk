@@ -5,6 +5,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/UI.c \
 ../Core/Src/crc.c \
 ../Core/Src/em_sd_storage.c \
 ../Core/Src/freertos.c \
@@ -21,6 +22,7 @@ C_SRCS += \
 ../Core/Src/wav.c 
 
 OBJS += \
+./Core/Src/UI.o \
 ./Core/Src/crc.o \
 ./Core/Src/em_sd_storage.o \
 ./Core/Src/freertos.o \
@@ -37,6 +39,7 @@ OBJS += \
 ./Core/Src/wav.o 
 
 C_DEPS += \
+./Core/Src/UI.d \
 ./Core/Src/crc.d \
 ./Core/Src/em_sd_storage.d \
 ./Core/Src/freertos.d \
@@ -60,7 +63,7 @@ Core/Src/%.o Core/Src/%.su: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/crc.d ./Core/Src/crc.o ./Core/Src/crc.su ./Core/Src/em_sd_storage.d ./Core/Src/em_sd_storage.o ./Core/Src/em_sd_storage.su ./Core/Src/freertos.d ./Core/Src/freertos.o ./Core/Src/freertos.su ./Core/Src/icListen.d ./Core/Src/icListen.o ./Core/Src/icListen.su ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/mcu_flash.d ./Core/Src/mcu_flash.o ./Core/Src/mcu_flash.su ./Core/Src/sd.d ./Core/Src/sd.o ./Core/Src/sd.su ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/stm32f4xx_hal_timebase_tim.d ./Core/Src/stm32f4xx_hal_timebase_tim.o ./Core/Src/stm32f4xx_hal_timebase_tim.su ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/stm32f4xx_it.su ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su ./Core/Src/wav.d ./Core/Src/wav.o ./Core/Src/wav.su
+	-$(RM) ./Core/Src/UI.d ./Core/Src/UI.o ./Core/Src/UI.su ./Core/Src/crc.d ./Core/Src/crc.o ./Core/Src/crc.su ./Core/Src/em_sd_storage.d ./Core/Src/em_sd_storage.o ./Core/Src/em_sd_storage.su ./Core/Src/freertos.d ./Core/Src/freertos.o ./Core/Src/freertos.su ./Core/Src/icListen.d ./Core/Src/icListen.o ./Core/Src/icListen.su ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/mcu_flash.d ./Core/Src/mcu_flash.o ./Core/Src/mcu_flash.su ./Core/Src/sd.d ./Core/Src/sd.o ./Core/Src/sd.su ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/stm32f4xx_hal_timebase_tim.d ./Core/Src/stm32f4xx_hal_timebase_tim.o ./Core/Src/stm32f4xx_hal_timebase_tim.su ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/stm32f4xx_it.su ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su ./Core/Src/wav.d ./Core/Src/wav.o ./Core/Src/wav.su
 
 .PHONY: clean-Core-2f-Src
 

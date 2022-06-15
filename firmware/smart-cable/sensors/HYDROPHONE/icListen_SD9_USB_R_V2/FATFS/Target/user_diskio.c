@@ -47,7 +47,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 extern sd_info_ptr sdinfo;
-
+extern UART_HandleTypeDef huart1;
 
 /* Disk status */
 static volatile DSTATUS Stat = STA_NOINIT;
@@ -329,22 +329,24 @@ DRESULT USER_write (
 )
 {
   /* USER CODE BEGIN WRITE */
+	HAL_UART_Transmit(&huart1,&count,sizeof(UINT),100);
   /* USER CODE HERE */
 	SS_SD_SELECT();
 	if (pdrv || !count) return RES_PARERR;
-	  if (Stat & STA_NOINIT) return RES_NOTRDY;
-	  if (Stat & STA_PROTECT) return RES_WRPRT;
-	  if (!(sdinfo.type & 4)) sector *= 512; /* Convert to byte address if needed */
-	  if (count == 1) /* Single block read */
-	  {
+	if (Stat & STA_NOINIT) return RES_NOTRDY;
+	if (Stat & STA_PROTECT) return RES_WRPRT;
+	if (!(sdinfo.type & 4)) sector *= 512; /* Convert to byte address if needed */
+	if (count == 1) /* Single block write */
+	{
 	    SD_Write_Block((BYTE*)buff,sector); //Ð¡Ñ‡Ð¸Ñ‚Ð°ÐµÐ¼ Ð±Ð»Ð¾Ðº Ð² Ð±ÑƒÑ„ÐµÑ€
 	    count = 0;
-	  }
-	  else /* Multiple block read */
-	  {
+	}
+	else /* Multiple block write */
+	{
 	}
 	SPI_Release();
 	SS_SD_DESELECT();
+
 	return count ? RES_ERROR : RES_OK;
   /* USER CODE END WRITE */
 }
