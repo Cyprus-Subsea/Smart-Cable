@@ -24,6 +24,7 @@ extern SPI_HandleTypeDef hspi1;
 extern UART_HandleTypeDef huart1;
 extern volatile uint16_t htim2;
 
+uint8_t spi_rx_buffer[512];
 
 void sd_ss_set_active(uint8_t drv)
 {
@@ -88,7 +89,6 @@ static uint8_t SD_cmd (uint8_t cmd, uint32_t arg)
   } while ((res & 0x80) && --n);
   return res;
 }
-//-----------------------------------------------
 
 uint8_t sd_ini(void)
 {
@@ -160,13 +160,11 @@ uint8_t sd_ini(void)
   return 0;
 }
 
-//-----------------------------------------------
 static void Error (void)
 {
   //LD_ON;
 }
-//-----------------------------------------------
-//-----------------------------------------------
+
 uint8_t SPI_wait_ready(void)
 {
   uint8_t res;
@@ -179,9 +177,18 @@ uint8_t SPI_wait_ready(void)
   if (cnt>=0xFFFF) return 1;
   return res;
 }
-//-----------------------------------------------
 
-//-----------------------------------------------
+F_RES SPIx_Get_Status()
+{
+	if(HAL_SPI_GetState(&hspi1)==HAL_SPI_STATE_READY) return F_OK;
+	else return F_ERR;
+}
+F_RES SPIx_WriteRead_IT(uint8_t* rx_buf,uint8_t* tx_buf,uint32_t size)
+{
+	if(HAL_SPI_TransmitReceive_IT(&hspi1, tx_buf, rx_buf, size)==HAL_OK) return F_OK;
+	else return F_ERR;
+}
+
 uint8_t SPIx_WriteRead(uint8_t Byte)
 {
   uint8_t receivedbyte = 0;
@@ -191,27 +198,22 @@ uint8_t SPIx_WriteRead(uint8_t Byte)
   }
   return receivedbyte;
 }
-//-----------------------------------------------
 
-//-----------------------------------------------
 void SPI_SendByte(uint8_t bt)
 {
   SPIx_WriteRead(bt);
 }
-//-----------------------------------------------
+
 uint8_t SPI_ReceiveByte(void)
 {
   uint8_t bt = SPIx_WriteRead(0xFF);
   return bt;
 }
-//-----------------------------------------------
 void SPI_Release(void)
 {
   SPIx_WriteRead(0xFF);
 }
-//-----------------------------------------------
 
-//-----------------------------------------------
 uint8_t SD_Read_Block (uint8_t *buff, uint32_t lba)
 {
   uint8_t result;
@@ -239,9 +241,7 @@ uint8_t SD_Read_Block (uint8_t *buff, uint32_t lba)
 
   return 0;
 }
-//-----------------------------------------------
 
-//-----------------------------------------------
 uint8_t SD_Write_Block (uint8_t *buff, uint32_t lba)
 {
 
@@ -253,7 +253,12 @@ uint8_t SD_Write_Block (uint8_t *buff, uint32_t lba)
   }
   SPI_Release();
   SPI_SendByte (0xFE);
-  for (cnt=0;cnt<512;cnt++) SPI_SendByte(buff[cnt]);
+  //for (cnt=0;cnt<512;cnt++) SPI_SendByte(buff[cnt]);
+  if(SPIx_WriteRead_IT(spi_rx_buffer,buff,512)==F_OK)
+  {
+   while(SPIx_Get_Status()==F_ERR){}
+  }
+
   SPI_Release();
   SPI_Release();
   result=SPI_ReceiveByte();
@@ -271,4 +276,3 @@ uint8_t SD_Write_Block (uint8_t *buff, uint32_t lba)
 
   return 0;
 }
-//-----------------------------------------------

@@ -8,6 +8,7 @@
 #include "main.h"
 #include "fatfs.h"
 #include "system_definitions.h"
+#include "cmsis_os.h"
 
 //--------------------------------------------------
 //--------------------------------------------------
@@ -19,6 +20,7 @@ void    SD_PowerOn(void);
 uint8_t sd_ini(void);
 
 uint8_t SPIx_WriteRead(uint8_t Byte);
+F_RES SPIx_WriteReadDMA(uint8_t* rx_buf,uint8_t* tx_buf,uint32_t size);
 void    SPI_SendByte(uint8_t bt);
 uint8_t SPI_ReceiveByte(void);
 void    SPI_Release(void);

@@ -52,6 +52,8 @@
 
 /* Private variables ---------------------------------------------------------*/
  SPI_HandleTypeDef hspi1;
+DMA_HandleTypeDef hdma_spi1_tx;
+DMA_HandleTypeDef hdma_spi1_rx;
 
 TIM_HandleTypeDef htim2;
 
@@ -91,6 +93,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
+static void MX_DMA_Init(void);
 static void MX_TIM2_Init(void);
 void StartDefaultTask(void const * argument);
 void storage_f(void const * argument);
@@ -136,6 +139,7 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
+  MX_DMA_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   UI_init(&user_interface);
@@ -376,6 +380,25 @@ static void MX_USART1_UART_Init(void)
 }
 
 /**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA2_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+  /* DMA2_Stream3_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -542,14 +565,19 @@ void storage_f(void const * argument)
 
   //readDir("0:/");
   //f_unlink("0:test1.wav");
-
+  uint32_t tick1,tick2;
+  char xxx[20];
   /* Infinite loop */
   for(;;)
   {
 	  storage_w_event = osMessageGet(storage_wHandle, osWaitForever);
 	  if(storage_w_event.status == osEventMessage){
 		data_ptr=(memory_region_pointer*)storage_w_event.value.v;
+		tick1=xTaskGetTickCount();
 		wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size);
+		tick2=xTaskGetTickCount();
+		sprintf(xxx,"P:%d",tick2-tick1);
+		wav_file_write(&wav_file,xxx,strlen(xxx));
 		wav_file_close(&wav_file);
 	  }
 
