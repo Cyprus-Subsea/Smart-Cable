@@ -12,6 +12,8 @@
 #include "icListen.h"
 #include "mcu_flash.h"
 #include "em_sd_storage.h"
+#include "time.h"
+
 
 extern UART_HandleTypeDef huart1;
 extern icListen_object_typedef icListen;
@@ -196,6 +198,9 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 	RTC_TimeTypeDef time;
 	RTC_DateTypeDef date;
 
+	time_t timestamp;
+	struct tm currTime;
+
 	if(strcmp(pch,"sensor")==0){
 		sprintf(temp_array,"Device type: %d\rSerial num: %d\rFW version: %s\rBuild date: %s\rStatus: %d\rFile duration: %d\rWAV sample depth: %d\rWAV sample rate: %d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate);
 		temp_ptr.start_addr=temp_array;
@@ -216,7 +221,14 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 		temp_array[0]=0x00;
 		HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
-        sprintf(temp_array+strlen(temp_array),"Hours: %d\rMinutes: %d\rSeconds: %d\r",time.Hours,time.Minutes,time.Seconds);
+		currTime.tm_hour=time.Hours;
+		currTime.tm_min=time.Minutes;
+		currTime.tm_sec=time.Seconds;
+		currTime.tm_mday=date.Date;
+		currTime.tm_mon=date.Month-1;
+		currTime.tm_year=(2000+date.Year)-1900;
+		timestamp=mktime(&currTime);
+        sprintf(temp_array,"Hours: %d Minutes: %d Seconds: %d\rDay: %d Month: %d Year: %d Unix:%d\r",time.Hours,time.Minutes,time.Seconds,date.Date,date.Month,date.Year,(uint32_t)timestamp);
 		temp_ptr.start_addr=temp_array;
 		temp_ptr.size=strlen(temp_array);
 		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
@@ -236,19 +248,6 @@ int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
 	char * pch;
 	RTC_TimeTypeDef time;
 	RTC_DateTypeDef date;
-
-	/*
-	char * pch;
-	pch = strtok (msg,":");//header
-	pch = strtok (NULL,",");//depth
-	UI_obj->prev_depth=UI_obj->last_depth;
-	UI_obj->last_depth=strtof(pch,NULL);
-	pch = strtok (NULL,",");//date
-	memcpy(UI_obj->date,pch,8);
-	pch = strtok (NULL,",");//time
-	memcpy(UI_obj->time,pch,6);
-    */
-
 
 	pch = strtok (NULL," ");//subcomand
 	if(strcmp(pch,"clock")==0){
