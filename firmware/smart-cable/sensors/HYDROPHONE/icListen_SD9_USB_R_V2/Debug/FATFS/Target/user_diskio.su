@@ -17,9 +17,9 @@
 ../FATFS/Target/user_diskio.c:317:9:SD1_write	24	static
 ../FATFS/Target/user_diskio.c:322:9:SD2_write	24	static
 ../FATFS/Target/user_diskio.c:327:9:SD3_write	24	static
-../FATFS/Target/user_diskio.c:333:9:USER_write	24	static
-../FATFS/Target/user_diskio.c:382:9:SD0_ioctl	16	static
-../FATFS/Target/user_diskio.c:387:9:SD1_ioctl	16	static
-../FATFS/Target/user_diskio.c:392:9:SD2_ioctl	16	static
-../FATFS/Target/user_diskio.c:397:9:SD3_ioctl	16	static
-../FATFS/Target/user_diskio.c:403:9:USER_ioctl	24	static
+../FATFS/Target/user_diskio.c:333:9:USER_write	32	static
+../FATFS/Target/user_diskio.c:365:9:SD0_ioctl	16	static
+../FATFS/Target/user_diskio.c:370:9:SD1_ioctl	16	static
+../FATFS/Target/user_diskio.c:375:9:SD2_ioctl	16	static
+../FATFS/Target/user_diskio.c:380:9:SD3_ioctl	16	static
+../FATFS/Target/user_diskio.c:386:9:USER_ioctl	24	static

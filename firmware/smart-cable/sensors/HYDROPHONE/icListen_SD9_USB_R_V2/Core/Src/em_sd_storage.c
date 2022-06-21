@@ -18,7 +18,6 @@ F_RES sd_storage_disk_init(FATFS* fs,char* path)
 F_RES sd_storage_init(sd_storage_t* self_object)
 {
   char tt[10];
-  //char t5[10];
   FRESULT res;
   DWORD fre_clust, fre_sect, tot_sect;
   FATFS*  fs;
@@ -30,7 +29,6 @@ F_RES sd_storage_init(sd_storage_t* self_object)
 	  sprintf(tt,"%d:",i);
 	  if(sd_storage_disk_init(&self_object->disks[i].fs,tt)==F_OK){
 		  self_object->disks[i].status=DISK_PRESENT;
-		  //sprintf(t5,"InitID:%d\n",i);
   		  if(f_getfree(tt, &fre_clust, &fs)==FR_OK){
 		    tot_sect = (self_object->disks[i].fs.n_fatent - 2) * self_object->disks[i].fs.csize;
 			fre_sect = fre_clust * self_object->disks[i].fs.csize;

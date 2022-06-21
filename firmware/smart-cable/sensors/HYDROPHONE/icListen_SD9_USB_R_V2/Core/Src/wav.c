@@ -36,7 +36,6 @@ F_RES wav_file_write(wav_file_typedef* self_object,uint8_t* data,uint32_t length
 	FRESULT res;
 	self_object->data_counter+=length;
 	res=f_write(&self_object->media.file,data,length,(void*)&self_object->media.byteswritten);
-	HAL_UART_Transmit(&huart1,(uint8_t*)&res,1,100);
 	if(res==FR_OK) return F_OK;
 	return F_ERR;
 }

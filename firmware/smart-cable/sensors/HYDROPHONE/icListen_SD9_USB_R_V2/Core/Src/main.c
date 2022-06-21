@@ -51,9 +51,10 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
- SPI_HandleTypeDef hspi1;
+ RTC_HandleTypeDef hrtc;
+
+SPI_HandleTypeDef hspi1;
 DMA_HandleTypeDef hdma_spi1_tx;
-DMA_HandleTypeDef hdma_spi1_rx;
 
 TIM_HandleTypeDef htim2;
 
@@ -85,7 +86,7 @@ mcu_flash_typedef mcu_flash;
 sd_storage_t microsd_storage;
 wav_file_typedef wav_file;
 
-
+uint32_t tick1,tick2;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -95,6 +96,7 @@ static void MX_SPI1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_DMA_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_RTC_Init(void);
 void StartDefaultTask(void const * argument);
 void storage_f(void const * argument);
 void main_f(void const * argument);
@@ -141,6 +143,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_DMA_Init();
   MX_TIM2_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
   UI_init(&user_interface);
   HAL_UART_Receive_IT(&UI_UART,&(user_interface.media_rx_byte),1);
@@ -235,8 +238,9 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE|RCC_OSCILLATORTYPE_LSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 15;
@@ -261,6 +265,69 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief RTC Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_RTC_Init(void)
+{
+
+  /* USER CODE BEGIN RTC_Init 0 */
+
+  /* USER CODE END RTC_Init 0 */
+
+  RTC_TimeTypeDef sTime = {0};
+  RTC_DateTypeDef sDate = {0};
+
+  /* USER CODE BEGIN RTC_Init 1 */
+
+  /* USER CODE END RTC_Init 1 */
+
+  /** Initialize RTC Only
+  */
+  hrtc.Instance = RTC;
+  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
+  hrtc.Init.AsynchPrediv = 127;
+  hrtc.Init.SynchPrediv = 255;
+  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
+  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /* USER CODE BEGIN Check_RTC_BKUP */
+
+  /* USER CODE END Check_RTC_BKUP */
+
+  /** Initialize RTC and set the Time and Date
+  */
+  sTime.Hours = 0;
+  sTime.Minutes = 0;
+  sTime.Seconds = 0;
+  sTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+  sTime.StoreOperation = RTC_STOREOPERATION_RESET;
+  if (HAL_RTC_SetTime(&hrtc, &sTime, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sDate.WeekDay = RTC_WEEKDAY_MONDAY;
+  sDate.Month = RTC_MONTH_JANUARY;
+  sDate.Date = 1;
+  sDate.Year = 0;
+
+  if (HAL_RTC_SetDate(&hrtc, &sDate, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN RTC_Init 2 */
+
+  /* USER CODE END RTC_Init 2 */
+
 }
 
 /**
@@ -389,9 +456,6 @@ static void MX_DMA_Init(void)
   __HAL_RCC_DMA2_CLK_ENABLE();
 
   /* DMA interrupt init */
-  /* DMA2_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
   /* DMA2_Stream3_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA2_Stream3_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream3_IRQn);
@@ -408,8 +472,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
@@ -425,15 +489,15 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : SS_SD3_Pin */
   GPIO_InitStruct.Pin = SS_SD3_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(SS_SD3_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SS_SD1_Pin SS_SD2_Pin SS_SD4_Pin */
   GPIO_InitStruct.Pin = SS_SD1_Pin|SS_SD2_Pin|SS_SD4_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : USB_VBUS_Pin */
@@ -535,6 +599,9 @@ void storage_f(void const * argument)
   memory_region_pointer* data_ptr;
   msg_ptr.start_addr=ttr;
 
+  uint8_t disk_id=0;
+  char file_name[15];
+
   osEvent storage_w_event;
 
   sd_storage_link_ss(&microsd_storage,0,SS_SD1_Pin,GPIOA);
@@ -543,42 +610,65 @@ void storage_f(void const * argument)
   sd_storage_link_ss(&microsd_storage,3,SS_SD4_Pin,GPIOA);
   sd_storage_init(&microsd_storage);
 
-  if(wav_file_open(&wav_file,"0:test.wav")==F_ERR)
+  while(disk_id<4)
   {
-   if(wav_file_open(&wav_file,"1:test.wav")==F_ERR)
-   {
-	if(wav_file_open(&wav_file,"2:test.wav")==F_ERR)
-	{
-	 if(wav_file_open(&wav_file,"3:test.wav")==F_ERR)
-	 {
-		 sprintf(ttr,"SD error\r");
-	 }
-	 else sprintf(ttr,"SD3 detected\r");
-	}
-	else sprintf(ttr,"SD2 detected\r");
+   sprintf(file_name,"%d:test%d.wav",disk_id,disk_id);
+
+   if(wav_file_open(&wav_file,file_name)==F_OK){
+	  sprintf(ttr,"%d mounted\r",disk_id);
+	  disk_id++;
+	  break;
    }
-   else sprintf(ttr,"SD1 detected\r");
+   disk_id++;
   }
-  else sprintf(ttr,"SD0 detected\r");
   msg_ptr.size=strlen(msg_ptr.start_addr);
   UI_send_msg(&user_interface,UI_CMD_SEND_DATA,&msg_ptr);
 
+
   //readDir("0:/");
   //f_unlink("0:test1.wav");
-  uint32_t tick1,tick2;
   char xxx[20];
+  int num_pckts=100;
   /* Infinite loop */
   for(;;)
   {
 	  storage_w_event = osMessageGet(storage_wHandle, osWaitForever);
 	  if(storage_w_event.status == osEventMessage){
-		data_ptr=(memory_region_pointer*)storage_w_event.value.v;
-		tick1=xTaskGetTickCount();
-		wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size);
-		tick2=xTaskGetTickCount();
-		sprintf(xxx,"P:%d",tick2-tick1);
-		wav_file_write(&wav_file,xxx,strlen(xxx));
-		wav_file_close(&wav_file);
+		  if(num_pckts>0)
+		  {
+		   data_ptr=(memory_region_pointer*)storage_w_event.value.v;
+	       wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size);
+	       osDelay(35);
+	       osMessagePut(USB_txHandle,(uint8_t*)&collect_msg_ptr, 0);
+	       num_pckts--;
+		  }
+		  else if (num_pckts==0)
+		  {
+			 wav_file_close(&wav_file);
+			 sprintf(ttr,"Closed\r");
+			 msg_ptr.size=strlen(msg_ptr.start_addr);
+			 UI_send_msg(&user_interface,UI_CMD_SEND_DATA,&msg_ptr);
+			 num_pckts--;
+			 if(disk_id<4)
+			 {
+			  while(disk_id<4)
+			  {
+			   sprintf(file_name,"%d:test%d.wav",disk_id,disk_id);
+			   if(wav_file_open(&wav_file,file_name)==F_OK){
+				 sprintf(ttr,"%d mounted\r",disk_id);
+				 num_pckts=100;
+				 disk_id++;
+				 break;
+			   }
+			   else sprintf(ttr,"%d error\r",disk_id);
+			  }
+			  msg_ptr.size=strlen(msg_ptr.start_addr);
+			  UI_send_msg(&user_interface,UI_CMD_SEND_DATA,&msg_ptr);
+			  osDelay(35);
+			  osMessagePut(USB_txHandle,(uint8_t*)&collect_msg_ptr, 0);
+			 }
+
+		  }
 	  }
 
   }
@@ -597,6 +687,8 @@ void main_f(void const * argument)
   /* USER CODE BEGIN main_f */
   icListen.settings=(icListen_settings_typedef*)mcu_flash.data.raw_data;
   memory_region_pointer* mem_ptr;
+
+
 
 
   icListen_collect_short_mask_msg collect_msg;
@@ -625,14 +717,15 @@ void main_f(void const * argument)
 	   if(event.status == osEventMessage){
 		   mem_ptr=(memory_region_pointer*)event.value.v;
 		   USB_transmit_msg(mem_ptr->start_addr,mem_ptr->size);
-		   //osMessagePut(USB_txHandle,(uint8_t*)&collect_msg_ptr, 0);
+
 	   }
 	   event = osMessageGet(USB_rxHandle, 10);
 	   if(event.status == osEventMessage){
+
 		   icListen_parse_msg((uint8_t*)event.value.v,&icListen);
+
 	   }
 	  }
-   	  osDelay(2);
   }
   /* USER CODE END main_f */
 }

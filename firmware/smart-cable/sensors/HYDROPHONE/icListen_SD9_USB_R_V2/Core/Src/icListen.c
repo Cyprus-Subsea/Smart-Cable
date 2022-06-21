@@ -112,8 +112,9 @@ F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object)
 	    	 else return F_ERR;
 	     break;
 		 case MSG_TYPE_COLLECT_DATA:
-		    	  msg_ptr2.start_addr=msg+sizeof(icListen_basic_header);
-		    	  msg_ptr2.size=basic_header->length;
+		    	  //msg_ptr2.start_addr=msg+sizeof(icListen_basic_header);
+			      msg_ptr2.start_addr=msg;
+		    	  msg_ptr2.size=basic_header->length+6;
 		    	  osMessagePut(storage_wHandle,&msg_ptr2,0);
 		    	  return F_OK;
 		 break;

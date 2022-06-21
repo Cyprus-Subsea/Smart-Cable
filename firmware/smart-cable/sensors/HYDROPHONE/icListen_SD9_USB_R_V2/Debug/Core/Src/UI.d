@@ -41,6 +41,8 @@ Core/Src/UI.o: ../Core/Src/UI.c ../Core/Inc/UI.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h \
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h \
@@ -48,7 +50,17 @@ Core/Src/UI.o: ../Core/Src/UI.c ../Core/Inc/UI.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
  ../Core/Inc/system_definitions.h ../Core/Inc/icListen.h \
- ../Core/Inc/mcu_flash.h ../Core/Inc/crc.h
+ ../Core/Inc/mcu_flash.h ../Core/Inc/crc.h ../Core/Inc/em_sd_storage.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/App/fatfs.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/integer.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/Target/ffconf.h \
+ ../Core/Inc/main.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/diskio.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff.h \
+ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/Target/user_diskio.h \
+ ../Core/Inc/sd.h
 ../Core/Inc/UI.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
@@ -93,6 +105,8 @@ Core/Src/UI.o: ../Core/Src/UI.c ../Core/Inc/UI.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc.h:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rtc_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h:
@@ -103,3 +117,14 @@ Core/Src/UI.o: ../Core/Src/UI.c ../Core/Inc/UI.h \
 ../Core/Inc/icListen.h:
 ../Core/Inc/mcu_flash.h:
 ../Core/Inc/crc.h:
+../Core/Inc/em_sd_storage.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/App/fatfs.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/integer.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/Target/ffconf.h:
+../Core/Inc/main.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff_gen_drv.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/diskio.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff.h:
+D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/Target/user_diskio.h:
+../Core/Inc/sd.h:

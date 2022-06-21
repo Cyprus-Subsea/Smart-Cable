@@ -36,8 +36,8 @@
 #include "usbh_cdc.h"
 
 
-#define USB_RX_NUM_OF_BUFFERS             4
-#define USB_RX_BUFF_SIZE               4000
+#define USB_RX_NUM_OF_BUFFERS             5
+#define USB_RX_BUFF_SIZE               3500
 
  void USB_transmit_msg(uint8_t* data,uint32_t size);
  void USB_receive_msg();

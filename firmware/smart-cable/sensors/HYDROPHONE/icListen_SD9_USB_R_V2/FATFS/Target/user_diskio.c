@@ -339,33 +339,16 @@ DRESULT USER_write (
 {
   /* USER CODE BEGIN WRITE */
   /* USER CODE HERE */
+	uint8_t res;
 	SS_SD_SELECT();
 	if (pdrv || !count) return RES_PARERR;
 	if (Stat & STA_NOINIT) return RES_NOTRDY;
 	if (Stat & STA_PROTECT) return RES_WRPRT;
 	if (!(sdinfo.type & 4)) sector *= 512; /* Convert to byte address if needed */
-	if (count == 1) /* Single block write */
-	{
-	    SD_Write_Block((BYTE*)buff,sector); //Ð¡Ñ‡Ð¸Ñ‚Ð°ÐµÐ¼ Ð±Ð»Ð¾Ðº Ð² Ð±ÑƒÑ„ÐµÑ€
-	    count = 0;
-	}
-	else /* Multiple block write */
-	{
-		do{
-			SD_Write_Block((BYTE*)buff,sector);
-			if (!(sdinfo.type & 4)){
-				sector+=512;
-			}
-			else sector++;
-			buff+=512;
-			count--;
-
-		}while(count>0);
-	}
-	SPI_Release();
+  	res=SD_Write_Blocks((BYTE*)buff,sector,count);
 	SS_SD_DESELECT();
 
-	return count ? RES_ERROR : RES_OK;
+	return res ? RES_ERROR : RES_OK;
   /* USER CODE END WRITE */
 }
 

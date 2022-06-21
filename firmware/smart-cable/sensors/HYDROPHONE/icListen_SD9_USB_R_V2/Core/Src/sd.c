@@ -1,5 +1,10 @@
 #include "sd.h"
 #include "string.h"
+#include "main.h"
+#include "cmsis_os.h"
+
+
+extern   uint32_t tick1,tick2;
 
 // Definitions for MMC/SDC command
 #define CMD0 (0x40+0) // GO_IDLE_STATE
@@ -10,6 +15,7 @@
 #define CMD16 (0x40+16) // SET_BLOCKLEN
 #define CMD17 (0x40+17) // READ_SINGLE_BLOCK
 #define CMD24 (0x40+24) // WRITE_BLOCK
+#define CMD25 (0x40+25) // WRITE_MULTI_BLOCK
 #define CMD55 (0x40+55) // APP_CMD
 #define CMD58 (0x40+58) // READ_OCR
 //--------------------------------------------------
@@ -183,9 +189,25 @@ F_RES SPIx_Get_Status()
 	if(HAL_SPI_GetState(&hspi1)==HAL_SPI_STATE_READY) return F_OK;
 	else return F_ERR;
 }
+F_RES SPIx_Write_Multi(uint8_t* tx_buf,uint32_t size)
+{
+	if(HAL_SPI_TransmitReceive(&hspi1, tx_buf, spi_rx_buffer, size,HAL_MAX_DELAY)==HAL_OK) return F_OK;
+		else return F_ERR;
+}
 F_RES SPIx_WriteRead_IT(uint8_t* rx_buf,uint8_t* tx_buf,uint32_t size)
 {
 	if(HAL_SPI_TransmitReceive_IT(&hspi1, tx_buf, rx_buf, size)==HAL_OK) return F_OK;
+	else return F_ERR;
+}
+F_RES SPIx_WriteRead_DMA(uint8_t* rx_buf,uint8_t* tx_buf,uint32_t size)
+{
+	if(HAL_SPI_TransmitReceive_DMA(&hspi1, tx_buf, rx_buf, size)==HAL_OK) return F_OK;
+	else return F_ERR;
+}
+
+F_RES SPIx_Write_DMA(uint8_t* tx_buf,uint32_t size)
+{
+	if(HAL_SPI_Transmit_DMA(&hspi1, tx_buf, size)==HAL_OK) return F_OK;
 	else return F_ERR;
 }
 
@@ -242,37 +264,50 @@ uint8_t SD_Read_Block (uint8_t *buff, uint32_t lba)
   return 0;
 }
 
-uint8_t SD_Write_Block (uint8_t *buff, uint32_t lba)
+uint8_t SD_Write_Blocks (uint8_t *buff, uint32_t lba,uint16_t count)
 {
-
+  tick1=xTaskGetTickCount();
   uint8_t result;
   uint16_t cnt;
-  result=SD_cmd(CMD24,lba);
+
+
+  result=SD_cmd(CMD25,lba);//CMD25
   if (result!=0x00){
 	  return 6;
   }
-  SPI_Release();
-  SPI_SendByte (0xFE);
-  //for (cnt=0;cnt<512;cnt++) SPI_SendByte(buff[cnt]);
-  if(SPIx_WriteRead_IT(spi_rx_buffer,buff,512)==F_OK)
-  {
-   while(SPIx_Get_Status()==F_ERR){}
-  }
+  SPI_Release();  //1byte gap
 
-  SPI_Release();
-  SPI_Release();
-  result=SPI_ReceiveByte();
-  if ((result&0x05)!=0x05) {
+  for(int i=0;i<count;i++){
+   SPI_SendByte (0xFC);//token CMD25
+
+   SPIx_Write_Multi(buff,512);
+   buff+=512;
+   SPI_Release();   //CRC
+   SPI_Release();   //CRC
+
+
+   result=SPI_ReceiveByte();
+   if ((result&0x1F)!=0x05) {
 	  return 6;
-  }
-  cnt=0;
-  do {
+   }
+   cnt=0;
+   do {
     result=SPI_ReceiveByte();
     cnt++;
-  } while ( (result!=0xFF)&&(cnt<0xFFFF) );
-  if (cnt>=0xFFFF) {
+   } while ( (result!=0xFF)&&(cnt<0xFFFF) );
+   if (cnt>=0xFFFF) {
 	  return 6;
+   }
   }
 
+  SPI_SendByte (0xFD); //stop transaction token for CMD25
+  SPI_Release();       //1byte gap
+  cnt=0;
+  do {
+	result=SPI_ReceiveByte();
+	cnt++;
+  } while ( (result!=0xFF)&&(cnt<0xFFFF) );
+  if (cnt>=0xFFFF) return 6;
+  tick2=xTaskGetTickCount();
   return 0;
 }
