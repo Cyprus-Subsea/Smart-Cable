@@ -60,7 +60,7 @@ Core/Src/UI.o: ../Core/Src/UI.c ../Core/Inc/UI.h \
  D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/diskio.h \
  D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff.h \
  D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/Target/user_diskio.h \
- ../Core/Inc/sd.h
+ ../Core/Inc/sd.h ../Core/Inc/rtc.h
 ../Core/Inc/UI.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
@@ -128,3 +128,4 @@ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensor
 D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff.h:
 D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/Target/user_diskio.h:
 ../Core/Inc/sd.h:
+../Core/Inc/rtc.h:

@@ -30,6 +30,7 @@
 #include "icListen.h"
 #include "mcu_flash.h"
 #include "UI.h"
+#include "rtc.h"
 
 /* USER CODE END Includes */
 
@@ -74,6 +75,7 @@ extern ApplicationTypeDef Appli_state;
 extern USBH_HandleTypeDef hUsbHostFS;
 CDC_HandleTypeDef *CDC_Handle;
 
+extern rtc_typedef rtc;
 extern icListen_object_typedef icListen;
 icListen_status_basic_msg   status_msg;
 memory_region_pointer      send_mem_ptr;
@@ -599,8 +601,9 @@ void storage_f(void const * argument)
   memory_region_pointer* data_ptr;
   msg_ptr.start_addr=ttr;
 
-  uint8_t disk_id=0;
   char file_name[15];
+  //char xxx[20];
+  int num_pckts=100;
 
   osEvent storage_w_event;
 
@@ -608,27 +611,16 @@ void storage_f(void const * argument)
   sd_storage_link_ss(&microsd_storage,1,SS_SD2_Pin,GPIOA);
   sd_storage_link_ss(&microsd_storage,2,SS_SD3_Pin,SS_SD3_GPIO_Port);
   sd_storage_link_ss(&microsd_storage,3,SS_SD4_Pin,GPIOA);
-  sd_storage_init(&microsd_storage);
+  while(sd_storage_init(&microsd_storage)!=F_OK) osDelay(1000);
 
-  while(disk_id<4)
-  {
-   sprintf(file_name,"%d:test%d.wav",disk_id,disk_id);
-
-   if(wav_file_open(&wav_file,file_name)==F_OK){
-	  sprintf(ttr,"%d mounted\r",disk_id);
-	  disk_id++;
-	  break;
-   }
-   disk_id++;
-  }
+  sprintf(file_name,"%d:%d.wav",microsd_storage.active_disk_indx,read_time(&rtc));
+  if(wav_file_open(&wav_file,file_name)==F_OK) sprintf(ttr,"%d mounted\r",microsd_storage.active_disk_indx);
   msg_ptr.size=strlen(msg_ptr.start_addr);
   UI_send_msg(&user_interface,UI_CMD_SEND_DATA,&msg_ptr);
 
-
   //readDir("0:/");
   //f_unlink("0:test1.wav");
-  char xxx[20];
-  int num_pckts=100;
+
   /* Infinite loop */
   for(;;)
   {
@@ -638,40 +630,23 @@ void storage_f(void const * argument)
 		  {
 		   data_ptr=(memory_region_pointer*)storage_w_event.value.v;
 	       wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size);
+	       if(num_pckts==1)
+	       {
+			wav_file_close(&wav_file);
+			if(sd_storage_set_next_disk(&microsd_storage)==F_OK){
+			  sprintf(file_name,"%d:%d.wav",microsd_storage.active_disk_indx,read_time(&rtc));
+			  if(wav_file_open(&wav_file,file_name)==F_OK) num_pckts=100;
+			  else num_pckts--;
+			}
+			else num_pckts--;
+	       }
+		   else num_pckts--;
+
 	       osDelay(35);
 	       osMessagePut(USB_txHandle,(uint8_t*)&collect_msg_ptr, 0);
-	       num_pckts--;
-		  }
-		  else if (num_pckts==0)
-		  {
-			 wav_file_close(&wav_file);
-			 sprintf(ttr,"Closed\r");
-			 msg_ptr.size=strlen(msg_ptr.start_addr);
-			 UI_send_msg(&user_interface,UI_CMD_SEND_DATA,&msg_ptr);
-			 num_pckts--;
-			 if(disk_id<4)
-			 {
-			  while(disk_id<4)
-			  {
-			   sprintf(file_name,"%d:test%d.wav",disk_id,disk_id);
-			   if(wav_file_open(&wav_file,file_name)==F_OK){
-				 sprintf(ttr,"%d mounted\r",disk_id);
-				 num_pckts=100;
-				 disk_id++;
-				 break;
-			   }
-			   else sprintf(ttr,"%d error\r",disk_id);
-			  }
-			  msg_ptr.size=strlen(msg_ptr.start_addr);
-			  UI_send_msg(&user_interface,UI_CMD_SEND_DATA,&msg_ptr);
-			  osDelay(35);
-			  osMessagePut(USB_txHandle,(uint8_t*)&collect_msg_ptr, 0);
-			 }
-
 		  }
 	  }
-
-  }
+   }
   /* USER CODE END storage_f */
 }
 

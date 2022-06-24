@@ -69,7 +69,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/Target/user_diskio.h \
  ../Core/Inc/sd.h ../Core/Inc/main.h ../Core/Inc/system_definitions.h \
  ../Core/Inc/wav.h ../Core/Inc/icListen.h ../Core/Inc/mcu_flash.h \
- ../Core/Inc/crc.h ../Core/Inc/UI.h
+ ../Core/Inc/crc.h ../Core/Inc/UI.h ../Core/Inc/rtc.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -147,3 +147,4 @@ D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensor
 ../Core/Inc/mcu_flash.h:
 ../Core/Inc/crc.h:
 ../Core/Inc/UI.h:
+../Core/Inc/rtc.h:

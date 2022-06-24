@@ -12,14 +12,14 @@
 #include "icListen.h"
 #include "mcu_flash.h"
 #include "em_sd_storage.h"
-#include "time.h"
+#include "rtc.h"
 
 
 extern UART_HandleTypeDef huart1;
 extern icListen_object_typedef icListen;
 extern mcu_flash_typedef mcu_flash;
 extern sd_storage_t microsd_storage;
-extern RTC_HandleTypeDef hrtc;
+extern rtc_typedef rtc;
 
 int ((*UI_functions[UI_MSG_NUM_OF_FUNCTIONS]))(UI_typedef* UI_obj,uint8_t* msg);
 char*  UI_messages_strings[UI_MSG_NUM_OF_FUNCTIONS];
@@ -193,13 +193,7 @@ int UI_MSG_RESET_f(UI_typedef* UI_obj,uint8_t* msg)
 int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 {
 	char * pch;
-
 	pch = strtok (NULL," ");//subcomand
-	RTC_TimeTypeDef time;
-	RTC_DateTypeDef date;
-
-	time_t timestamp;
-	struct tm currTime;
 
 	if(strcmp(pch,"sensor")==0){
 		sprintf(temp_array,"Device type: %d\rSerial num: %d\rFW version: %s\rBuild date: %s\rStatus: %d\rFile duration: %d\rWAV sample depth: %d\rWAV sample rate: %d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate);
@@ -219,22 +213,14 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 	}
 	else if(strcmp(pch,"clock")==0){
 		temp_array[0]=0x00;
-		HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
-		HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
-		currTime.tm_hour=time.Hours;
-		currTime.tm_min=time.Minutes;
-		currTime.tm_sec=time.Seconds;
-		currTime.tm_mday=date.Date;
-		currTime.tm_mon=date.Month-1;
-		currTime.tm_year=(2000+date.Year)-1900;
-		timestamp=mktime(&currTime);
-        sprintf(temp_array,"Hours: %d Minutes: %d Seconds: %d\rDay: %d Month: %d Year: %d Unix:%d\r",time.Hours,time.Minutes,time.Seconds,date.Date,date.Month,date.Year,(uint32_t)timestamp);
+		read_time(&rtc);
+        sprintf(temp_array,"Clock: %d:%d:%d  %d/%d/%d %d\r",rtc.time.Hours,rtc.time.Minutes,rtc.time.Seconds,rtc.date.Date,rtc.date.Month,rtc.date.Year,(uint32_t)rtc.timestamp);
 		temp_ptr.start_addr=temp_array;
 		temp_ptr.size=strlen(temp_array);
 		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
 	}
 	else{
-		sprintf(temp_array,"settings\rsensor\rstorage\r");
+		sprintf(temp_array,"sensor\rstorage\rclock\r");
 		temp_ptr.start_addr=temp_array;
 		temp_ptr.size=strlen(temp_array);
 		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
@@ -246,26 +232,22 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
 {
 	char * pch;
-	RTC_TimeTypeDef time;
-	RTC_DateTypeDef date;
-
 	pch = strtok (NULL," ");//subcomand
 	if(strcmp(pch,"clock")==0){
-		pch = strtok (NULL,"-");//seconds
-		time.Seconds=atol(pch);
-		pch = strtok (NULL,"-");//minutes
-		time.Minutes=atol(pch);
-		pch = strtok (NULL," ");//hours
-		time.Hours=atol(pch);
-		pch = strtok (NULL,"-");//day
-		date.Date=atol(pch);
-		pch = strtok (NULL,"-");//month
-		date.Month=atol(pch);
+		pch = strtok (NULL,":");//hours
+		rtc.time.Hours=atol(pch);
+		pch = strtok (NULL,":");//minutes
+		rtc.time.Minutes=atol(pch);
+		pch = strtok (NULL," ");//seconds
+		rtc.time.Seconds=atol(pch);
+		pch = strtok (NULL,"/");//day
+		rtc.date.Date=atol(pch);
+		pch = strtok (NULL,"/");//month
+		rtc.date.Month=atol(pch);
 		pch = strtok (NULL," ");//year
-		date.Year=atol(pch);
-		date.WeekDay=RTC_WEEKDAY_MONDAY;
-		HAL_RTC_SetTime(&hrtc, &time, RTC_FORMAT_BIN);
-		HAL_RTC_SetDate(&hrtc, &date, RTC_FORMAT_BIN);
+		rtc.date.Year=atol(pch);
+		rtc.date.WeekDay=RTC_WEEKDAY_MONDAY;
+		set_time(&rtc);
 	}
 
 	osMessagePut(UI_obj->events_q,UI_EVNT_SET,1);
