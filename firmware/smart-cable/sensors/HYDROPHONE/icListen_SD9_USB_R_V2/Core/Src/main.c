@@ -676,11 +676,17 @@ void storage_f(void const * argument)
 
 
   disk_kbytes_left=microsd_storage.disks[microsd_storage.active_disk_indx].free_space;
-  if(open_new_wav_file()==F_ERR){
-	sprintf(info_msg,"Not enough space for start.\r");
-	HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
-	while(1){osDelay(1);}
+  if(open_new_wav_file()!=F_OK){
+  do{
+     if(sd_storage_set_next_disk(&microsd_storage)!=F_OK){
+    	sprintf(info_msg,"End of storage reached.\r");
+  	    HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
+      	while(1){osDelay(1);}
+     }
+  	 disk_kbytes_left=microsd_storage.disks[microsd_storage.active_disk_indx].free_space;
+   }while(open_new_wav_file()!=F_OK);
   }
+
 
 
   /* Infinite loop */
@@ -752,7 +758,7 @@ void icListen_f(void const * argument)
   icListen_init_sensor_status(&icListen);
   icListen.settings=(icListen_settings_typedef*)mcu_flash.data.raw_data;
   icListen_prepare_messages(&icListen);
-  icListen.delay_time=((3000*1000)/((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate))/2;
+  icListen.delay_time=((3000*1000)/((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate))/3;
 
 
 

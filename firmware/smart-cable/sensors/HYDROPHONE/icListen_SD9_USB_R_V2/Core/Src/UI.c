@@ -190,6 +190,10 @@ int UI_MSG_RESET_f(UI_typedef* UI_obj,uint8_t* msg)
 		icListen.settings->file_index=0;
 		mcu_flash_save(&mcu_flash);
 	}
+	else if(strcmp(pch,"file_index")==0){
+		icListen.settings->file_index=0;
+		mcu_flash_save(&mcu_flash);
+	}
 	osMessagePut(UI_obj->events_q,UI_EVNT_RESET,1);
 	return UI_F_OK;
 }
