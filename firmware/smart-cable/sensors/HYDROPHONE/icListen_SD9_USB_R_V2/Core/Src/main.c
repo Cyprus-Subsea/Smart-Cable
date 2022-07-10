@@ -97,6 +97,7 @@ wav_file_typedef wav_file;
 uint8_t system_status;
 uint32_t file_bytes_left;
 uint32_t disk_kbytes_left;
+uint32_t files_created=0;
 uint32_t tick1,tick2;
 /* USER CODE END PV */
 
@@ -664,12 +665,13 @@ void storage_f(void const * argument)
 
 
 
-  disk_kbytes_left=microsd_storage.active_disk->free_space;
+  disk_kbytes_left=microsd_storage.disks[microsd_storage.active_disk_indx].free_space;
   if(open_new_wav_file()==F_ERR){
 	sprintf(info_msg,"Not enough space for start.\r");
 	HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
 	while(1){osDelay(1);}
   }
+  files_created++;
 
   /* Infinite loop */
   for(;;)
@@ -700,13 +702,12 @@ void storage_f(void const * argument)
 		        	HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
 		        	while(1){osDelay(1);}
 				}
-				disk_kbytes_left=microsd_storage.active_disk->free_space;
+				disk_kbytes_left=microsd_storage.disks[microsd_storage.active_disk_indx].free_space;
 		   }while(open_new_wav_file()!=F_OK);
 	   	 }
-	     sprintf(info_msg,"File changed.\r");
-	     HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
 		 if(wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size)==F_OK){
 			 file_bytes_left-=data_ptr->size;
+			 files_created++;
 	     }
 		 else{
 			 wav_file_close(&wav_file);

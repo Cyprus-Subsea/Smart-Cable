@@ -20,6 +20,7 @@ extern icListen_object_typedef icListen;
 extern mcu_flash_typedef mcu_flash;
 extern sd_storage_t microsd_storage;
 extern rtc_typedef rtc;
+extern uint32_t files_created;
 
 int ((*UI_functions[UI_MSG_NUM_OF_FUNCTIONS]))(UI_typedef* UI_obj,uint8_t* msg);
 char*  UI_messages_strings[UI_MSG_NUM_OF_FUNCTIONS];
@@ -205,7 +206,10 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
                            "WAV sample depth: %d\r"
                            "WAV sample rate: %d\r"
                            "Seq err:%d\r"
-				           "Last msg num:%d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate,icListen.collect_seq_num_err,icListen.last_collect_msg_num);
+				           "Last msg num:%d\r"
+				           "Files created:%d\r"
+				           "Disc free:%d\r"
+				           "Disc indx:%d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate,icListen.collect_seq_num_err,icListen.last_collect_msg_num,files_created,microsd_storage.disks[microsd_storage.active_disk_indx].free_space,microsd_storage.active_disk_indx);
 		temp_ptr.start_addr=temp_array;
 		temp_ptr.size=strlen(temp_array);
 		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);

@@ -127,9 +127,10 @@ F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object,uint8
 			    	  self_object->collect_seq_num_err++;
 			      }
 			      self_object->last_collect_msg_num=collected_wav_header->wav_hdr.seq_num;
-		    	//parsed_data_ptr->start_addr=msg+sizeof(icListen_basic_header);
-			      parsed_data_ptr->start_addr=msg;
-				  parsed_data_ptr->size=collected_wav_header->basic_hdr.length+4;
+		    	  parsed_data_ptr->start_addr=msg+sizeof(icListen_wav_full_header);
+		    	  parsed_data_ptr->size=collected_wav_header->wav_hdr.num_of_bytes;
+			    //parsed_data_ptr->start_addr=msg;
+				//parsed_data_ptr->size=collected_wav_header->basic_hdr.length+4;
 				  return F_OK;
 			 }
 			 parsed_data_ptr->size=0;
