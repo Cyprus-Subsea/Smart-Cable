@@ -5,11 +5,18 @@
 
 extern UART_HandleTypeDef huart1;
 
-F_RES wav_file_open(wav_file_typedef* self_object,char* filename)
+F_RES wav_file_open(wav_file_typedef* self_object,char* filename,uint32_t sample_size,uint32_t sample_rate,uint8_t num_channels)
 {
   memcpy(self_object->header.chunk.prefix,"RIFF",4);
   memcpy(self_object->header.chunk.postfix,"WAVE",4);
   memcpy(self_object->header.subchunk_fmt.prefix,"fmt ",4);
+  self_object->header.subchunk_fmt.size=16;
+  self_object->header.subchunk_fmt.format=1;
+  self_object->header.subchunk_fmt.numchannels=num_channels;
+  self_object->header.subchunk_fmt.samplerate=sample_rate;
+  self_object->header.subchunk_fmt.bps=sample_size;
+  self_object->header.subchunk_fmt.byterate=sample_rate*num_channels*(sample_size/8);
+  self_object->header.subchunk_fmt.block_align=num_channels*(sample_size/8);
   memcpy(self_object->header.subchunk_data.prefix,"data",4);
   self_object->data_counter=0;
   if(f_open(&self_object->media.file,filename,FA_CREATE_ALWAYS|FA_WRITE)==FR_OK){

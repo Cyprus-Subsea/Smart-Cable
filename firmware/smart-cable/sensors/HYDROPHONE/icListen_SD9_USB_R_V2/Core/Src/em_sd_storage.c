@@ -22,6 +22,8 @@ F_RES sd_storage_init(sd_storage_t* self_object)
   DWORD fre_clust, fre_sect, tot_sect;
   FATFS*  fs;
   self_object->active_disk_indx=0;
+  self_object->num_of_discs=0;
+  self_object->status=STORAGE_NOT_INITTIALIZED;
 
   MX_FATFS_Init();
 
@@ -30,6 +32,7 @@ F_RES sd_storage_init(sd_storage_t* self_object)
    sprintf(tt,"%d:",i);
    if(sd_storage_disk_init(&self_object->disks[i].fs,tt)==F_OK){
 		  self_object->disks[i].status=DISK_PRESENT;
+		  self_object->num_of_discs++;
   		  if(f_getfree(tt, &fre_clust, &fs)==FR_OK){
 		    tot_sect = (self_object->disks[i].fs.n_fatent - 2) * self_object->disks[i].fs.csize;
 			fre_sect = fre_clust * self_object->disks[i].fs.csize;
@@ -46,6 +49,7 @@ F_RES sd_storage_init(sd_storage_t* self_object)
   {
    if(self_object->disks[i].status==DISK_PRESENT){
 	   self_object->active_disk_indx=i;
+	   self_object->status=STORAGE_INITTIALIZED;
 	   return F_OK;
    }
   }

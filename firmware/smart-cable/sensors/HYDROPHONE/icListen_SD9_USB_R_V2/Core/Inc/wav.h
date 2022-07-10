@@ -74,7 +74,7 @@ typedef struct
 } wav_file_typedef;
 #pragma pack (pop)
 
-F_RES wav_file_open(wav_file_typedef* self_object,char* filename);
+F_RES wav_file_open(wav_file_typedef* self_object,char* filename,uint32_t sample_size,uint32_t sample_rate,uint8_t num_channels);
 F_RES wav_file_close(wav_file_typedef* self_object);
 F_RES wav_file_write(wav_file_typedef* self_object,uint8_t* data,uint32_t length);
 

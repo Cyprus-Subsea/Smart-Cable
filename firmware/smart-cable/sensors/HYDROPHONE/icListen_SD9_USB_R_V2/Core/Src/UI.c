@@ -196,7 +196,16 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 	pch = strtok (NULL," ");//subcomand
 
 	if(strcmp(pch,"sensor")==0){
-		sprintf(temp_array,"Device type: %d\rSerial num: %d\rFW version: %s\rBuild date: %s\rStatus: %d\rFile duration: %d\rWAV sample depth: %d\rWAV sample rate: %d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate);
+		sprintf(temp_array,"Device type: %d\r"
+                           "Serial num: %d\r"
+                           "FW version: %s\r"
+                           "Build date: %s\r"
+                           "Status: %d\r"
+                           "File duration: %d\r"
+                           "WAV sample depth: %d\r"
+                           "WAV sample rate: %d\r"
+                           "Seq err:%d\r"
+				           "Last msg num:%d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate,icListen.collect_seq_num_err,icListen.last_collect_msg_num);
 		temp_ptr.start_addr=temp_array;
 		temp_ptr.size=strlen(temp_array);
 		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);

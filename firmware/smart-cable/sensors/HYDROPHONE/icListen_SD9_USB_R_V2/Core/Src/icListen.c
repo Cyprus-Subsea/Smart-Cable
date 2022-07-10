@@ -11,9 +11,18 @@
 #include "UI.h"
 
 icListen_object_typedef icListen;
-extern osMessageQId storage_wHandle;
-extern UART_HandleTypeDef huart1;
-memory_region_pointer msg_ptr2;
+
+
+void icListen_init_sensor_status(icListen_object_typedef* self_object)
+{
+	self_object->status=ICLISTEN_DISCONNECTED;
+	memset(self_object->build_date,0x00,18);
+	memset(self_object->firmware_version,0x00,8);
+	self_object->serial_number=0;
+	self_object->device_type=0;
+	self_object->last_collect_msg_num=0;
+	self_object->collect_seq_num_err=0;
+}
 
 void icListen_prepare_setup_msg(icListen_setup_full_msg* msg,uint32_t wav_sample_rate,uint32_t wav_sample_bit_depth)
 {
@@ -89,16 +98,17 @@ void icListen_prepare_enquire_device_msg(icListen_enquire_device_msg* msg)
 
 }
 
-F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object)
+F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object,uint8_t* msg_type,memory_region_pointer* parsed_data_ptr)
 {
 
 	icListen_basic_header* basic_header=(icListen_basic_header*)msg;
 	icListen_status_basic_msg* status_msg=(icListen_status_basic_msg*)msg;
+	icListen_wav_full_header* collected_wav_header=(icListen_wav_full_header*)msg;
 
 	uint16_t crc_msg=*(uint16_t*)(msg+basic_header->length+4);
 
 	if(basic_header->sync==MSG_SYNC){
-
+	*msg_type=basic_header->type;
 	switch(basic_header->type){
 	     case MSG_TYPE_ENQUIRE_DEVICE:
 	    	 if(crc_msg==get_crc16_arc(msg,(uint16_t)basic_header->length+4)){
@@ -112,12 +122,22 @@ F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object)
 	    	 else return F_ERR;
 	     break;
 		 case MSG_TYPE_COLLECT_DATA:
-		    	  //msg_ptr2.start_addr=msg+sizeof(icListen_basic_header);
-			      msg_ptr2.start_addr=msg;
-		    	  msg_ptr2.size=basic_header->length+6;
-		    	  osMessagePut(storage_wHandle,&msg_ptr2,0);
-		    	  return F_OK;
+			 if(collected_wav_header->basic_hdr.length>1){
+			      if((self_object->last_collect_msg_num+1)!=collected_wav_header->wav_hdr.seq_num && self_object->last_collect_msg_num !=0){
+			    	  self_object->collect_seq_num_err++;
+			      }
+			      self_object->last_collect_msg_num=collected_wav_header->wav_hdr.seq_num;
+		    	//parsed_data_ptr->start_addr=msg+sizeof(icListen_basic_header);
+			      parsed_data_ptr->start_addr=msg;
+				  parsed_data_ptr->size=collected_wav_header->basic_hdr.length+4;
+				  return F_OK;
+			 }
+			 parsed_data_ptr->size=0;
+		     return F_OK;
 		 break;
+		 default:
+			 return F_ERR;
+	     break;
 	 };
 	}
 	else{

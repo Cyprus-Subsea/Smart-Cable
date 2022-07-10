@@ -17,7 +17,7 @@ typedef struct{
 } rtc_typedef;
 
 
-time_t read_timestamp(rtc_typedef* self_object);
+time_t read_time(rtc_typedef* self_object);
 
 
 #endif /* INC_RTC_H_ */

@@ -10,11 +10,12 @@
 
 #include "main.h"
 #include "system_definitions.h"
+#include "UI.h"
 
 
 #define ICLISTEN_DEFAULT_WAV_SAMPLE_RATE            32000
 #define ICLISTEN_DEFAULT_WAV_SAMPLE_BIT_DEPTH          24
-#define ICLISTEN_DEFAULT_FILE_DURATION                  1
+#define ICLISTEN_DEFAULT_FILE_DURATION                120
 
 #define MSG_SYNC                       0x2A
 
@@ -165,8 +166,8 @@ typedef struct
 //------------- icListen object -------------------------
 
 typedef enum{
-	CONNECTED=0,
-	DISCONNECTED
+	ICLISTEN_CONNECTED=0,
+	ICLISTEN_DISCONNECTED
 }icListen_status_typedef;
 
 #pragma pack (push, 1)
@@ -187,6 +188,9 @@ typedef struct
 	uint8_t                                       device_type;
 	icListen_status_typedef                            status;
 	icListen_settings_typedef*                       settings;
+	uint32_t                             last_collect_msg_num;
+	uint32_t                             collect_seq_num_err;
+
 } icListen_object_typedef;
 
 
@@ -194,6 +198,7 @@ typedef struct
 void icListen_prepare_setup_msg(icListen_setup_full_msg* msg,uint32_t wav_sample_rate,uint32_t wav_sample_bit_depth);
 void icListen_prepare_collect_msg(icListen_collect_short_mask_msg* msg,uint8_t mask);
 void icListen_prepare_enquire_device_msg(icListen_enquire_device_msg* msg);
-F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object);
+F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object,uint8_t* msg_type,memory_region_pointer* parsed_data_ptr);
+void icListen_init_sensor_status(icListen_object_typedef* self_object);
 
 #endif /* INC_ICLISTEN_H_ */

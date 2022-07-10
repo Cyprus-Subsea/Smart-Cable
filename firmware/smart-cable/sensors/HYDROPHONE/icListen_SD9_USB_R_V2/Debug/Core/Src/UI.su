@@ -8,5 +8,5 @@
 ../Core/Src/UI.c:154:6:UI_messages_init	16	static
 ../Core/Src/UI.c:167:5:UI_MSG_HELP_f	32	static
 ../Core/Src/UI.c:177:5:UI_MSG_RESET_f	32	static
-../Core/Src/UI.c:193:5:UI_MSG_SHOW_f	64	static
-../Core/Src/UI.c:232:5:UI_MSG_SET_f	24	static
+../Core/Src/UI.c:193:5:UI_MSG_SHOW_f	72	static
+../Core/Src/UI.c:241:5:UI_MSG_SET_f	24	static

@@ -49,7 +49,7 @@ Core/Src/UI.o: ../Core/Src/UI.c ../Core/Inc/UI.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- ../Core/Inc/system_definitions.h ../Core/Inc/icListen.h \
+ ../Core/Inc/system_definitions.h ../Core/Inc/icListen.h ../Core/Inc/UI.h \
  ../Core/Inc/mcu_flash.h ../Core/Inc/crc.h ../Core/Inc/em_sd_storage.h \
  D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/FATFS/App/fatfs.h \
  D:/GD/upwork/projects/Ehsan_Abdi/USIB/HW/Smart-Cable/firmware/smart-cable/sensors/HYDROPHONE/icListen_SD9_USB_R_V2/Middlewares/Third_Party/FatFs/src/ff.h \
@@ -115,6 +115,7 @@ Core/Src/UI.o: ../Core/Src/UI.c ../Core/Inc/UI.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
 ../Core/Inc/system_definitions.h:
 ../Core/Inc/icListen.h:
+../Core/Inc/UI.h:
 ../Core/Inc/mcu_flash.h:
 ../Core/Inc/crc.h:
 ../Core/Inc/em_sd_storage.h:

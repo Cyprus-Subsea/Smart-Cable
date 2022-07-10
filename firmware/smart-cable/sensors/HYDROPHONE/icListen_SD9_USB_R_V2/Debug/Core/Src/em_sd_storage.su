@@ -1,6 +1,6 @@
 ../Core/Src/em_sd_storage.c:13:7:sd_storage_disk_init	16	static
 ../Core/Src/em_sd_storage.c:18:7:sd_storage_init	56	static
-../Core/Src/em_sd_storage.c:55:7:sd_storage_link_ss	24	static
-../Core/Src/em_sd_storage.c:62:7:sd_storage_write	16	static
-../Core/Src/em_sd_storage.c:66:7:sd_storage_read	16	static
-../Core/Src/em_sd_storage.c:70:7:sd_storage_set_next_disk	24	static
+../Core/Src/em_sd_storage.c:59:7:sd_storage_link_ss	24	static
+../Core/Src/em_sd_storage.c:66:7:sd_storage_write	16	static
+../Core/Src/em_sd_storage.c:70:7:sd_storage_read	16	static
+../Core/Src/em_sd_storage.c:74:7:sd_storage_set_next_disk	24	static

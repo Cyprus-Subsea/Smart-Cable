@@ -32,7 +32,7 @@ Core/Src/icListen.o: ../Core/Src/icListen.c ../Core/Inc/icListen.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- ../Core/Inc/system_definitions.h ../Core/Inc/crc.h \
+ ../Core/Inc/system_definitions.h ../Core/Inc/UI.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h \
  ../Core/Inc/FreeRTOSConfig.h \
@@ -50,7 +50,7 @@ Core/Src/icListen.o: ../Core/Src/icListen.c ../Core/Inc/icListen.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
- ../Core/Inc/UI.h
+ ../Core/Inc/crc.h ../Core/Inc/UI.h
 ../Core/Inc/icListen.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -87,7 +87,7 @@ Core/Src/icListen.o: ../Core/Src/icListen.c ../Core/Inc/icListen.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_hcd.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h:
 ../Core/Inc/system_definitions.h:
-../Core/Inc/crc.h:
+../Core/Inc/UI.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
@@ -105,4 +105,5 @@ Core/Src/icListen.o: ../Core/Src/icListen.c ../Core/Inc/icListen.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h:
+../Core/Inc/crc.h:
 ../Core/Inc/UI.h:

@@ -44,6 +44,9 @@
 
 #define  UI_UART               huart1
 
+
+#define  SYSTEM_READY          10
+#define  SYSTEM_STARTED        11
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -63,7 +66,7 @@ UART_HandleTypeDef huart1;
 
 osThreadId defaultTaskHandle;
 osThreadId storage_tHandle;
-osThreadId main_tHandle;
+osThreadId icListen_tHandle;
 osThreadId uart_tHandle;
 osMessageQId AppliEventHandle;
 osMessageQId USB_rxHandle;
@@ -77,9 +80,12 @@ CDC_HandleTypeDef *CDC_Handle;
 
 extern rtc_typedef rtc;
 extern icListen_object_typedef icListen;
-icListen_status_basic_msg   status_msg;
-memory_region_pointer      send_mem_ptr;
-memory_region_pointer  collect_msg_ptr;
+
+memory_region_pointer          status_msg_ptr;
+icListen_status_basic_msg          status_msg;
+
+memory_region_pointer         collect_msg_ptr;
+icListen_collect_short_mask_msg   collect_msg;
 
 
 UI_typedef user_interface;
@@ -88,6 +94,9 @@ mcu_flash_typedef mcu_flash;
 sd_storage_t microsd_storage;
 wav_file_typedef wav_file;
 
+uint8_t system_status;
+uint32_t file_bytes_left;
+uint32_t disk_kbytes_left;
 uint32_t tick1,tick2;
 /* USER CODE END PV */
 
@@ -101,10 +110,11 @@ static void MX_TIM2_Init(void);
 static void MX_RTC_Init(void);
 void StartDefaultTask(void const * argument);
 void storage_f(void const * argument);
-void main_f(void const * argument);
+void icListen_f(void const * argument);
 void uart_f(void const * argument);
 
 /* USER CODE BEGIN PFP */
+void icListen_prepare_messages();
 
 /* USER CODE END PFP */
 
@@ -149,8 +159,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
   UI_init(&user_interface);
   HAL_UART_Receive_IT(&UI_UART,&(user_interface.media_rx_byte),1);
-
   mcu_flash_init(&mcu_flash,FLASH_SECTOR_11);
+
+  system_status=SYSTEM_STARTED;
 
   /* USER CODE END 2 */
 
@@ -196,9 +207,9 @@ int main(void)
   osThreadDef(storage_t, storage_f, osPriorityNormal, 0, 512);
   storage_tHandle = osThreadCreate(osThread(storage_t), NULL);
 
-  /* definition and creation of main_t */
-  osThreadDef(main_t, main_f, osPriorityNormal, 0, 512);
-  main_tHandle = osThreadCreate(osThread(main_t), NULL);
+  /* definition and creation of icListen_t */
+  osThreadDef(icListen_t, icListen_f, osPriorityNormal, 0, 512);
+  icListen_tHandle = osThreadCreate(osThread(icListen_t), NULL);
 
   /* definition and creation of uart_t */
   osThreadDef(uart_t, uart_f, osPriorityNormal, 0, 256);
@@ -518,7 +529,7 @@ uint8_t tmp2;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
- if(huart==&UI_UART)
+ if(huart==&UI_UART && system_status==SYSTEM_READY)
  {
 	 UI_media_process_byte(&user_interface,user_interface.media_rx_byte);
 	 HAL_UART_Receive_IT(&UI_UART,&(user_interface.media_rx_byte),1);
@@ -530,13 +541,39 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 
  if(huart==&UI_UART)
  {
-	 if(UI_media_get_byte(&user_interface,&tmp2)==UI_F_OK)
-	 {
+  if(UI_media_get_byte(&user_interface,&tmp2)==UI_F_OK)
+  {
 	    HAL_UART_Transmit_IT(&UI_UART,&tmp2,1);
-	 }
+  }
  }
 }
 
+void icListen_prepare_messages()
+{
+  collect_msg_ptr.start_addr=(uint8_t*)&collect_msg;
+  collect_msg_ptr.size=sizeof(icListen_collect_short_mask_msg);
+
+  status_msg_ptr.start_addr=(uint8_t*)&status_msg;
+  status_msg_ptr.size=sizeof(icListen_enquire_device_msg);
+
+  icListen_prepare_collect_msg(&collect_msg,0x20);
+  icListen_prepare_enquire_device_msg(&status_msg);
+}
+
+F_RES open_new_wav_file()
+{
+	char file_name[30];
+	file_bytes_left=((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate*icListen.settings->file_duration)-44;
+	read_time(&rtc);
+	sprintf(file_name,"%d:%02d%02d%02d_%02d%02d%02d.wav",microsd_storage.active_disk_indx,rtc.time.Hours,rtc.time.Minutes,rtc.time.Seconds,rtc.date.Date,rtc.date.Month,rtc.date.Year);
+	if(disk_kbytes_left>(file_bytes_left/1024)){
+	 if(wav_file_open(&wav_file,file_name,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate,1)==F_OK){
+		disk_kbytes_left-=(file_bytes_left/1024);
+		return F_OK;
+	 }
+	}
+    return F_ERR;
+}
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -552,6 +589,16 @@ void StartDefaultTask(void const * argument)
   MX_USB_HOST_Init();
   /* USER CODE BEGIN 5 */
    osEvent event;
+
+  if(mcu_flash_read(&mcu_flash)!=F_OK){
+  		icListen.settings->wav_sample_rate=ICLISTEN_DEFAULT_WAV_SAMPLE_RATE;
+  		icListen.settings->wav_sample_bit_depth=ICLISTEN_DEFAULT_WAV_SAMPLE_BIT_DEPTH;
+  		icListen.settings->file_duration=ICLISTEN_DEFAULT_FILE_DURATION;
+  		mcu_flash_save(&mcu_flash);
+  }
+  while(microsd_storage.status!=STORAGE_NOT_INITTIALIZED) {osDelay(1);}
+  system_status=SYSTEM_READY;
+
   /* Infinite loop */
   for(;;)
   {
@@ -562,13 +609,15 @@ void StartDefaultTask(void const * argument)
 		switch(event.value.v)
 		{
 		 case APPLICATION_DISCONNECT:
-			 icListen.status=DISCONNECTED;
+			 icListen_init_sensor_status(&icListen);
 		 break;
 
 		 case APPLICATION_READY:
 			 osDelay(5000);
-			 icListen.status=CONNECTED;
-			 osMessagePut(USB_txHandle,&collect_msg_ptr, 0);
+			 icListen_init_sensor_status(&icListen);
+			 icListen.status=ICLISTEN_CONNECTED;
+			 osMessagePut(USB_txHandle,(uint32_t)&status_msg_ptr, 0);
+			 osMessagePut(USB_txHandle,(uint32_t)&collect_msg_ptr, 0);
 		 break;
 
 		 case APPLICATION_START:
@@ -596,16 +645,13 @@ void storage_f(void const * argument)
 {
   /* USER CODE BEGIN storage_f */
   osDelay(500);
-  char ttr[20];
-  memory_region_pointer msg_ptr;
+  char info_msg[100];
+
   memory_region_pointer* data_ptr;
-  msg_ptr.start_addr=ttr;
-
-  char file_name[15];
-  //char xxx[20];
-  int num_pckts=100;
-
   osEvent storage_w_event;
+
+  sprintf(info_msg,"Wait for storage init....");
+  HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
 
   sd_storage_link_ss(&microsd_storage,0,SS_SD1_Pin,GPIOA);
   sd_storage_link_ss(&microsd_storage,1,SS_SD2_Pin,GPIOA);
@@ -613,96 +659,119 @@ void storage_f(void const * argument)
   sd_storage_link_ss(&microsd_storage,3,SS_SD4_Pin,GPIOA);
   while(sd_storage_init(&microsd_storage)!=F_OK) osDelay(1000);
 
-  sprintf(file_name,"%d:%d.wav",microsd_storage.active_disk_indx,read_time(&rtc));
-  if(wav_file_open(&wav_file,file_name)==F_OK) sprintf(ttr,"%d mounted\r",microsd_storage.active_disk_indx);
-  msg_ptr.size=strlen(msg_ptr.start_addr);
-  UI_send_msg(&user_interface,UI_CMD_SEND_DATA,&msg_ptr);
+  sprintf(info_msg,"detected %d cards.\r",microsd_storage.num_of_discs);
+  HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
 
-  //readDir("0:/");
-  //f_unlink("0:test1.wav");
+
+
+  disk_kbytes_left=microsd_storage.active_disk->free_space;
+  if(open_new_wav_file()==F_ERR){
+	sprintf(info_msg,"Not enough space for start.\r");
+	HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
+	while(1){osDelay(1);}
+  }
 
   /* Infinite loop */
   for(;;)
   {
-	  storage_w_event = osMessageGet(storage_wHandle, osWaitForever);
-	  if(storage_w_event.status == osEventMessage){
-		  if(num_pckts>0)
-		  {
-		   data_ptr=(memory_region_pointer*)storage_w_event.value.v;
-	       wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size);
-	       if(num_pckts==1)
-	       {
-			wav_file_close(&wav_file);
-			if(sd_storage_set_next_disk(&microsd_storage)==F_OK){
-			  sprintf(file_name,"%d:%d.wav",microsd_storage.active_disk_indx,read_time(&rtc));
-			  if(wav_file_open(&wav_file,file_name)==F_OK) num_pckts=100;
-			  else num_pckts--;
-			}
-			else num_pckts--;
-	       }
-		   else num_pckts--;
 
-	       osDelay(35);
-	       osMessagePut(USB_txHandle,(uint8_t*)&collect_msg_ptr, 0);
-		  }
+   storage_w_event = osMessageGet(storage_wHandle, osWaitForever);
+   if(storage_w_event.status == osEventMessage){
+	 data_ptr=(memory_region_pointer*)storage_w_event.value.v;
+
+
+	 if(file_bytes_left>data_ptr->size){
+	   if(wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size)==F_OK){
+	      file_bytes_left-=data_ptr->size;
+	   }
+	   else{
+	      wav_file_close(&wav_file);
+	      sprintf(info_msg,"Write error.\r");
+	      HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
+	      while(1){osDelay(1);}
+	   }
+	 }
+	 else{
+		wav_file_close(&wav_file);
+		if(open_new_wav_file()!=F_OK){
+		  do{
+				if(sd_storage_set_next_disk(&microsd_storage)!=F_OK){
+	        		sprintf(info_msg,"End of storage reached.\r");
+		        	HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
+		        	while(1){osDelay(1);}
+				}
+				disk_kbytes_left=microsd_storage.active_disk->free_space;
+		   }while(open_new_wav_file()!=F_OK);
+	   	 }
+	     sprintf(info_msg,"File changed.\r");
+	     HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
+		 if(wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size)==F_OK){
+			 file_bytes_left-=data_ptr->size;
+	     }
+		 else{
+			 wav_file_close(&wav_file);
+		     sprintf(info_msg,"Write error.\r");
+		     HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
+		     while(1){osDelay(1);}
+		 }
 	  }
+	}
    }
   /* USER CODE END storage_f */
 }
 
-/* USER CODE BEGIN Header_main_f */
+/* USER CODE BEGIN Header_icListen_f */
 /**
-* @brief Function implementing the main_t thread.
+* @brief Function implementing the icListen_t thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_main_f */
-void main_f(void const * argument)
+/* USER CODE END Header_icListen_f */
+void icListen_f(void const * argument)
 {
-  /* USER CODE BEGIN main_f */
-  icListen.settings=(icListen_settings_typedef*)mcu_flash.data.raw_data;
-  memory_region_pointer* mem_ptr;
-
-
-
-
-  icListen_collect_short_mask_msg collect_msg;
-  icListen_prepare_collect_msg(&collect_msg,0x20);
-
-  collect_msg_ptr.start_addr=(uint8_t*)&collect_msg;
-  collect_msg_ptr.size=sizeof(icListen_collect_short_mask_msg);
+  /* USER CODE BEGIN icListen_f */
+  /* Infinite loop */
+  uint8_t msg_type;
+  memory_region_pointer* usb_tx_msg_ptr;
+  memory_region_pointer  parsed_data_ptr[10];
+  uint8_t                parsed_data_ptr_index=0;
 
   osEvent event;
 
-  if(mcu_flash_read(&mcu_flash)!=F_OK){
-		icListen.settings->wav_sample_rate=ICLISTEN_DEFAULT_WAV_SAMPLE_RATE;
-		icListen.settings->wav_sample_bit_depth=ICLISTEN_DEFAULT_WAV_SAMPLE_BIT_DEPTH;
-		icListen.settings->file_duration=ICLISTEN_DEFAULT_FILE_DURATION;
-		mcu_flash_save(&mcu_flash);
-  }
-  icListen.status=DISCONNECTED;
+  icListen_prepare_messages();
+  icListen.settings=(icListen_settings_typedef*)mcu_flash.data.raw_data;
+  icListen_init_sensor_status(&icListen);
 
-  while(icListen.status==DISCONNECTED) osDelay(1);
 
   /* Infinite loop */
   for(;;)
   {
-	  if(icListen.status==CONNECTED){
 	   event = osMessageGet(USB_txHandle, osWaitForever);
-	   if(event.status == osEventMessage){
-		   mem_ptr=(memory_region_pointer*)event.value.v;
-		   USB_transmit_msg(mem_ptr->start_addr,mem_ptr->size);
+	   if(icListen.status==ICLISTEN_CONNECTED){
+		if(event.status == osEventMessage){
+		   usb_tx_msg_ptr=(memory_region_pointer*)event.value.v;
+		   USB_transmit_msg(usb_tx_msg_ptr->start_addr,usb_tx_msg_ptr->size);
+		}
 
+		event = osMessageGet(USB_rxHandle, 20);
+		if(event.status == osEventMessage){
+
+		   if(icListen_parse_msg((uint8_t*)event.value.v,&icListen,&msg_type,&parsed_data_ptr[parsed_data_ptr_index])==F_OK)
+		   {
+			   if(msg_type==MSG_TYPE_COLLECT_DATA){
+			     if(parsed_data_ptr[parsed_data_ptr_index].size>7){
+				  osMessagePut(storage_wHandle,(uint32_t)&parsed_data_ptr[parsed_data_ptr_index],0);
+				  parsed_data_ptr_index++;
+				  parsed_data_ptr_index%=10;
+			     }
+				 osDelay(15);
+				 osMessagePut(USB_txHandle,(uint32_t)&collect_msg_ptr, 0);
+			   }
+		   }
+		}
 	   }
-	   event = osMessageGet(USB_rxHandle, 10);
-	   if(event.status == osEventMessage){
-
-		   icListen_parse_msg((uint8_t*)event.value.v,&icListen);
-
-	   }
-	  }
   }
-  /* USER CODE END main_f */
+  /* USER CODE END icListen_f */
 }
 
 /* USER CODE BEGIN Header_uart_f */
@@ -716,18 +785,17 @@ void uart_f(void const * argument)
 {
   /* USER CODE BEGIN uart_f */
   uint8_t tmp;
-  /* Infinite loop */
+  while(system_status!=SYSTEM_READY) {osDelay(1);}
   user_interface.media_status=UI_MEDIA_READY;
+  /* Infinite loop */
+
   for(;;)
   {
-	   if(UI_UART.gState!=HAL_UART_STATE_BUSY_TX)
-	   {
-		if(UI_media_get_byte(&user_interface,&tmp)==UI_F_OK)
-		{
-		   HAL_UART_Transmit_IT(&UI_UART,&tmp,1);
-		}
-	   }
-	  osDelay(1);
+   if(UI_UART.gState!=HAL_UART_STATE_BUSY_TX)
+   {
+ 	if(UI_media_get_byte(&user_interface,&tmp)==UI_F_OK) HAL_UART_Transmit_IT(&UI_UART,&tmp,1);
+   }
+   osDelay(1);
   }
   /* USER CODE END uart_f */
 }

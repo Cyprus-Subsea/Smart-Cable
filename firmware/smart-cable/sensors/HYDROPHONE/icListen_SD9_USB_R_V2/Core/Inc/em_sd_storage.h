@@ -21,6 +21,11 @@ typedef enum{
 	DISK_ABSENT
 }DISK_STATUS;
 
+typedef enum{
+	STORAGE_INITTIALIZED=0,
+	STORAGE_NOT_INITTIALIZED
+}storage_status;
+
 typedef struct{
   FATFS       fs;
   DISK_STATUS status;
@@ -33,6 +38,8 @@ typedef struct{
 	sd_disk_t  disks[SD_STORAGE_NUM_DISKS];
 	uint8_t    active_disk_indx;
 	sd_disk_t* active_disk;
+	uint8_t    num_of_discs;
+   storage_status    status;
 }sd_storage_t;
 
 
