@@ -22,6 +22,8 @@ void icListen_init_sensor_status(icListen_object_typedef* self_object)
 	self_object->device_type=0;
 	self_object->last_collect_msg_num=0;
 	self_object->collect_seq_num_err=0;
+	self_object->wav_misconfig_err=0;
+
 }
 
 void icListen_prepare_setup_msg(icListen_setup_full_msg* msg,uint32_t wav_sample_rate,uint32_t wav_sample_bit_depth)
@@ -127,6 +129,9 @@ F_RES icListen_parse_msg(uint8_t* msg,icListen_object_typedef* self_object,uint8
 			    	  self_object->collect_seq_num_err++;
 			      }
 			      self_object->last_collect_msg_num=collected_wav_header->wav_hdr.seq_num;
+			      if(collected_wav_header->wav_hdr.sample_rate!=self_object->settings->wav_sample_rate || collected_wav_header->wav_hdr.bit_depth!=self_object->settings->wav_sample_bit_depth ){
+			        self_object->wav_misconfig_err++;
+			      }
 		    	  parsed_data_ptr->start_addr=msg+sizeof(icListen_wav_full_header);
 		    	  parsed_data_ptr->size=collected_wav_header->wav_hdr.num_of_bytes;
 			    //parsed_data_ptr->start_addr=msg;

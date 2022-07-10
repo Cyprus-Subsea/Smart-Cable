@@ -87,6 +87,8 @@ icListen_status_basic_msg          status_msg;
 memory_region_pointer         collect_msg_ptr;
 icListen_collect_short_mask_msg   collect_msg;
 
+memory_region_pointer           setup_msg_ptr;
+icListen_setup_full_msg             setup_msg;
 
 UI_typedef user_interface;
 mcu_flash_typedef mcu_flash;
@@ -97,7 +99,7 @@ wav_file_typedef wav_file;
 uint8_t system_status;
 uint32_t file_bytes_left;
 uint32_t disk_kbytes_left;
-uint32_t files_created=0;
+
 uint32_t tick1,tick2;
 /* USER CODE END PV */
 
@@ -549,7 +551,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
  }
 }
 
-void icListen_prepare_messages()
+void icListen_prepare_messages(icListen_object_typedef* self_object)
 {
   collect_msg_ptr.start_addr=(uint8_t*)&collect_msg;
   collect_msg_ptr.size=sizeof(icListen_collect_short_mask_msg);
@@ -557,8 +559,13 @@ void icListen_prepare_messages()
   status_msg_ptr.start_addr=(uint8_t*)&status_msg;
   status_msg_ptr.size=sizeof(icListen_enquire_device_msg);
 
+  setup_msg_ptr.start_addr=(uint8_t*)&setup_msg;
+  setup_msg_ptr.size=sizeof(icListen_setup_full_msg);
+
   icListen_prepare_collect_msg(&collect_msg,0x20);
   icListen_prepare_enquire_device_msg(&status_msg);
+  icListen_prepare_setup_msg(&setup_msg,self_object->settings->wav_sample_rate,self_object->settings->wav_sample_bit_depth);
+  //HAL_UART_Transmit(&huart1,(uint8_t*)&setup_msg,98,100);
 }
 
 F_RES open_new_wav_file()
@@ -566,10 +573,12 @@ F_RES open_new_wav_file()
 	char file_name[30];
 	file_bytes_left=((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate*icListen.settings->file_duration)-44;
 	read_time(&rtc);
-	sprintf(file_name,"%d:%02d%02d%02d_%02d%02d%02d.wav",microsd_storage.active_disk_indx,rtc.time.Hours,rtc.time.Minutes,rtc.time.Seconds,rtc.date.Date,rtc.date.Month,rtc.date.Year);
+	sprintf(file_name,"%d:%d_%02d%02d%02d_%02d%02d%02d.wav",microsd_storage.active_disk_indx,icListen.settings->file_index,rtc.time.Hours,rtc.time.Minutes,rtc.time.Seconds,rtc.date.Date,rtc.date.Month,rtc.date.Year);
 	if(disk_kbytes_left>(file_bytes_left/1024)){
 	 if(wav_file_open(&wav_file,file_name,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate,1)==F_OK){
 		disk_kbytes_left-=(file_bytes_left/1024);
+		icListen.settings->file_index++;
+		mcu_flash_save(&mcu_flash);
 		return F_OK;
 	 }
 	}
@@ -618,6 +627,7 @@ void StartDefaultTask(void const * argument)
 			 icListen_init_sensor_status(&icListen);
 			 icListen.status=ICLISTEN_CONNECTED;
 			 osMessagePut(USB_txHandle,(uint32_t)&status_msg_ptr, 0);
+			 osMessagePut(USB_txHandle,(uint32_t)&setup_msg_ptr, 0);
 			 osMessagePut(USB_txHandle,(uint32_t)&collect_msg_ptr, 0);
 		 break;
 
@@ -671,7 +681,7 @@ void storage_f(void const * argument)
 	HAL_UART_Transmit(&huart1,info_msg,strlen(info_msg),100);
 	while(1){osDelay(1);}
   }
-  files_created++;
+
 
   /* Infinite loop */
   for(;;)
@@ -707,7 +717,7 @@ void storage_f(void const * argument)
 	   	 }
 		 if(wav_file_write(&wav_file,data_ptr->start_addr,data_ptr->size)==F_OK){
 			 file_bytes_left-=data_ptr->size;
-			 files_created++;
+
 	     }
 		 else{
 			 wav_file_close(&wav_file);
@@ -736,12 +746,14 @@ void icListen_f(void const * argument)
   memory_region_pointer* usb_tx_msg_ptr;
   memory_region_pointer  parsed_data_ptr[10];
   uint8_t                parsed_data_ptr_index=0;
-
   osEvent event;
 
-  icListen_prepare_messages();
-  icListen.settings=(icListen_settings_typedef*)mcu_flash.data.raw_data;
+  while(system_status!=SYSTEM_READY) {osDelay(1);}
   icListen_init_sensor_status(&icListen);
+  icListen.settings=(icListen_settings_typedef*)mcu_flash.data.raw_data;
+  icListen_prepare_messages(&icListen);
+  icListen.delay_time=((3000*1000)/((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate))/2;
+
 
 
   /* Infinite loop */
@@ -765,7 +777,7 @@ void icListen_f(void const * argument)
 				  parsed_data_ptr_index++;
 				  parsed_data_ptr_index%=10;
 			     }
-				 osDelay(15);
+			     if(icListen.delay_time>0) osDelay(icListen.delay_time);
 				 osMessagePut(USB_txHandle,(uint32_t)&collect_msg_ptr, 0);
 			   }
 		   }

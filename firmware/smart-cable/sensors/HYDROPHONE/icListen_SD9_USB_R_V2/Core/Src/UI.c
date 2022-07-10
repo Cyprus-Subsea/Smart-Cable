@@ -13,6 +13,7 @@
 #include "mcu_flash.h"
 #include "em_sd_storage.h"
 #include "rtc.h"
+#include "mcu_flash.h"
 
 
 extern UART_HandleTypeDef huart1;
@@ -21,6 +22,7 @@ extern mcu_flash_typedef mcu_flash;
 extern sd_storage_t microsd_storage;
 extern rtc_typedef rtc;
 extern uint32_t files_created;
+extern mcu_flash_typedef mcu_flash;
 
 int ((*UI_functions[UI_MSG_NUM_OF_FUNCTIONS]))(UI_typedef* UI_obj,uint8_t* msg);
 char*  UI_messages_strings[UI_MSG_NUM_OF_FUNCTIONS];
@@ -185,6 +187,7 @@ int UI_MSG_RESET_f(UI_typedef* UI_obj,uint8_t* msg)
 		icListen.settings->wav_sample_rate=ICLISTEN_DEFAULT_WAV_SAMPLE_RATE;
 		icListen.settings->wav_sample_bit_depth=ICLISTEN_DEFAULT_WAV_SAMPLE_BIT_DEPTH;
 		icListen.settings->file_duration=ICLISTEN_DEFAULT_FILE_DURATION;
+		icListen.settings->file_index=0;
 		mcu_flash_save(&mcu_flash);
 	}
 	osMessagePut(UI_obj->events_q,UI_EVNT_RESET,1);
@@ -206,10 +209,11 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
                            "WAV sample depth: %d\r"
                            "WAV sample rate: %d\r"
                            "Seq err:%d\r"
+				           "Misconfig err:%d\r"
 				           "Last msg num:%d\r"
-				           "Files created:%d\r"
+				           "File index:%d\r"
 				           "Disc free:%d\r"
-				           "Disc indx:%d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate,icListen.collect_seq_num_err,icListen.last_collect_msg_num,files_created,microsd_storage.disks[microsd_storage.active_disk_indx].free_space,microsd_storage.active_disk_indx);
+				           "Disc indx:%d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate,icListen.collect_seq_num_err,icListen.wav_misconfig_err,icListen.last_collect_msg_num,icListen.settings->file_index,microsd_storage.disks[microsd_storage.active_disk_indx].free_space,microsd_storage.active_disk_indx);
 		temp_ptr.start_addr=temp_array;
 		temp_ptr.size=strlen(temp_array);
 		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
@@ -244,7 +248,10 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 
 int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
 {
-	char * pch;
+	char *             pch;
+	uint32_t   sample_rate;
+	uint32_t      duration;
+
 	pch = strtok (NULL," ");//subcomand
 	if(strcmp(pch,"clock")==0){
 		pch = strtok (NULL,":");//hours
@@ -261,6 +268,22 @@ int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
 		rtc.date.Year=atol(pch);
 		rtc.date.WeekDay=RTC_WEEKDAY_MONDAY;
 		set_time(&rtc);
+	}
+	else if(strcmp(pch,"rate")==0){
+		pch = strtok (NULL," ");//rate
+		sample_rate=atol(pch);
+		if(sample_rate==4000 || sample_rate==8000 || sample_rate==16000 || sample_rate==32000 || sample_rate==48000 || sample_rate==96000 || sample_rate==120000 || sample_rate==240000 || sample_rate==480000){
+         icListen.settings->wav_sample_rate=sample_rate;
+         mcu_flash_save(&mcu_flash);
+		}
+	}
+	else if(strcmp(pch,"duration")==0){
+		pch = strtok (NULL," ");//duration
+		duration=atol(pch);
+		if((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate*duration<4294967200){
+         icListen.settings->file_duration=duration;
+         mcu_flash_save(&mcu_flash);
+		}
 	}
 
 	osMessagePut(UI_obj->events_q,UI_EVNT_SET,1);

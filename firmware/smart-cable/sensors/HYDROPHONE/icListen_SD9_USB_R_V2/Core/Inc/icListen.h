@@ -28,7 +28,7 @@
 
 
 
-#define MSG_JOB_SETUP_WAVEFORM_HF                        0x000B
+#define MSG_JOB_SETUP_WAVEFORM_HF                        0x0014
 
 #define MSG_JOB_SETUP_TAG_AUX_PIN_FUNC                   0x0000
 #define MSG_JOB_SETUP_TAG_LOG_START_TIME                 0x0001
@@ -176,6 +176,7 @@ typedef struct
   uint32_t           wav_sample_rate;
   uint32_t      wav_sample_bit_depth;
   uint32_t             file_duration;
+  uint32_t                file_index;
 } icListen_settings_typedef;
 #pragma pack (pop)
 
@@ -189,7 +190,9 @@ typedef struct
 	icListen_status_typedef                            status;
 	icListen_settings_typedef*                       settings;
 	uint32_t                             last_collect_msg_num;
-	uint32_t                             collect_seq_num_err;
+	uint32_t                              collect_seq_num_err;
+	uint32_t                                wav_misconfig_err;
+	uint16_t                                       delay_time;
 
 } icListen_object_typedef;
 

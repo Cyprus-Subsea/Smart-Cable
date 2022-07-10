@@ -14,7 +14,7 @@
 #include  "crc.h"
 #include  "system_definitions.h"
 
-#define FLASH_DATA_SIZE                   16
+#define FLASH_DATA_SIZE                   20
 #define FLASH_DATA_CRC_SIZE                2
 
 #if defined(STM32F405xx)
