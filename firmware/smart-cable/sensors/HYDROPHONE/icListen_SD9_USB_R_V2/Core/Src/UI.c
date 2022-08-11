@@ -8,6 +8,7 @@
 
 #include "UI.h"
 #include "string.h"
+#include "stdio.h"
 #include "stdlib.h"
 #include "icListen.h"
 #include "mcu_flash.h"
@@ -189,11 +190,19 @@ int UI_MSG_RESET_f(UI_typedef* UI_obj,uint8_t* msg)
 		icListen.settings->file_duration=ICLISTEN_DEFAULT_FILE_DURATION;
 		icListen.settings->file_index=0;
 		mcu_flash_save(&mcu_flash);
+		sprintf(temp_array,"ok\r");
 	}
 	else if(strcmp(pch,"file_index")==0){
 		icListen.settings->file_index=0;
 		mcu_flash_save(&mcu_flash);
+		sprintf(temp_array,"ok\r");
 	}
+	else{
+		sprintf(temp_array,"settings\rfile_index\r");
+	}
+	temp_ptr.start_addr=temp_array;
+	temp_ptr.size=strlen(temp_array);
+	UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
 	osMessagePut(UI_obj->events_q,UI_EVNT_RESET,1);
 	return UI_F_OK;
 }
@@ -218,9 +227,6 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 				           "File index:%d\r"
 				           "Disc free:%d\r"
 				           "Disc indx:%d\r",icListen.device_type,icListen.serial_number,icListen.firmware_version,icListen.build_date,icListen.status,icListen.settings->file_duration,icListen.settings->wav_sample_bit_depth,icListen.settings->wav_sample_rate,icListen.collect_seq_num_err,icListen.wav_misconfig_err,icListen.last_collect_msg_num,icListen.settings->file_index,microsd_storage.disks[microsd_storage.active_disk_indx].free_space,microsd_storage.active_disk_indx);
-		temp_ptr.start_addr=temp_array;
-		temp_ptr.size=strlen(temp_array);
-		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
 	}
 	else if(strcmp(pch,"storage")==0){
 		temp_array[0]=0x00;
@@ -228,68 +234,129 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 		{
 		 sprintf(temp_array+strlen(temp_array),"Disk: %d\rStatus: %d\rSize: %d KB\rFree space: %d KB\r",i,microsd_storage.disks[i].status,microsd_storage.disks[i].size,microsd_storage.disks[i].free_space);
 		}
-		temp_ptr.start_addr=temp_array;
-		temp_ptr.size=strlen(temp_array);
-		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
 	}
 	else if(strcmp(pch,"clock")==0){
 		temp_array[0]=0x00;
 		read_time(&rtc);
-        sprintf(temp_array,"Clock: %d:%d:%d  %d/%d/%d %d\r",rtc.time.Hours,rtc.time.Minutes,rtc.time.Seconds,rtc.date.Date,rtc.date.Month,rtc.date.Year,(uint32_t)rtc.timestamp);
-		temp_ptr.start_addr=temp_array;
-		temp_ptr.size=strlen(temp_array);
-		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
+        sprintf(temp_array,"Clock: %02d:%02d:%02d %02d/%02d/%02d\r",rtc.time.Hours,rtc.time.Minutes,rtc.time.Seconds,rtc.date.Date,rtc.date.Month,rtc.date.Year);
 	}
 	else{
 		sprintf(temp_array,"sensor\rstorage\rclock\r");
-		temp_ptr.start_addr=temp_array;
-		temp_ptr.size=strlen(temp_array);
-		UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
 	}
+
+	temp_ptr.start_addr=temp_array;
+	temp_ptr.size=strlen(temp_array);
+	UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
 	osMessagePut(UI_obj->events_q,UI_EVNT_SHOW,1);
 	return UI_F_OK;
 }
 
+uint8_t IsNotNumber(char* msg)
+{
+ for(int i=0;i<strlen(msg);i++){
+	 if(msg[i]<0x30||msg[i]>0x39) return 1;
+ }
+ return 0;
+}
+
+
 int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
 {
-	char *             pch;
+	char *             pch=0;
 	uint32_t   sample_rate;
 	uint32_t      duration;
+	char*            tmpHr=0;
+	char*           tmpMin=0;
+	char*           tmpSec=0;
+	char*           tmpDay=0;
+	char*           tmpMon=0;
+	char*          tmpYear=0;
+	uint32_t             tmp;
 
 	pch = strtok (NULL," ");//subcomand
 	if(strcmp(pch,"clock")==0){
-		pch = strtok (NULL,":");//hours
-		rtc.time.Hours=atol(pch);
-		pch = strtok (NULL,":");//minutes
-		rtc.time.Minutes=atol(pch);
-		pch = strtok (NULL," ");//seconds
-		rtc.time.Seconds=atol(pch);
-		pch = strtok (NULL,"/");//day
-		rtc.date.Date=atol(pch);
-		pch = strtok (NULL,"/");//month
-		rtc.date.Month=atol(pch);
-		pch = strtok (NULL," ");//year
-		rtc.date.Year=atol(pch);
-		rtc.date.WeekDay=RTC_WEEKDAY_MONDAY;
-		set_time(&rtc);
+
+	   tmpHr = strtok (NULL,":");//hours
+       tmpMin = strtok (NULL,":");//minutes
+       tmpSec = strtok (NULL," ");//seconds
+	   tmpDay = strtok (NULL,"/");//day
+	   tmpMon = strtok (NULL,"/");//month
+	   tmpYear = strtok (NULL," ");//year
+
+	   if(tmpHr==0||tmpMin==0||tmpSec==0||tmpDay==0||tmpMon==0||tmpYear==0) sprintf(temp_array,"syntax error\r");
+	   else{
+		   if(IsNotNumber(tmpHr)||IsNotNumber(tmpMin)||IsNotNumber(tmpSec)||IsNotNumber(tmpDay)||IsNotNumber(tmpMon)||IsNotNumber(tmpYear)) sprintf(temp_array,"syntax error\r");
+		   else{
+            tmp=atol(tmpHr);
+            if(tmp>23) sprintf(temp_array,"syntax error\r");
+            else{
+              rtc.time.Hours=tmp;
+              tmp=atol(tmpMin);
+              if(tmp>59) sprintf(temp_array,"syntax error\r");
+              else{
+  			    rtc.time.Minutes=tmp;
+  			    tmp=atol(tmpSec);
+                if(tmp>59) sprintf(temp_array,"syntax error\r");
+                else{
+  			       rtc.time.Seconds=tmp;
+  			       tmp=atol(tmpDay);
+  	               if(tmp>31) sprintf(temp_array,"syntax error\r");
+  	               else{
+  			         rtc.date.Date=tmp;
+  			         tmp=atol(tmpMon);
+  	                 if(tmp>12) sprintf(temp_array,"syntax error\r");
+  	                 else{
+  			           rtc.date.Month=tmp;
+    			       tmp=atol(tmpYear);
+    	               if(tmp>99) sprintf(temp_array,"syntax error\r");
+    	               else{
+  			             rtc.date.Year=tmp;
+
+  			             rtc.date.WeekDay=RTC_WEEKDAY_MONDAY;
+  			             set_time(&rtc);
+  			             sprintf(temp_array,"ok\r");
+    	               }
+  	                 }
+  	               }
+                }
+              }
+            }
+		   }
+	   }
 	}
 	else if(strcmp(pch,"rate")==0){
 		pch = strtok (NULL," ");//rate
 		sample_rate=atol(pch);
-		if(sample_rate==4000 || sample_rate==8000 || sample_rate==16000 || sample_rate==32000 || sample_rate==48000 || sample_rate==96000 || sample_rate==120000 || sample_rate==240000 || sample_rate==480000){
-         icListen.settings->wav_sample_rate=sample_rate;
-         mcu_flash_save(&mcu_flash);
+		if(IsNotNumber(sample_rate)) sprintf(temp_array,"syntax error\r");
+		else{
+		  if(sample_rate==4000 || sample_rate==8000 || sample_rate==16000 || sample_rate==32000 || sample_rate==48000 || sample_rate==96000 || sample_rate==120000 || sample_rate==240000 || sample_rate==480000){
+           icListen.settings->wav_sample_rate=sample_rate;
+           mcu_flash_save(&mcu_flash);
+           sprintf(temp_array,"ok\r");
+		  }
+		  else sprintf(temp_array,"syntax error\r");
 		}
 	}
 	else if(strcmp(pch,"duration")==0){
 		pch = strtok (NULL," ");//duration
 		duration=atol(pch);
-		if((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate*duration<4294967200){
-         icListen.settings->file_duration=duration;
-         mcu_flash_save(&mcu_flash);
+		if(IsNotNumber(duration)) sprintf(temp_array,"syntax error\r");
+		else{
+		  if((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate*duration<4294967200){
+           icListen.settings->file_duration=duration;
+           mcu_flash_save(&mcu_flash);
+           sprintf(temp_array,"ok\r");
+		  }
+		  else sprintf(temp_array,"syntax error\r");
 		}
 	}
+	else{
+		sprintf(temp_array,"sensor\rstorage\rclock\r");
+	}
 
+	temp_ptr.start_addr=temp_array;
+	temp_ptr.size=strlen(temp_array);
+	UI_send_msg(UI_obj,UI_CMD_SEND_DATA,&temp_ptr);
 	osMessagePut(UI_obj->events_q,UI_EVNT_SET,1);
 	return UI_F_OK;
 }

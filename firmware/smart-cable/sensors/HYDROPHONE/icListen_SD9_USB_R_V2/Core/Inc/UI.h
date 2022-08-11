@@ -85,5 +85,5 @@ int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg);
 int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg);
 int UI_MSG_RESET_f(UI_typedef* UI_obj,uint8_t* msg);
 int UI_MSG_HELP_f(UI_typedef* UI_obj,uint8_t* msg);
-
+uint8_t IsNotNumber(char* msg);
 #endif /* UI_H_ */
