@@ -33,6 +33,14 @@ char temp_array[400];
 const char* UI_commands_strings[]={"help here\r"};
 
 
+uint8_t IsNotNumber(char* msg)
+{
+ for(int i=0;i<strlen(msg);i++){
+	 if(msg[i]<0x30||msg[i]>0x39) return 1;
+ }
+ return 0;
+}
+
 void UI_init(UI_typedef* UI_obj)
 {
 	UI_messages_init(UI_obj);
@@ -238,7 +246,7 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 	else if(strcmp(pch,"clock")==0){
 		temp_array[0]=0x00;
 		read_time(&rtc);
-        sprintf(temp_array,"Clock: %02d:%02d:%02d %02d/%02d/%02d\r",rtc.time.Hours,rtc.time.Minutes,rtc.time.Seconds,rtc.date.Date,rtc.date.Month,rtc.date.Year);
+        sprintf(temp_array,"clock: %02d:%02d:%02d %02d/%02d/%02d\r",rtc.time.Hours,rtc.time.Minutes,rtc.time.Seconds,rtc.date.Date,rtc.date.Month,rtc.date.Year);
 	}
 	else{
 		sprintf(temp_array,"sensor\rstorage\rclock\r");
@@ -251,13 +259,7 @@ int UI_MSG_SHOW_f(UI_typedef* UI_obj,uint8_t* msg)
 	return UI_F_OK;
 }
 
-uint8_t IsNotNumber(char* msg)
-{
- for(int i=0;i<strlen(msg);i++){
-	 if(msg[i]<0x30||msg[i]>0x39) return 1;
- }
- return 0;
-}
+
 
 
 int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
@@ -326,9 +328,9 @@ int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
 	}
 	else if(strcmp(pch,"rate")==0){
 		pch = strtok (NULL," ");//rate
-		sample_rate=atol(pch);
-		if(IsNotNumber(sample_rate)) sprintf(temp_array,"syntax error\r");
+		if(IsNotNumber(pch)) sprintf(temp_array,"syntax error\r");
 		else{
+		  sample_rate=atol(pch);
 		  if(sample_rate==4000 || sample_rate==8000 || sample_rate==16000 || sample_rate==32000 || sample_rate==48000 || sample_rate==96000 || sample_rate==120000 || sample_rate==240000 || sample_rate==480000){
            icListen.settings->wav_sample_rate=sample_rate;
            mcu_flash_save(&mcu_flash);
@@ -339,9 +341,9 @@ int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
 	}
 	else if(strcmp(pch,"duration")==0){
 		pch = strtok (NULL," ");//duration
-		duration=atol(pch);
-		if(IsNotNumber(duration)) sprintf(temp_array,"syntax error\r");
+		if(IsNotNumber(pch)) sprintf(temp_array,"syntax error\r");
 		else{
+		  duration=atol(pch);
 		  if((icListen.settings->wav_sample_bit_depth/8)*icListen.settings->wav_sample_rate*duration<4294967200){
            icListen.settings->file_duration=duration;
            mcu_flash_save(&mcu_flash);
@@ -351,7 +353,7 @@ int UI_MSG_SET_f(UI_typedef* UI_obj,uint8_t* msg)
 		}
 	}
 	else{
-		sprintf(temp_array,"sensor\rstorage\rclock\r");
+		sprintf(temp_array,"clock\rrate\rduration\r");
 	}
 
 	temp_ptr.start_addr=temp_array;
