@@ -1,16 +1,16 @@
 (version 1)
 (rule MCU
-   (constraint clearance (min 0.04mm))
-   (constraint hole_clearance (min 0.04mm))
-   (constraint track_width (min 0.1mm)) 
-   (constraint annular_width (min 0.05mm)) 
+   (constraint clearance (min 0.1mm))
+   (constraint hole_clearance (min 0.1mm))
+   (constraint track_width (min 0.15mm)(max 0.3mm))
+   (constraint annular_width (min 0.1mm)) 
    (constraint hole_size (min 0.1mm))
    (condition "A.insideArea ('MCU')"))
 (rule USB
-   (constraint clearance (min 0.04mm))
-   (constraint hole_clearance (min 0.04mm))
+   (constraint clearance (min 0.1mm))
+   (constraint hole_clearance (min 0.1mm))
    (constraint track_width (min 0.1mm))
-   (constraint annular_width (min 0.05mm)) 
+   (constraint annular_width (min 0.1mm)) 
    (constraint hole_size (min 0.1mm))
    (condition "A.insideArea ('USB')"))
 (rule H1
