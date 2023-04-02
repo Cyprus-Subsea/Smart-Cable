@@ -227,8 +227,6 @@ int UVP6_MSG_LPM_DATA_f(uvp6* uvp6_obj,uint8_t* msg)
 		}
 	}
 
-
-
 	osMessagePut(uvp6_obj->events_q,UVP6_EVNT_LPM_DATA_RCVD,1);
 	return UVP6_F_OK;
 }

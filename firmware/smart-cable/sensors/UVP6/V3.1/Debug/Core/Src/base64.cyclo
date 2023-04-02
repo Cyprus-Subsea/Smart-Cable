@@ -1,0 +1,2 @@
+base64.c:10:5:base64encode	14
+base64.c:64:9:calc_XOR	2

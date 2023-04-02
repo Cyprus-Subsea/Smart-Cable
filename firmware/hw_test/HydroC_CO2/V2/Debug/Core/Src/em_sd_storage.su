@@ -1,0 +1,6 @@
+../Core/Src/em_sd_storage.c:14:7:sd_storage_disk_init	16	static
+../Core/Src/em_sd_storage.c:19:7:sd_storage_init	56	static
+../Core/Src/em_sd_storage.c:60:7:sd_storage_link_ss	24	static
+../Core/Src/em_sd_storage.c:68:7:sd_storage_write	16	static
+../Core/Src/em_sd_storage.c:72:7:sd_storage_read	16	static
+../Core/Src/em_sd_storage.c:76:7:sd_storage_set_next_disk	24	static

@@ -1,0 +1,9 @@
+disp_proc.c:11:7:disp_proc_get_event	3
+disp_proc.c:21:7:disp_proc_send_event	2
+disp_proc.c:33:6:disp_proc_init	1
+disp_proc.c:40:6:disp_proc_init_func	2
+disp_proc.c:61:8:disp_proc_start	3
+disp_proc.c:72:6:disp_proc_execute	1
+disp_proc.c:80:6:disp_proc_set_EA_table	1
+disp_proc.c:86:6:disp_proc_loop	7
+disp_proc.c:118:7:disp_proc_check_event	3

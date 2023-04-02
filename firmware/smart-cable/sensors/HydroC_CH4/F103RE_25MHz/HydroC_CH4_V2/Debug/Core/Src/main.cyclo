@@ -1,0 +1,14 @@
+main.c:116:5:main	1
+main.c:218:6:SystemClock_Config	3
+main.c:257:13:MX_SPI1_Init	2
+main.c:295:13:MX_UART5_Init	2
+main.c:328:13:MX_USART1_UART_Init	2
+main.c:359:13:MX_DMA_Init	1
+main.c:380:13:MX_GPIO_Init	1
+main.c:410:6:HAL_UART_RxCpltCallback	3
+main.c:424:6:HAL_UART_TxCpltCallback	5
+main.c:452:6:StartDefaultTask	38
+main.c:796:6:uart_tx_f	6
+main.c:831:6:timer1_cb	1
+main.c:846:6:HAL_TIM_PeriodElapsedCallback	2
+main.c:863:6:Error_Handler	1

@@ -1,0 +1,3 @@
+../Core/Src/settings.c:16:6:set_default_settings	4	static
+../Core/Src/settings.c:26:7:read_settings	648	static
+../Core/Src/settings.c:49:7:save_settings	648	static
