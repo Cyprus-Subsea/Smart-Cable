@@ -179,18 +179,34 @@ void slocum_send_cmd(slocum* slocum_obj,uint8_t cmd_id,void* arg)
 
      case SLOCUM_CMD_WRITE_FILE_DATA:
        ptr1=arg;
-       base64encode((char*)ptr1->start_addr,(uint32_t)ptr1->size,base64_buffer,SLOCUM_BASE64_BUFFER_SIZE);
-       sprintf( snd_buffer,"%s%s",
+       uint32_t len;
+       uint32_t size=(uint32_t)ptr1->size;
+       char* start_addr=(char*)ptr1->start_addr;
+       for(int i=0;size>0;i++)
+       {
+         start_addr=start_addr+(i*SLOCUM_FILE_WRITE_LEN);
+    	 if(size>SLOCUM_FILE_WRITE_LEN){
+    		 len=SLOCUM_FILE_WRITE_LEN;
+    	 }
+    	 else{
+    		 len=size;
+    	 }
+
+    	 size=size-len;
+    	 base64encode(start_addr,len,base64_buffer,SLOCUM_BASE64_BUFFER_SIZE);
+         sprintf( snd_buffer,"%s%s",
     		    slocum_commands_strings[SLOCUM_MSG_SLOCUM_CMD_WRITE_FILE_DATA],
 				base64_buffer
 				//ptr1->start_addr
 				);
-       xor=calc_XOR(snd_buffer+1,strlen(snd_buffer+1));
-       sprintf( snd_buffer,"%s*%02x%s",
+         xor=calc_XOR(snd_buffer+1,strlen(snd_buffer+1));
+         sprintf( snd_buffer,"%s*%02x%s",
     		    snd_buffer,
 				xor,
 				slocum_commands_strings[SLOCUM_MSG_EOL]);
-       slocum_schedule_for_tx(slocum_obj,(uint8_t*)snd_buffer,strlen(snd_buffer));
+         slocum_schedule_for_tx(slocum_obj,(uint8_t*)snd_buffer,strlen(snd_buffer));
+
+       }
      break;
 
  }

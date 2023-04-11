@@ -15,12 +15,12 @@
 #include "events.h"
 
 
-#define UVP6_DEPTH_LH_PROFILE    100.0
+#define UVP6_DEPTH_LH_PROFILE    100.0 //should be 100.0 !!!
 #define UVP6_RESPONSE_TIMEOUT    5000
 #define UVP6_CONNECTION_RETRIES     10
 
-#define UVP6_RX_BUFFER_SIZE      1024
-#define UVP6_RX_BUFFER_THR        768
+#define UVP6_RX_BUFFER_SIZE      2048
+#define UVP6_RX_BUFFER_THR       1500
 
 #define UVP6_NUM_OF_CATEGORIES     18
 #define UVP6_USER_PARAM_POWER_ON    0

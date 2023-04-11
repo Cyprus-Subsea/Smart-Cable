@@ -7,7 +7,7 @@ fsm.c:188:6:uvp6_lpm_data_agg_proc	11
 fsm.c:233:6:slocum_open_file_proc	6
 fsm.c:269:6:slocum_close_file_proc	6
 fsm.c:305:6:slocum_write_to_file_proc	4
-fsm.c:333:6:slocum_depth_analyzer_proc	25
+fsm.c:333:6:slocum_depth_analyzer_proc	26
 fsm.c:399:6:slocum_final_depth_state_analyzer_proc	9
 fsm.c:466:6:slocum_send_evnt_proc	2
 fsm.c:547:7:init_act	1

@@ -24,7 +24,7 @@ void lpm_sum_messages(uvp6* uvp6_obj,lpm_data_str* lpm_messages_buffer)
 
 F_RES lpm_aggregate_messages(uvp6* uvp6_obj,lpm_data_str* lpm_messages_buffer,uint32_t* lpm_buffer_num_of_msgs)
 {
-   if(lpm_buffer_num_of_msgs==0) return F_ERR;
+   if(*lpm_buffer_num_of_msgs==0) return F_ERR;
    lpm_messages_buffer->temperature=lpm_messages_buffer->temperature/(float)(*lpm_buffer_num_of_msgs);
    lpm_messages_buffer->pressure=lpm_messages_buffer->pressure/(float)(*lpm_buffer_num_of_msgs);
    for(int y=0;y<UVP6_NUM_OF_CATEGORIES;y++){

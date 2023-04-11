@@ -43,7 +43,7 @@
 #define  GLIDER_UART             huart5
 
 #define TX_BUFF_SIZE             150
-//#define DEBUG_MSG
+#define DEBUG_MSG
 
 /* USER CODE END PD */
 

@@ -14,8 +14,10 @@
 #include "events.h"
 
 #define SLOCUM_CONNECTION_RETRIES        1
-#define SLOCUM_RESPONSE_TIMEOUT       2000
+#define SLOCUM_RESPONSE_TIMEOUT         50
 #define SLOCUM_DIVE_COUNTER_MAX        999
+#define SLOCUM_FILE_WRITE_LEN          180
+
 
 #define SLOCUM_RX_BUFFER_SIZE         1024
 #define SLOCUM_RX_BUFFER_THR           768

@@ -334,24 +334,24 @@ void slocum_depth_analyzer_proc(proc_arg_t* proc_arg){
 
 	slocum* slocum_obj=proc_arg->func_self_object;
 	uint32_t in_event;
-	uvp6_sensor1.profile_zone=UVP6_PROFILE_L;
+	uvp6_sensor1.profile_zone=UVP6_PROFILE_H;
 
 	while(1)
 	{
 	 if(fsm_take_event(proc_arg->inQ_handle,&in_event,osWaitForever)==F_OK){
 	   if(in_event==SLOCUM_EVNT_DEPTH_RCVD){
 		   if(slocum_obj->prev_depth>UVP6_DEPTH_LH_PROFILE&&slocum_obj->last_depth<=UVP6_DEPTH_LH_PROFILE){
-			   uvp6_sensor1.profile_zone=UVP6_PROFILE_L;
+			   uvp6_sensor1.profile_zone=UVP6_PROFILE_H;
 			   fsm_generate_event(proc_arg->outQ_handle,UVP6_EVNT_DEPTH_LH_REACHED_FROM_BOTTOM);
 		   }
 
 		   else if(slocum_obj->prev_depth<UVP6_DEPTH_LH_PROFILE&&slocum_obj->last_depth>=UVP6_DEPTH_LH_PROFILE){
-			   uvp6_sensor1.profile_zone=UVP6_PROFILE_H;
+			   uvp6_sensor1.profile_zone=UVP6_PROFILE_L;
 			   fsm_generate_event(proc_arg->outQ_handle,UVP6_EVNT_DEPTH_LH_REACHED_FROM_TOP);
 		   }
 
           if(glider1.last_depth<lpm_bloc_depth_start){
-            if(glider1.last_depth<(lpm_bloc_depth_start-lpm_bloc_depth_size)){
+            if(glider1.last_depth<(lpm_bloc_depth_start-lpm_bloc_depth_size)||glider1.last_depth<2.0){
               lpm_bloc_depth_start=glider1.last_depth;
 
        	      if(lpm_bloc_depth_start>1000.0) lpm_bloc_depth_size=20.0;
