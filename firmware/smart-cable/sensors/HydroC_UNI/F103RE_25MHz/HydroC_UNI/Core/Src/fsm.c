@@ -152,6 +152,7 @@ void send_data_proc(proc_arg_t* proc_arg)
 			DATA_FILE_PREFIX,hydroc_sensor1.model_specific->type_name,(unsigned int)run_cfg.last_file_index,DATA_FILE_EXTENSION);
 	osSemaphoreWait(microsd_storage.microsd_media_sem, osWaitForever);
 	if(f_open(&data_file,tmp_filename,FA_READ)==FR_OK){
+		sprintf(tmp_filename,"%s_%s_%u%s\r\n",DATA_FILE_PREFIX,hydroc_sensor1.model_specific->type_name,(unsigned int)run_cfg.last_file_index,DATA_FILE_EXTENSION);
 		ptr1.start_addr=(uint8_t*)tmp_filename;
 		ptr1.size=strlen(tmp_filename);
 		seaglider_send_cmd(&glider1,SEAGLIDER_CMD_SEND_DATA,&ptr1);
@@ -165,7 +166,7 @@ void send_data_proc(proc_arg_t* proc_arg)
 		f_close(&data_file);
 		fsm_generate_event(proc_arg->outQ_handle,FSM_EVNT_DATA_SENT);
 	}
-	fsm_generate_event(proc_arg->outQ_handle,FSM_EVNT_DATA_CANT_BE_SENT);
+	else fsm_generate_event(proc_arg->outQ_handle,FSM_EVNT_DATA_CANT_BE_SENT);
 	osSemaphoreRelease(microsd_storage.microsd_media_sem);
 }
 
@@ -688,14 +689,13 @@ void  change_fsm_to_S3()
 {
   disp_proc_set_EA_table(&dispatcher1,&fsm_S3_pre_config);
   fsm_generate_event(dispatcher1.events_q_Handle,FSM_CHANGE_STATE_TO_S3);
-  send_prompt();
 }
 
 void  change_fsm_to_S4()
 {
   disp_proc_set_EA_table(&dispatcher1,&fsm_S4_data_processing);
   fsm_generate_event(dispatcher1.events_q_Handle,FSM_CHANGE_STATE_TO_S4);
-  seaglider_send_cmd(&glider1,SEAGLIDER_CMD_PROMPT,NULL);
+  send_prompt();
 }
 
 void  change_fsm_to_S5()
