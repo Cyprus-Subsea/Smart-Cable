@@ -1,0 +1,15 @@
+UVP6.c:24:6:uvp6_init	1
+UVP6.c:45:6:uvp6_media_process_byte	5
+UVP6.c:72:6:uvp6_loop	2
+UVP6.c:88:9:uvp6_media_get_byte	2
+UVP6.c:100:6:uvp6_send_cmd	8
+UVP6.c:139:9:uvp6_get_event	2
+UVP6.c:150:5:uvp6_parse_message	5
+UVP6.c:172:6:uvp6_messages_init	1
+UVP6.c:193:5:UVP6_MSG_HW_CONF_f	1
+UVP6.c:198:5:UVP6_MSG_BLACK_DATA_f	1
+UVP6.c:202:5:UVP6_MSG_LPM_DATA_f	5
+UVP6.c:237:5:UVP6_MSG_ACQ_CONF_f	1
+UVP6.c:245:5:UVP6_MSG_START_ACK_f	1
+UVP6.c:251:5:UVP6_MSG_START_ERR_f	1
+UVP6.c:260:5:UVP6_MSG_STOP_ACK_f	1

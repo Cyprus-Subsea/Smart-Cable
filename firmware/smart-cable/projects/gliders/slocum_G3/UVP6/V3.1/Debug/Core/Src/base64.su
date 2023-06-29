@@ -1,0 +1,2 @@
+../Core/Src/base64.c:10:5:base64encode	120	static
+../Core/Src/base64.c:64:9:calc_XOR	24	static

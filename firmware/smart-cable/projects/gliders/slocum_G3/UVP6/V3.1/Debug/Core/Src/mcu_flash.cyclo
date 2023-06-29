@@ -1,0 +1,5 @@
+mcu_flash.c:19:6:mcu_flash_write	2
+mcu_flash.c:30:6:mcu_flash_init	1
+mcu_flash.c:39:6:mcu_flash_open	3
+mcu_flash.c:57:6:mcu_flash_close	6
+mcu_flash.c:106:6:mcu_flash_flush	2

@@ -1,0 +1,2 @@
+../Core/Src/rtc.c:14:8:read_time	56	static
+../Core/Src/rtc.c:29:8:set_time	16	static

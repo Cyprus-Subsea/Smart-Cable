@@ -1,0 +1,12 @@
+../USB_HOST/App/usb_host.c:61:6:set_time	8	static
+../USB_HOST/App/usb_host.c:66:6:enquire_device	8	static
+../USB_HOST/App/usb_host.c:72:6:collect_data	8	static
+../USB_HOST/App/usb_host.c:78:6:job_setup	8	static
+../USB_HOST/App/usb_host.c:84:6:stop_function	8	static
+../USB_HOST/App/usb_host.c:87:6:receive_function	8	static
+../USB_HOST/App/usb_host.c:91:10:read_bytes	16	static
+../USB_HOST/App/usb_host.c:95:6:set_line_coding	8	static
+../USB_HOST/App/usb_host.c:116:6:USBH_CDC_TransmitCallback	16	static
+../USB_HOST/App/usb_host.c:122:6:USBH_CDC_ReceiveCallback	16	static
+../USB_HOST/App/usb_host.c:132:6:MX_USB_HOST_Init	8	static
+../USB_HOST/App/usb_host.c:160:13:USBH_UserProcess	16	static

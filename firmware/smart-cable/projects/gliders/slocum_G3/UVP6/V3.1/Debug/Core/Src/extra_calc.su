@@ -1,0 +1,3 @@
+../Core/Src/extra_calc.c:14:6:lpm_sum_messages	24	static
+../Core/Src/extra_calc.c:25:7:lpm_aggregate_messages	40	static
+../Core/Src/extra_calc.c:39:7:lpm_aggregate_and_close_bloc	384	static

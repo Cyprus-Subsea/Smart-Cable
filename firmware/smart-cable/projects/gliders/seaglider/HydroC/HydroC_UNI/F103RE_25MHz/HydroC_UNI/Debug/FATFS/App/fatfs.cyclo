@@ -1,0 +1,2 @@
+fatfs.c:34:6:MX_FATFS_Init	1
+fatfs.c:54:7:get_fattime	1

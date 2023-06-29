@@ -1,0 +1,2 @@
+../Core/Src/crc.c:49:10:crc16_arc_update	24	static
+../Core/Src/crc.c:57:10:get_crc16_arc	24	static

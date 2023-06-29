@@ -1,0 +1,3 @@
+extra_calc.c:14:6:lpm_sum_messages	2
+extra_calc.c:25:7:lpm_aggregate_messages	4
+extra_calc.c:39:7:lpm_aggregate_and_close_bloc	2

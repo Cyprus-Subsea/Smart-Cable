@@ -1,0 +1,15 @@
+../Core/Src/UVP6.c:24:6:uvp6_init	88	static
+../Core/Src/UVP6.c:46:6:uvp6_media_process_byte	16	static
+../Core/Src/UVP6.c:73:6:uvp6_loop	24	static
+../Core/Src/UVP6.c:89:9:uvp6_media_get_byte	32	static
+../Core/Src/UVP6.c:101:6:uvp6_send_cmd	80	static
+../Core/Src/UVP6.c:140:9:uvp6_get_event	16	static
+../Core/Src/UVP6.c:151:5:uvp6_parse_message	40	static
+../Core/Src/UVP6.c:173:6:uvp6_messages_init	16	static
+../Core/Src/UVP6.c:194:5:UVP6_MSG_HW_CONF_f	16	static
+../Core/Src/UVP6.c:199:5:UVP6_MSG_BLACK_DATA_f	16	static
+../Core/Src/UVP6.c:203:5:UVP6_MSG_LPM_DATA_f	32	static
+../Core/Src/UVP6.c:238:5:UVP6_MSG_ACQ_CONF_f	16	static
+../Core/Src/UVP6.c:246:5:UVP6_MSG_START_ACK_f	16	static
+../Core/Src/UVP6.c:252:5:UVP6_MSG_START_ERR_f	24	static
+../Core/Src/UVP6.c:261:5:UVP6_MSG_STOP_ACK_f	16	static
