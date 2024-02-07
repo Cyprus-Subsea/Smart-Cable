@@ -2061,11 +2061,11 @@ uint8_t uvp6_media_get_byte(uvp6* uvp6_obj,uint8_t* tx_byte)
  8001756:	af00      	add	r7, sp, #0
  8001758:	6078      	str	r0, [r7, #4]
  800175a:	6039      	str	r1, [r7, #0]
-	osEvent res=osMessageGet(uvp6_obj->media_tx_q,0);
+	osEvent res=osMessageGet(uvp6_obj->media_tx_q,1);
  800175c:	687b      	ldr	r3, [r7, #4]
  800175e:	6859      	ldr	r1, [r3, #4]
  8001760:	f107 030c 	add.w	r3, r7, #12
- 8001764:	2200      	movs	r2, #0
+ 8001764:	2201      	movs	r2, #1
  8001766:	4618      	mov	r0, r3
  8001768:	f00b ffcc 	bl	800d704 <osMessageGet>
 	if(res.status==osEventMessage)

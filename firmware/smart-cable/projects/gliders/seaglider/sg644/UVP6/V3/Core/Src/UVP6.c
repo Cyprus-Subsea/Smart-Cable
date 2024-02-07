@@ -88,7 +88,7 @@ void uvp6_loop(uvp6* uvp6_obj)
 
 uint8_t uvp6_media_get_byte(uvp6* uvp6_obj,uint8_t* tx_byte)
 {
-	osEvent res=osMessageGet(uvp6_obj->media_tx_q,0);
+	osEvent res=osMessageGet(uvp6_obj->media_tx_q,1);
 	if(res.status==osEventMessage)
      {
 		*tx_byte=res.value.v;
